@@ -19,7 +19,7 @@
 	properties:
 		title:
 			type: string
-			description: Unique scenario name that is used to reference a certain scenario.
+			description: Unique name that is used to reference a certain scenario.
 		description;
 			type: string
 			description: Short summary of the overall scenario purpose.
