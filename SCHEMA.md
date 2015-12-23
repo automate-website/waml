@@ -14,7 +14,7 @@
 	id: http://automate.website/scenario-schema#
 	$schema: http://json-schema.org/draft-04/schema#
 	title: Scenario
-	description: A scenario combines a collection of tasks that must be executed together is a certain order.
+	description: A scenario combines a collection of tasks that must be executed together in a certain order.
 	type: object
 	properties:
 		title:
