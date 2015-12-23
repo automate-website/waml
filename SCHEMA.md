@@ -7,7 +7,7 @@
 	description: A simple markup language for web automation.
 	type: array
 	items:
-		$ref: http://automate.website/scenario-schema
+		$ref: http://automate.website/scenario-schema#
 ```
 ## Scenario Schema
 ```
@@ -38,6 +38,7 @@
 			type: array
 			items:
 				$ref: http://automate.website/step-schema#
+				$ref: http://automate.website/include-command-schema#
 		required:
 			- title
 			- steps
@@ -65,4 +66,17 @@
 			description: The url to which the navigation takes place.
 	required:
 		- url
+```
+### Include Schema
+```
+	id: http://automate.website/include-command-schema#
+	$schema: http://json-schema.org/draft-04/schema#
+	title: Include Scenario
+	description: Includes a scenario with a certain title
+	properties:
+		include:
+			type: string
+			description: The title of the scenario to include
+	required:
+		- include
 ```
