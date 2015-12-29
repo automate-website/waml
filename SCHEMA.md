@@ -7,7 +7,7 @@ title: Web Automation Markup Language
 description: A simple markup language for web automation.
 type: array
 items:
-	$ref: http://automate.website/scenario-schema#
+    $ref: http://automate.website/scenario-schema#
 ```
 
 ## Scenario Schema
@@ -18,30 +18,30 @@ title: Scenario
 description: A scenario combines a collection of tasks that must be executed together in a certain order.
 type: object
 properties:
-	title:
-		type: string
-		description: Unique name that is used to reference a certain scenario.
-	description;
-		type: string
-		description: Short summary of the overall scenario purpose.
-	type:
-		type: string
-		description: Defines if a scenario may be executed stand-alone or only as a part of another scenario.
-		enum:
-			- fragment
-			- doable
-		default: doable
-	precendence:
-		type: integer
-		description: Defines the particular priority of the scenario during execution of independent scenarios.
-		default: -1
-	steps:
-		type: array
-		items:
-			$ref: http://automate.website/step-schema#
+    title:
+        type: string
+        description: Unique name that is used to reference a certain scenario.
+    description;
+        type: string
+        description: Short summary of the overall scenario purpose.
+    type:
+        type: string
+        description: Defines if a scenario may be executed stand-alone or only as a part of another scenario.
+        enum:
+            - fragment
+            - doable
+        default: doable
+    precendence:
+        type: integer
+        description: Defines the particular priority of the scenario during execution of independent scenarios.
+        default: -1
+    steps:
+        type: array
+        items:
+            $ref: http://automate.website/step-schema#
 required:
-	- title
-	- steps
+    - title
+    - steps
 ```
 
 ## Step Schema
@@ -52,8 +52,8 @@ title: Step
 type: object
 description: A step represents the smallest identifiable user action.
 oneOf:
-	- $ref: http://automate.website/url-command-schema#
-	- $ref: http://automate.website/include-command-schema#
+    - $ref: http://automate.website/url-command-schema#
+    - $ref: http://automate.website/include-command-schema#
 ```
 
 ## Command Schemas
@@ -64,11 +64,11 @@ $schema: http://json-schema.org/draft-04/schema#
 title: Url
 description: Navigates to a certain url in the user agent
 properties:
-	url:
-		type: string
-		description: The url to which the navigation takes place.
+    url:
+        type: string
+        description: The url to which the navigation takes place.
 required:
-	- url
+    - url
 ```
 
 ### Include Schema
@@ -78,9 +78,9 @@ $schema: http://json-schema.org/draft-04/schema#
 title: Include Scenario
 description: Includes a scenario with a certain title
 properties:
-	include:
-		type: string
-		description: The title of the scenario to include
+    include:
+        type: string
+        description: The title of the scenario to include
 required:
-	- include
+    - include
 ```
