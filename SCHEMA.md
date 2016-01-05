@@ -64,6 +64,9 @@ oneOf:
     - $ref: http://automate.website/draft-0.2/include-command-schema#
     - $ref: http://automate.website/draft-0.2/store-command-schema#
     - $ref: http://automate.website/draft-0.2/ensure-command-schema#
+    - $ref: http://automate.website/draft-0.2/click-command-schema#
+    - $ref: http://automate.website/draft-0.2/select-command-schema#
+    - $ref: http://automate.website/draft-0.2/enter-command-schema#
 ```
 
 ## Command Schemas
@@ -147,7 +150,7 @@ additionalProperties: false
 
 ### Select Schema
 ```
-id: http://automate.website/draft-0.2/click-command-schema#
+id: http://automate.website/draft-0.2/select-command-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Select from dropdown
 description: Selects from dropdown by the given criteria.
@@ -160,9 +163,9 @@ additionalProperties: false
 
 ### Enter Schema (setValue)
 ```
-id: http://automate.website/draft-0.2/click-command-schema#
+id: http://automate.website/draft-0.2/enter-command-schema#
 $schema: http://json-schema.org/draft-04/schema#
-title: Select from dropdown
+title: Enter key sequence
 description: Send a sequence of key strokes to an element.
 properties:
     setValue:
