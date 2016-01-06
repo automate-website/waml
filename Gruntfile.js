@@ -10,7 +10,13 @@ var _ = require('lodash-node'),
 		+ '/examples/**/*.yaml', 
 	schemasOrder = [ 'base', 'scenario', 'step',
 		'commands', 'criteria' ],
-	distPattern = './dist/**/*';
+	distPattern = './dist/**/*',
+	templateSubschemaMdPath = sources + '/templates/md/subschema.md',
+	templateHeaderMdPath = sources + '/templates/md/header.md',
+	templateSubschemaHtmlPath = sources + '/templates/html/subschema.html',
+    templateHeaderHtmlPath = sources + '/templates/html/header.html',
+	templateSettings = { interpolate: /{{([\s\S]+?)}}/g },
+	title = 'Web Automation Markup Language Schema';
 
 var ajv = new Ajv(), pkg = require('./package.json');
 
@@ -74,16 +80,24 @@ module.exports = function(grunt) {
 				});
 			});
 
-	grunt.registerTask('merge-json', 'Merges schemas.', function() {
+	grunt.registerTask('merge-json', 'Merges schemas to json file.', function() {
 		return merge('json', saveJson, this.async());
 	});
 	
-	grunt.registerTask('merge-yaml', 'Merges schemas.', function() {
+	grunt.registerTask('merge-yaml', 'Merges schemas to yaml file.', function() {
 		return merge('yaml', saveYaml, this.async());
 	});
+	
+	grunt.registerTask('merge-md', 'Merges schemas to md file.', function() {
+        return merge('md', saveMd, this.async());
+    });
+	
+	grunt.registerTask('merge-html', 'Merges schemas to a html file.', function() {
+        return merge('html', saveHtml, this.async());
+    });
 
 	grunt.registerTask('default', [ 'clean', 'validate-schema', 'validate-examples',
-			'merge-yaml', 'merge-json' ]);
+			'merge-yaml', 'merge-json', 'merge-md', 'merge-html' ]);
 
 	function merge(format, save, done){
 		var schemaDistFile = './dist/waml.' + format;
@@ -98,6 +112,41 @@ module.exports = function(grunt) {
 		});
 	}
 	
+	function saveMd(filePath, objects, done){
+	    var content = renderContent(objects, templateHeaderMdPath, templateSubschemaMdPath);
+	    writeFile(filePath, content, done)
+	}
+	
+	function saveHtml(filePath, objects, done){
+	    var content = renderContent(objects, templateHeaderHtmlPath, templateSubschemaHtmlPath);
+	    content = '<html><body>' + content + '<body></html>';
+        writeFile(filePath, content, done)
+    }
+	
+	function renderContent(objects, templateHeaderPath, templateSubschemaPath){
+	    var headerTemplate = _.template(readFile(templateHeaderPath), templateSettings)
+            subschemaTemplate = _.template(readFile(templateSubschemaPath), templateSettings),
+            content = '';
+    
+        content = content + headerTemplate({
+            model: {
+                pkg: pkg,
+                title: title
+            }
+        });
+        
+        _.each(objects, function(object){
+            var yamlStr = yaml.safeDump(object);
+            
+            content = content + subschemaTemplate({ model : {
+                schemaStr: yamlStr,
+                schema: object 
+            }});
+        });
+        
+        return content;
+	}
+
 	function saveYaml(filePath, objects, done) {
 		var yamlStr = yaml.safeDump(objects);
 		writeFile(filePath, yamlStr, done);
@@ -121,6 +170,10 @@ module.exports = function(grunt) {
 	}
 
 	function requireYaml(filePath) {
-		return yaml.safeLoad(fs.readFileSync(filePath, 'utf8'));
+		return yaml.safeLoad(readFile(filePath));
+	}
+	
+	function readFile(filePath){
+	    return fs.readFileSync(filePath, 'utf8');
 	}
 };
