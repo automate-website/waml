@@ -1,10 +1,11 @@
 # Web Automation Markup Language (WAML)
-Markup language for web automation based on [YAML].
+Markup language for web automation based on [json-schema].
 
 Refer to the [changelog] for recent notable changes and modifications.
 
-[WAML description] is based on JSON-Schema.
+WAML schema is available in [yaml] and [json] formats.
 
-[YAML]: http://www.yaml.org
+[json-schema]: http://json-schema.org/
 [changelog]: CHANGELOG.md
-[WAML description]: SCHEMA.md
+[yaml]: dist/waml.json
+[json]: dist/waml.yaml

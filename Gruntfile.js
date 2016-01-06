@@ -86,7 +86,7 @@ module.exports = function(grunt) {
 			'merge-yaml', 'merge-json' ]);
 
 	function merge(format, save, done){
-		var schemaDistFile = './dist/waml-' + pkg.version + '.' + format;
+		var schemaDistFile = './dist/waml.' + format;
 		return glob(schemaSourcesPattern, function(er, filePaths) {
 			var schemas = [];
 	
