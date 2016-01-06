@@ -7,5 +7,5 @@ WAML schema is available in [yaml] and [json] formats.
 
 [json-schema]: http://json-schema.org/
 [changelog]: CHANGELOG.md
-[yaml]: dist/waml.json
-[json]: dist/waml.yaml
+[json]: dist/waml.json
+[yaml]: dist/waml.yaml
