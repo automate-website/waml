@@ -16,7 +16,12 @@ var _ = require('lodash-node'),
 	templateSubschemaHtmlPath = sources + '/templates/html/subschema.html',
     templateHeaderHtmlPath = sources + '/templates/html/header.html',
 	templateSettings = { interpolate: /{{([\s\S]+?)}}/g },
-	title = 'Web Automation Markup Language Schema';
+	title = 'Web Automation Markup Language Schema',
+	schemaOrder = ['base-schema', 
+	               'scenario-schema', 
+	               'step-schema', 
+	               'command-schema', 
+	               'criteria-schema'];
 
 var ajv = new Ajv(), pkg = require('./package.json');
 
@@ -108,6 +113,12 @@ module.exports = function(grunt) {
 				schemas.push(requireYaml(filePath));
 			});
 	
+			sortSchemasByOrder(schemas);
+			
+			_.each(schemas, function(schema){
+			    console.log(schema.id);
+			});
+			
 			save(schemaDistFile, schemas, done);
 		});
 	}
@@ -122,6 +133,28 @@ module.exports = function(grunt) {
 	    content = '<html><body>' + content + '<body></html>';
         writeFile(filePath, content, done)
     }
+	
+	function sortSchemasByOrder(schemas){
+	    schemas.sort(function(left, right){
+	        var leftIndex = indexOfSchemaKey(schemaOrder, left.id),
+	            rightIndex = indexOfSchemaKey(schemaOrder, right.id);
+	        
+	        return leftIndex > rightIndex ? 1 : (leftIndex < rightIndex ? -1 : 0);
+	    });
+	}
+	
+	function indexOfSchemaKey(schemaOrder, schemaKey){
+	    var index = -1;
+	    
+	    _.each(schemaOrder, function(entry, _index){
+	        if(schemaKey.indexOf(entry) > -1){
+	            index = _index;
+	            return false;
+	        }
+	    });
+	    
+	    return index;
+	}
 	
 	function renderContent(objects, templateHeaderPath, templateSubschemaPath){
 	    var headerTemplate = _.template(readFile(templateHeaderPath), templateSettings)
