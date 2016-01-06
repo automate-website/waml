@@ -12,34 +12,65 @@ items:
 additionalProperties: false
 
 ```
-## Click on the given element
+## Scenario
 ```
-id: 'http://automate.website/draft-0.2/click-command-schema#'
+id: 'http://automate.website/draft-0.2/scenario-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Click on the given element
-description: Clicks on the given visible element.
+title: Scenario
+description: A scenario combines a collection of tasks that must be executed together in a certain order.
+type: object
 properties:
-  click:
-    description: A CSS selector as value or a hash of conditionals.
-    oneOf:
-      - type: string
-      - $ref: 'http://automate.website/draft-0.2/click-criteria-schema#'
+  name:
+    type: string
+    description: Unique name that is used to reference a certain scenario.
+  title:
+    type: string
+    description: Human readable scenario name.
+  description:
+    type: string
+    description: Short summary of the overall scenario purpose.
+  type:
+    type: string
+    description: Defines if a scenario may be executed stand-alone or only as a part of another scenario.
+    enum:
+      - fragment
+      - doable
+    default: doable
+  precendence:
+    type: integer
+    description: Defines the particular priority of the scenario during execution of independent scenarios.
+    default: -1
+  timeout:
+    type: integer
+    description: 'Maximal time [ms] to wait for conditions to be true.'
+    default: 1000
+  steps:
+    type: array
+    items:
+      $ref: 'http://waml.automate.website/draft-0.2/step-schema#'
+  $schema:
+    type: string
 additionalProperties: false
+required:
+  - name
+  - steps
 
 ```
-## Ensure the presence of an element
+## Step
 ```
-id: 'http://automate.website/draft-0.2/ensure-command-schema#'
+id: 'http://waml.automate.website/draft-0.2/step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Ensure the presence of an element
-description: Ensures the presence of an element using different criteria
-properties:
-  ensure:
-    description: A CSS selector as value or a hash of conditionals.
-    oneOf:
-      - type: string
-      - $ref: 'http://automate.website/draft-0.2/ensure-criteria-schema#'
-additionalProperties: false
+title: Step
+type: object
+description: A step represents the smallest identifiable user action.
+oneOf:
+  - $ref: 'http://automate.website/draft-0.2/url-command-schema#'
+  - $ref: 'http://automate.website/draft-0.2/include-command-schema#'
+  - $ref: 'http://automate.website/draft-0.2/store-command-schema#'
+  - $ref: 'http://automate.website/draft-0.2/ensure-command-schema#'
+  - $ref: 'http://automate.website/draft-0.2/click-command-schema#'
+  - $ref: 'http://automate.website/draft-0.2/select-command-schema#'
+  - $ref: 'http://automate.website/draft-0.2/enter-command-schema#'
 
 ```
 ## Enter key sequence
@@ -53,20 +84,6 @@ properties:
     description: Send a sequence of key strokes to an element.
     $ref: 'http://automate.website/draft-0.2/enter-criteria-schema#'
 additionalProperties: false
-
-```
-## Include Scenario
-```
-id: 'http://automate.website/draft-0.2/include-command-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Include Scenario
-description: Includes a scenario with a certain title
-properties:
-  include:
-    type: string
-    description: The title of the scenario to include
-required:
-  - include
 
 ```
 ## Select from dropdown
@@ -115,49 +132,47 @@ required:
   - url
 
 ```
-## Click conditionals
+## Click on the given element
 ```
-id: 'http://automate.website/draft-0.2/click-criteria-schema#'
+id: 'http://automate.website/draft-0.2/click-command-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Click conditionals
-description: Qualifier for click command.
+title: Click on the given element
+description: Clicks on the given visible element.
 properties:
-  selector:
-    type: string
-    description: CSS selector of element to select.
-  text:
-    type: string
-    description: Select element which contains the given text.
-  timeout:
-    type: number
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
-  parent:
-    description: Presence of the parent element according given creteria.
+  click:
+    description: A CSS selector as value or a hash of conditionals.
     oneOf:
       - type: string
-      - $ref: 'http://automate.website/draft-0.2/parent-criteria-schema'
+      - $ref: 'http://automate.website/draft-0.2/click-criteria-schema#'
 additionalProperties: false
 
 ```
-## Ensure conditionals
+## Include Scenario
 ```
-id: 'http://automate.website/draft-0.2/ensure-criteria-schema#'
+id: 'http://automate.website/draft-0.2/include-command-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Ensure conditionals
-description: Conditionals to precise the criteria of ensure command.
+title: Include Scenario
+description: Includes a scenario with a certain title
 properties:
-  selector:
+  include:
     type: string
-    description: CSS selector of element to select.
-  visible:
-    type: boolean
-    description: Select visible or invisible elements only.
-  text:
-    type: string
-    description: Select element which contains the given text.
-  timeout:
-    type: number
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    description: The title of the scenario to include
+required:
+  - include
+
+```
+## Ensure the presence of an element
+```
+id: 'http://automate.website/draft-0.2/ensure-command-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Ensure the presence of an element
+description: Ensures the presence of an element using different criteria
+properties:
+  ensure:
+    description: A CSS selector as value or a hash of conditionals.
+    oneOf:
+      - type: string
+      - $ref: 'http://automate.website/draft-0.2/ensure-criteria-schema#'
 additionalProperties: false
 
 ```
@@ -237,64 +252,49 @@ required:
   - option
 
 ```
-## Scenario
+## Click conditionals
 ```
-id: 'http://automate.website/draft-0.2/scenario-schema#'
+id: 'http://automate.website/draft-0.2/click-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Scenario
-description: A scenario combines a collection of tasks that must be executed together in a certain order.
-type: object
+title: Click conditionals
+description: Qualifier for click command.
 properties:
-  name:
+  selector:
     type: string
-    description: Unique name that is used to reference a certain scenario.
-  title:
+    description: CSS selector of element to select.
+  text:
     type: string
-    description: Human readable scenario name.
-  description:
-    type: string
-    description: Short summary of the overall scenario purpose.
-  type:
-    type: string
-    description: Defines if a scenario may be executed stand-alone or only as a part of another scenario.
-    enum:
-      - fragment
-      - doable
-    default: doable
-  precendence:
-    type: integer
-    description: Defines the particular priority of the scenario during execution of independent scenarios.
-    default: -1
+    description: Select element which contains the given text.
   timeout:
-    type: integer
-    description: 'Maximal time [ms] to wait for conditions to be true.'
-    default: 1000
-  steps:
-    type: array
-    items:
-      $ref: 'http://waml.automate.website/draft-0.2/step-schema#'
-  $schema:
-    type: string
+    type: number
+    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+  parent:
+    description: Presence of the parent element according given creteria.
+    oneOf:
+      - type: string
+      - $ref: 'http://automate.website/draft-0.2/parent-criteria-schema'
 additionalProperties: false
-required:
-  - name
-  - steps
 
 ```
-## Step
+## Ensure conditionals
 ```
-id: 'http://waml.automate.website/draft-0.2/step-schema#'
+id: 'http://automate.website/draft-0.2/ensure-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Step
-type: object
-description: A step represents the smallest identifiable user action.
-oneOf:
-  - $ref: 'http://automate.website/draft-0.2/url-command-schema#'
-  - $ref: 'http://automate.website/draft-0.2/include-command-schema#'
-  - $ref: 'http://automate.website/draft-0.2/store-command-schema#'
-  - $ref: 'http://automate.website/draft-0.2/ensure-command-schema#'
-  - $ref: 'http://automate.website/draft-0.2/click-command-schema#'
-  - $ref: 'http://automate.website/draft-0.2/select-command-schema#'
-  - $ref: 'http://automate.website/draft-0.2/enter-command-schema#'
+title: Ensure conditionals
+description: Conditionals to precise the criteria of ensure command.
+properties:
+  selector:
+    type: string
+    description: CSS selector of element to select.
+  visible:
+    type: boolean
+    description: Select visible or invisible elements only.
+  text:
+    type: string
+    description: Select element which contains the given text.
+  timeout:
+    type: number
+    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+additionalProperties: false
 
 ```
