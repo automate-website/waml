@@ -1,0 +1,12 @@
+id: http://automate.website/draft-0.2/parent-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Parent conditionals
+description: Qualifier for parent element selection.
+properties:
+    selector:
+        type: string
+        description: CSS selector of element to select.
+    text:
+        type: string
+        description: Select element which contains the given text.    
+additionalProperties: false

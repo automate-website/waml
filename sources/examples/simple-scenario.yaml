@@ -1,0 +1,5 @@
+title: Title of the scenario
+name: Name of the scenario
+$schema: http://automate.website/draft-0.2/scenario-schema
+steps:
+  - url: www.example.com

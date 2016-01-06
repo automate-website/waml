@@ -1,0 +1,40 @@
+id: http://automate.website/draft-0.2/scenario-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Scenario
+description: A scenario combines a collection of tasks that must be executed together in a certain order.
+type: object
+properties:
+    name:
+        type: string
+        description: Unique name that is used to reference a certain scenario.
+    title:
+        type: string
+        description: Human readable scenario name.
+    description:
+        type: string
+        description: Short summary of the overall scenario purpose.
+    type:
+        type: string
+        description: Defines if a scenario may be executed stand-alone or only as a part of another scenario.
+        enum:
+            - fragment
+            - doable
+        default: doable
+    precendence:
+        type: integer
+        description: Defines the particular priority of the scenario during execution of independent scenarios.
+        default: -1
+    timeout:
+        type: integer
+        description: Maximal time [ms] to wait for conditions to be true.
+        default: 1000
+    steps:
+        type: array
+        items:
+            $ref: http://waml.automate.website/draft-0.2/step-schema#
+    $schema:
+        type: string
+additionalProperties: false
+required:
+    - name
+    - steps

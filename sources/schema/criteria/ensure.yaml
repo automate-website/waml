@@ -1,0 +1,19 @@
+id: http://automate.website/draft-0.2/ensure-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Ensure conditionals
+description: Conditionals to precise the criteria of ensure command.
+properties:
+    selector:
+        type: string
+        description: CSS selector of element to select.
+    visible:
+        type: boolean
+        description: Select visible or invisible elements only.
+    text:
+        type: string
+        description: Select element which contains the given text.
+    timeout:
+        type: number
+        description: Maximal time [ms] to wait for the element which meets the given criteria. 
+    
+additionalProperties: false

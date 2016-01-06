@@ -1,0 +1,15 @@
+id: http://automate.website/draft-0.2/enter-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Text enter criteria
+description: Qualifier for element which gets the new text.
+properties:
+    selector:
+        type: string
+        description: CSS selector of element to select.
+    text:
+        type: string
+        description: Text to set.  
+additionalProperties: false
+required:
+    - selector
+    - text

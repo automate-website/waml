@@ -1,0 +1,11 @@
+id: http://automate.website/draft-0.2/ensure-command-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Ensure the presence of an element
+description: Ensures the presence of an element using different criteria
+properties:
+    ensure:
+        description: A CSS selector as value or a hash of conditionals.
+        oneOf:
+            - type: string
+            - $ref: http://automate.website/draft-0.2/ensure-criteria-schema#
+additionalProperties: false

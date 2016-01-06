@@ -1,0 +1,19 @@
+id: http://automate.website/draft-0.2/option-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Option criteria
+description: Qualifier for select an option from a select.
+properties:
+    index:
+        type: number
+        description: Option index (selectByIndex)
+    name:
+        type: string
+        description: Name of option element to get selected (selectByName) 
+    value:
+        type: string
+        description: Value of option element to get selected (selectByValue)
+    text:
+        type: string
+        description: Text of option element to get selected (selectByText)
+additionalProperties: false
+minProperties: 1

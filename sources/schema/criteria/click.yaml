@@ -1,0 +1,20 @@
+id: http://automate.website/draft-0.2/click-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Click conditionals
+description: Qualifier for click command.
+properties:
+    selector:
+        type: string
+        description: CSS selector of element to select.
+    text:
+        type: string
+        description: Select element which contains the given text.
+    timeout:
+        type: number
+        description: Maximal time [ms] to wait for the element which meets the given criteria.
+    parent:
+        description: Presence of the parent element according given creteria.
+        oneOf:
+            - type: string
+            - $ref: http://automate.website/draft-0.2/parent-criteria-schema
+additionalProperties: false

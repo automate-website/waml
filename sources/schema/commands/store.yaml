@@ -1,0 +1,14 @@
+id: http://automate.website/draft-0.2/store-command-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Store variable
+description: Includes a scenario with a certain title
+properties:
+    store:
+        type: object
+        description: A hash of variables to be defined in the execution context.
+        minProperties: 1
+        $ref: #/definitions/entry
+additionalProperties: false
+definitions:
+    entry:
+        type: string

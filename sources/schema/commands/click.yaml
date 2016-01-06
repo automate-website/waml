@@ -1,0 +1,11 @@
+id: http://automate.website/draft-0.2/click-command-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Click on the given element
+description: Clicks on the given visible element.
+properties:
+    click:
+        description: A CSS selector as value or a hash of conditionals.
+        oneOf:
+            - type: string
+            - $ref: http://automate.website/draft-0.2/click-criteria-schema#
+additionalProperties: false
