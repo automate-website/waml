@@ -1,4 +1,4 @@
-id: http://automate.website/draft-0.2/include-command-schema#
+id: http://waml.automate.website/draft-0.2/include-command-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Include Scenario
 description: Includes a scenario with a certain title

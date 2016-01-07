@@ -1,9 +1,12 @@
-id: http://automate.website/draft-0.2/scenario-schema#
+id: http://waml.automate.website/draft-0.2/scenario-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Scenario
 description: A scenario combines a collection of tasks that must be executed together in a certain order.
 type: object
 properties:
+    $schema:
+        type: string
+        description: Defines the scenario schema in a specific version.
     name:
         type: string
         description: Unique name that is used to reference a certain scenario.
@@ -32,12 +35,12 @@ properties:
         type: array
         items:
             $ref: http://waml.automate.website/draft-0.2/step-schema#
-    $schema:
-        type: string
-        description: Defines the scenario schema in a specific version.
-    skip:
-        description: Skips scenario execution if set to true.
-        type: boolean
+    if:
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        description: If set, the scenario is only executed if the value evaluates to true
+    unless:
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        description: If set, the scenario is only executed if the value evaluates to false
 additionalProperties: false
 required:
     - name

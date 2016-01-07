@@ -1,9 +1,9 @@
-id: http://automate.website/draft-0.2/enter-command-schema#
+id: http://waml.automate.website/draft-0.2/enter-command-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Enter key sequence
 description: Send a sequence of key strokes to an element.
 properties:
     setValue:
         description: Send a sequence of key strokes to an element.
-        $ref: http://automate.website/draft-0.2/enter-criteria-schema#
+        $ref: http://waml.automate.website/draft-0.2/enter-criteria-schema#
 additionalProperties: false

@@ -4,10 +4,10 @@ title: Step
 type: object
 description: A step represents the smallest identifiable user action.
 oneOf:
-    - $ref: http://automate.website/draft-0.2/url-command-schema#
-    - $ref: http://automate.website/draft-0.2/include-command-schema#
-    - $ref: http://automate.website/draft-0.2/store-command-schema#
-    - $ref: http://automate.website/draft-0.2/ensure-command-schema#
-    - $ref: http://automate.website/draft-0.2/click-command-schema#
-    - $ref: http://automate.website/draft-0.2/select-command-schema#
-    - $ref: http://automate.website/draft-0.2/enter-command-schema#
+    - $ref: http://waml.automate.website/draft-0.2/url-command-schema#
+    - $ref: http://waml.automate.website/draft-0.2/include-command-schema#
+    - $ref: http://waml.automate.website/draft-0.2/store-command-schema#
+    - $ref: http://waml.automate.website/draft-0.2/ensure-command-schema#
+    - $ref: http://waml.automate.website/draft-0.2/click-command-schema#
+    - $ref: http://waml.automate.website/draft-0.2/select-command-schema#
+    - $ref: http://waml.automate.website/draft-0.2/enter-command-schema#

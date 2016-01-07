@@ -1,4 +1,4 @@
-id: http://automate.website/draft-0.2/option-criteria-schema#
+id: http://waml.automate.website/draft-0.2/option-criteria-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Option criteria
 description: Qualifier for select an option from a select.

@@ -1,9 +1,9 @@
-id: http://automate.website/draft-0.2/select-command-schema#
+id: http://waml.automate.website/draft-0.2/select-command-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Select from dropdown
 description: Selects from dropdown by the given criteria.
 properties:
     select:
         description: Criteria of the element to select.
-        $ref: http://automate.website/draft-0.2/select-criteria-schema#
+        $ref: http://waml.automate.website/draft-0.2/select-criteria-schema#
 additionalProperties: false

@@ -1,7 +1,11 @@
-id: http://automate.website/draft-0.2/base-command-schema#
+id: http://waml.automate.website/draft-0.2/base-command-schema#
 $schema: http://json-schema.org/draft-04/schema#
 properties:
-    if:
-        type: string
     $schema:
         type: string
+    if:
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        description: If set, the step is only executed if the value evaluates to true
+    unless:
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        description: If set, the step is only executed if the value evaluates to false
