@@ -3,6 +3,18 @@ $schema: http://json-schema.org/draft-04/schema#
 title: Enter key sequence
 description: Send a sequence of key strokes to an element.
 properties:
+    $schema:
+        type: string
+    if:
+        oneOf:
+            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - type: boolean
+        description: If set, the step is only executed if the value evaluates to true
+    unless:
+        oneOf:
+            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - type: boolean
+        description: If set, the step is only executed if the value evaluates to false
     setValue:
         description: Send a sequence of key strokes to an element.
         $ref: http://waml.automate.website/draft-0.2/enter-criteria-schema#

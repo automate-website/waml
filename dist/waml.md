@@ -69,6 +69,50 @@ required:
   - steps
 
 ```
+## Step
+```
+id: 'http://waml.automate.website/draft-0.2/step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Step
+type: object
+description: A step represents the smallest identifiable user action.
+oneOf:
+  - $ref: 'http://waml.automate.website/draft-0.2/url-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/include-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/store-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/ensure-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/click-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/select-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/enter-step-schema#'
+
+```
+## Url
+```
+id: 'http://waml.automate.website/draft-0.2/url-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Url
+description: Navigates to a certain URL in the user agent
+properties:
+  $schema:
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true'
+  unless:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false'
+  url:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: The url to which the navigation takes place.
+required:
+  - url
+additionalProperties: false
+
+```
 ## Store variable
 ```
 id: 'http://waml.automate.website/draft-0.2/store-step-schema#'
@@ -76,6 +120,18 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Store variable
 description: Includes a scenario with a certain title
 properties:
+  $schema:
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true'
+  unless:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false'
   store:
     type: object
     description: A hash of variables to be defined in the execution context.
@@ -94,6 +150,18 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Select from dropdown
 description: Selects from dropdown by the given criteria.
 properties:
+  $schema:
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true'
+  unless:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false'
   select:
     description: Criteria of the element to select.
     $ref: 'http://waml.automate.website/draft-0.2/select-criteria-schema#'
@@ -107,11 +175,24 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Include Scenario
 description: Includes a scenario with a certain title
 properties:
+  $schema:
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true'
+  unless:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false'
   include:
     $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: The title of the scenario to include
 required:
   - include
+additionalProperties: false
 
 ```
 ## Enter key sequence
@@ -121,6 +202,18 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Enter key sequence
 description: Send a sequence of key strokes to an element.
 properties:
+  $schema:
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true'
+  unless:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false'
   setValue:
     description: Send a sequence of key strokes to an element.
     $ref: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
@@ -134,6 +227,18 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Ensure the presence of an element
 description: Ensures the presence of an element using different criteria
 properties:
+  $schema:
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true'
+  unless:
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false'
   ensure:
     description: A CSS selector as value or a hash of conditionals.
     oneOf:
@@ -149,35 +254,6 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Click on the given element
 description: Clicks on the given visible element.
 properties:
-  click:
-    description: A CSS selector as value or a hash of conditionals.
-    oneOf:
-      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-      - $ref: 'http://waml.automate.website/draft-0.2/click-criteria-schema#'
-additionalProperties: false
-
-```
-## Url
-```
-id: 'http://waml.automate.website/draft-0.2/url-step-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Url
-description: Navigates to a certain URL in the user agent
-allOf:
-  - $ref: 'http://waml.automate.website/draft-0.2/base-step-schema#'
-  - properties:
-      url:
-        $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-        description: The url to which the navigation takes place.
-    required:
-      - url
-
-```
-## 
-```
-id: 'http://waml.automate.website/draft-0.2/base-step-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-properties:
   $schema:
     type: string
   if:
@@ -190,23 +266,31 @@ properties:
       - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
       - type: boolean
     description: 'If set, the step is only executed if the value evaluates to false'
+  click:
+    description: A CSS selector as value or a hash of conditionals.
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - $ref: 'http://waml.automate.website/draft-0.2/click-criteria-schema#'
+additionalProperties: false
 
 ```
-## Step
+## Text enter criteria
 ```
-id: 'http://waml.automate.website/draft-0.2/step-schema#'
+id: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Step
-type: object
-description: A step represents the smallest identifiable user action.
-oneOf:
-  - $ref: 'http://waml.automate.website/draft-0.2/url-step-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/include-step-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/store-step-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/ensure-step-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/click-step-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/select-step-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/enter-step-schema#'
+title: Text enter criteria
+description: Qualifier for element which gets the new text.
+properties:
+  selector:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: CSS selector of element to select.
+  text:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: Text to set.
+additionalProperties: false
+required:
+  - selector
+  - text
 
 ```
 ## Click conditionals
@@ -292,25 +376,6 @@ properties:
     description: Text of option element to get selected (selectByText)
 additionalProperties: false
 minProperties: 1
-
-```
-## Text enter criteria
-```
-id: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Text enter criteria
-description: Qualifier for element which gets the new text.
-properties:
-  selector:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-    description: CSS selector of element to select.
-  text:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-    description: Text to set.
-additionalProperties: false
-required:
-  - selector
-  - text
 
 ```
 ## Ensure conditionals
