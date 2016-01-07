@@ -1,7 +1,7 @@
-id: http://waml.automate.website/draft-0.2/enter-step-schema#
+id: http://waml.automate.website/draft-0.2/move-step-schema#
 $schema: http://json-schema.org/draft-04/schema#
-title: Enter key sequence
-description: Send a sequence of key strokes to an element.
+title: Moves to the given element
+description: Moves to the given visible element.
 properties:
     $schema:
         type: string
@@ -15,7 +15,9 @@ properties:
             - $ref: http://waml.automate.website/draft-0.2/expression-schema#
             - type: boolean
         description: If set, the step is only executed if the value evaluates to false
-    enter:
-        description: Send a sequence of key strokes to an element.
-        $ref: http://waml.automate.website/draft-0.2/enter-criteria-schema#
+    move:
+        description: A CSS selector as value or a hash of conditionals.
+        oneOf:
+            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - $ref: http://waml.automate.website/draft-0.2/click-criteria-schema#
 additionalProperties: false

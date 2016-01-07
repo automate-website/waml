@@ -1,7 +1,7 @@
 id: http://waml.automate.website/draft-0.2/click-criteria-schema#
 $schema: http://json-schema.org/draft-04/schema#
-title: Click conditionals
-description: Qualifier for click command.
+title: Click criteria
+description: Qualifier for an element click.
 properties:
     selector:
         $ref: http://waml.automate.website/draft-0.2/expression-schema#
@@ -18,5 +18,7 @@ properties:
         description: Presence of the parent element according given creteria.
         oneOf:
             - $ref: http://waml.automate.website/draft-0.2/expression-schema#
-            - $ref: http://waml.automate.website/draft-0.2/parent-criteria-schema
+            - $ref: http://waml.automate.website/draft-0.2/parent-criteria-schema#
 additionalProperties: false
+required:
+    - selector
