@@ -4,4 +4,3 @@ title: Expression
 description: An expression is a evaluable statement that can be utilized on certain properties.
 type:
     - string
-    - boolean

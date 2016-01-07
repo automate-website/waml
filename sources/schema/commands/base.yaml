@@ -4,8 +4,12 @@ properties:
     $schema:
         type: string
     if:
-        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        oneOf:
+            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - type: boolean
         description: If set, the step is only executed if the value evaluates to true
     unless:
-        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        oneOf:
+            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - type: boolean
         description: If set, the step is only executed if the value evaluates to false
