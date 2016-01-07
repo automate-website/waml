@@ -101,8 +101,10 @@ module.exports = function(grunt) {
         return merge('html', saveHtml, this.async());
     });
 
-	grunt.registerTask('default', [ 'clean', 'validate-schema', 'validate-examples',
+	grunt.registerTask('default', [ 'clean', 'validate',
 			'merge-yaml', 'merge-json', 'merge-md', 'merge-html' ]);
+	
+	grunt.registerTask('validate', [ 'validate-schema', 'validate-examples'] );
 
 	function merge(format, save, done){
 		var schemaDistFile = './dist/waml.' + format;

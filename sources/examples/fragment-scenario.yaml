@@ -1,4 +1,5 @@
 $schema: http://automate.website/draft-0.2/scenario-schema
-name: Name of the scenario
+name: fragment-scenario
+type: fragment
 steps:
   - url: www.example.com

@@ -34,6 +34,10 @@ properties:
             $ref: http://waml.automate.website/draft-0.2/step-schema#
     $schema:
         type: string
+        description: Defines the scenario schema in a specific version.
+    skip:
+        description: Skips scenario execution if set to true.
+        type: boolean
 additionalProperties: false
 required:
     - name

@@ -1,0 +1,7 @@
+id: http://automate.website/draft-0.2/base-command-schema#
+$schema: http://json-schema.org/draft-04/schema#
+properties:
+    if:
+        type: string
+    $schema:
+        type: string
