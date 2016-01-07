@@ -16,7 +16,8 @@ var _ = require('lodash-node'),
 	templateSubschemaHtmlPath = sources + '/templates/html/subschema.html',
     templateHeaderHtmlPath = sources + '/templates/html/header.html',
 	templateSettings = { interpolate: /{{([\s\S]+?)}}/g },
-	title = 'Web Automation Markup Language Schema',
+	title = 'Web Automation Markup Language',
+	shortTitle = 'WAML',
 	schemaOrder = ['base-schema', 
 	               'scenario-schema', 
 	               'step-schema', 
@@ -99,7 +100,7 @@ module.exports = function(grunt) {
     });
 	
 	grunt.registerTask('merge-html', 'Merges schemas to a html file.', function() {
-        return merge('html', saveHtml, this.async());
+        return mergeToPath('./index.html', saveHtml, this.async());
     });
 
 	grunt.registerTask('default', [ 'clean', 'validate',
@@ -109,6 +110,11 @@ module.exports = function(grunt) {
 
 	function merge(format, save, done){
 		var schemaDistFile = './dist/waml.' + format;
+		mergeToPath(schemaDistFile, save, done);
+	}
+	
+	function mergeToPath(filePath, save, done){
+		var schemaDistFile = filePath;
 		return glob(schemaSourcesPattern, function(er, filePaths) {
 			var schemas = [];
 	
@@ -117,10 +123,6 @@ module.exports = function(grunt) {
 			});
 	
 			sortSchemasByOrder(schemas);
-			
-			_.each(schemas, function(schema){
-			    console.log(schema.id);
-			});
 			
 			save(schemaDistFile, schemas, done);
 		});
@@ -133,7 +135,7 @@ module.exports = function(grunt) {
 	
 	function saveHtml(filePath, objects, done){
 	    var content = renderContent(objects, templateHeaderHtmlPath, templateSubschemaHtmlPath);
-	    content = '<html><body>' + content + '<body></html>';
+	    content = '<html><body><div class="content">' + content + '</div><body></html>';
         writeFile(filePath, content, done)
     }
 	
@@ -167,7 +169,8 @@ module.exports = function(grunt) {
         content = content + headerTemplate({
             model: {
                 pkg: pkg,
-                title: title
+                title: title,
+                shortTitle: shortTitle
             }
         });
         
