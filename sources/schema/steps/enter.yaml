@@ -1,4 +1,4 @@
-id: http://waml.automate.website/draft-0.2/enter-command-schema#
+id: http://waml.automate.website/draft-0.2/enter-step-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Enter key sequence
 description: Send a sequence of key strokes to an element.

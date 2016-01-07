@@ -1,9 +1,9 @@
-id: http://waml.automate.website/draft-0.2/url-command-schema#
+id: http://waml.automate.website/draft-0.2/url-step-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Url
 description: Navigates to a certain URL in the user agent
 allOf: 
-    - $ref: http://waml.automate.website/draft-0.2/base-command-schema#
+    - $ref: http://waml.automate.website/draft-0.2/base-step-schema#
     - properties:
           url:
               $ref: http://waml.automate.website/draft-0.2/expression-schema#

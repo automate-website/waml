@@ -69,68 +69,9 @@ required:
   - steps
 
 ```
-## Step
-```
-id: 'http://waml.automate.website/draft-0.2/step-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Step
-type: object
-description: A step represents the smallest identifiable user action.
-oneOf:
-  - $ref: 'http://waml.automate.website/draft-0.2/url-command-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/include-command-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/store-command-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/ensure-command-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/click-command-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/select-command-schema#'
-  - $ref: 'http://waml.automate.website/draft-0.2/enter-command-schema#'
-
-```
-## Ensure the presence of an element
-```
-id: 'http://waml.automate.website/draft-0.2/ensure-command-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Ensure the presence of an element
-description: Ensures the presence of an element using different criteria
-properties:
-  ensure:
-    description: A CSS selector as value or a hash of conditionals.
-    oneOf:
-      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-      - $ref: 'http://waml.automate.website/draft-0.2/ensure-criteria-schema#'
-additionalProperties: false
-
-```
-## Include Scenario
-```
-id: 'http://waml.automate.website/draft-0.2/include-command-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Include Scenario
-description: Includes a scenario with a certain title
-properties:
-  include:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-    description: The title of the scenario to include
-required:
-  - include
-
-```
-## Select from dropdown
-```
-id: 'http://waml.automate.website/draft-0.2/select-command-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Select from dropdown
-description: Selects from dropdown by the given criteria.
-properties:
-  select:
-    description: Criteria of the element to select.
-    $ref: 'http://waml.automate.website/draft-0.2/select-criteria-schema#'
-additionalProperties: false
-
-```
 ## Store variable
 ```
-id: 'http://waml.automate.website/draft-0.2/store-command-schema#'
+id: 'http://waml.automate.website/draft-0.2/store-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Store variable
 description: Includes a scenario with a certain title
@@ -146,14 +87,84 @@ definitions:
     $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
 
 ```
+## Select from dropdown
+```
+id: 'http://waml.automate.website/draft-0.2/select-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Select from dropdown
+description: Selects from dropdown by the given criteria.
+properties:
+  select:
+    description: Criteria of the element to select.
+    $ref: 'http://waml.automate.website/draft-0.2/select-criteria-schema#'
+additionalProperties: false
+
+```
+## Include Scenario
+```
+id: 'http://waml.automate.website/draft-0.2/include-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Include Scenario
+description: Includes a scenario with a certain title
+properties:
+  include:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: The title of the scenario to include
+required:
+  - include
+
+```
+## Enter key sequence
+```
+id: 'http://waml.automate.website/draft-0.2/enter-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Enter key sequence
+description: Send a sequence of key strokes to an element.
+properties:
+  setValue:
+    description: Send a sequence of key strokes to an element.
+    $ref: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
+additionalProperties: false
+
+```
+## Ensure the presence of an element
+```
+id: 'http://waml.automate.website/draft-0.2/ensure-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Ensure the presence of an element
+description: Ensures the presence of an element using different criteria
+properties:
+  ensure:
+    description: A CSS selector as value or a hash of conditionals.
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - $ref: 'http://waml.automate.website/draft-0.2/ensure-criteria-schema#'
+additionalProperties: false
+
+```
+## Click on the given element
+```
+id: 'http://waml.automate.website/draft-0.2/click-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Click on the given element
+description: Clicks on the given visible element.
+properties:
+  click:
+    description: A CSS selector as value or a hash of conditionals.
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - $ref: 'http://waml.automate.website/draft-0.2/click-criteria-schema#'
+additionalProperties: false
+
+```
 ## Url
 ```
-id: 'http://waml.automate.website/draft-0.2/url-command-schema#'
+id: 'http://waml.automate.website/draft-0.2/url-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Url
 description: Navigates to a certain URL in the user agent
 allOf:
-  - $ref: 'http://waml.automate.website/draft-0.2/base-command-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/base-step-schema#'
   - properties:
       url:
         $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
@@ -164,7 +175,7 @@ allOf:
 ```
 ## 
 ```
-id: 'http://waml.automate.website/draft-0.2/base-command-schema#'
+id: 'http://waml.automate.website/draft-0.2/base-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 properties:
   $schema:
@@ -181,51 +192,81 @@ properties:
     description: 'If set, the step is only executed if the value evaluates to false'
 
 ```
-## Enter key sequence
+## Step
 ```
-id: 'http://waml.automate.website/draft-0.2/enter-command-schema#'
+id: 'http://waml.automate.website/draft-0.2/step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Enter key sequence
-description: Send a sequence of key strokes to an element.
-properties:
-  setValue:
-    description: Send a sequence of key strokes to an element.
-    $ref: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
-additionalProperties: false
+title: Step
+type: object
+description: A step represents the smallest identifiable user action.
+oneOf:
+  - $ref: 'http://waml.automate.website/draft-0.2/url-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/include-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/store-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/ensure-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/click-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/select-step-schema#'
+  - $ref: 'http://waml.automate.website/draft-0.2/enter-step-schema#'
 
 ```
-## Click on the given element
+## Click conditionals
 ```
-id: 'http://waml.automate.website/draft-0.2/click-command-schema#'
+id: 'http://waml.automate.website/draft-0.2/click-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Click on the given element
-description: Clicks on the given visible element.
-properties:
-  click:
-    description: A CSS selector as value or a hash of conditionals.
-    oneOf:
-      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-      - $ref: 'http://waml.automate.website/draft-0.2/click-criteria-schema#'
-additionalProperties: false
-
-```
-## Text enter criteria
-```
-id: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Text enter criteria
-description: Qualifier for element which gets the new text.
+title: Click conditionals
+description: Qualifier for click command.
 properties:
   selector:
     $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: CSS selector of element to select.
   text:
     $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-    description: Text to set.
+    description: Select element which contains the given text.
+  timeout:
+    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    oneOf:
+      - type: number
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+  parent:
+    description: Presence of the parent element according given creteria.
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - $ref: 'http://waml.automate.website/draft-0.2/parent-criteria-schema'
+additionalProperties: false
+
+```
+## Option criteria
+```
+id: 'http://waml.automate.website/draft-0.2/select-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Option criteria
+description: Qualifier for select an option from a select.
+properties:
+  selector:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: CSS selector of element to select.
+  option:
+    description: Criteria of option to select.
+    $ref: 'http://waml.automate.website/draft-0.2/option-criteria-schema#'
 additionalProperties: false
 required:
-  - selector
-  - text
+  - option
+
+```
+## Parent conditionals
+```
+id: 'http://waml.automate.website/draft-0.2/parent-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Parent conditionals
+description: Qualifier for parent element selection.
+properties:
+  selector:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: CSS selector of element to select.
+  text:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: Select element which contains the given text.
+additionalProperties: false
 
 ```
 ## Option criteria
@@ -253,64 +294,23 @@ additionalProperties: false
 minProperties: 1
 
 ```
-## Parent conditionals
+## Text enter criteria
 ```
-id: 'http://waml.automate.website/draft-0.2/parent-criteria-schema#'
+id: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Parent conditionals
-description: Qualifier for parent element selection.
+title: Text enter criteria
+description: Qualifier for element which gets the new text.
 properties:
   selector:
     $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: CSS selector of element to select.
   text:
     $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-    description: Select element which contains the given text.
-additionalProperties: false
-
-```
-## Option criteria
-```
-id: 'http://waml.automate.website/draft-0.2/select-criteria-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Option criteria
-description: Qualifier for select an option from a select.
-properties:
-  selector:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-    description: CSS selector of element to select.
-  option:
-    description: Criteria of option to select.
-    $ref: 'http://waml.automate.website/draft-0.2/option-criteria-schema#'
+    description: Text to set.
 additionalProperties: false
 required:
-  - option
-
-```
-## Click conditionals
-```
-id: 'http://waml.automate.website/draft-0.2/click-criteria-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Click conditionals
-description: Qualifier for click command.
-properties:
-  selector:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-    description: CSS selector of element to select.
-  text:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-    description: Select element which contains the given text.
-  timeout:
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
-    oneOf:
-      - type: number
-      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-  parent:
-    description: Presence of the parent element according given creteria.
-    oneOf:
-      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
-      - $ref: 'http://waml.automate.website/draft-0.2/parent-criteria-schema'
-additionalProperties: false
+  - selector
+  - text
 
 ```
 ## Ensure conditionals

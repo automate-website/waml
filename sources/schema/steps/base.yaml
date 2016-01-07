@@ -1,4 +1,4 @@
-id: http://waml.automate.website/draft-0.2/base-command-schema#
+id: http://waml.automate.website/draft-0.2/base-step-schema#
 $schema: http://json-schema.org/draft-04/schema#
 properties:
     $schema:
