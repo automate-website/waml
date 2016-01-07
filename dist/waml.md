@@ -54,10 +54,14 @@ properties:
     items:
       $ref: 'http://waml.automate.website/draft-0.2/step-schema#'
   if:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
     description: 'If set, the scenario is only executed if the value evaluates to true'
   unless:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
     description: 'If set, the scenario is only executed if the value evaluates to false'
 additionalProperties: false
 required:
@@ -166,10 +170,14 @@ properties:
   $schema:
     type: string
   if:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
     description: 'If set, the step is only executed if the value evaluates to true'
   unless:
-    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
     description: 'If set, the step is only executed if the value evaluates to false'
 
 ```
@@ -339,6 +347,5 @@ title: Expression
 description: An expression is a evaluable statement that can be utilized on certain properties.
 type:
   - string
-  - boolean
 
 ```
