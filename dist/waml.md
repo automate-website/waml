@@ -1,17 +1,5 @@
 # Web Automation Markup Language Schema
 
-## Expression
-```
-id: 'http://waml.automate.website/draft-0.2/expression-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Expression
-description: An expression is a evaluable statement that can be utilized on certain properties.
-type:
-  - string
-  - boolean
-  - number
-
-```
 ## Web Automation Markup Language
 ```
 id: 'http://waml.automate.website/draft-0.2/base-schema#'
@@ -56,7 +44,9 @@ properties:
     description: Defines the particular priority of the scenario during execution of independent scenarios.
     default: -1
   timeout:
-    type: integer
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: integer
     description: 'Maximal time [ms] to wait for conditions to be true.'
     default: 1000
   steps:
@@ -92,17 +82,33 @@ oneOf:
   - $ref: 'http://waml.automate.website/draft-0.2/enter-command-schema#'
 
 ```
-## Enter key sequence
+## Ensure the presence of an element
 ```
-id: 'http://waml.automate.website/draft-0.2/enter-command-schema#'
+id: 'http://waml.automate.website/draft-0.2/ensure-command-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Enter key sequence
-description: Send a sequence of key strokes to an element.
+title: Ensure the presence of an element
+description: Ensures the presence of an element using different criteria
 properties:
-  setValue:
-    description: Send a sequence of key strokes to an element.
-    $ref: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
+  ensure:
+    description: A CSS selector as value or a hash of conditionals.
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - $ref: 'http://waml.automate.website/draft-0.2/ensure-criteria-schema#'
 additionalProperties: false
+
+```
+## Include Scenario
+```
+id: 'http://waml.automate.website/draft-0.2/include-command-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Include Scenario
+description: Includes a scenario with a certain title
+properties:
+  include:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: The title of the scenario to include
+required:
+  - include
 
 ```
 ## Select from dropdown
@@ -133,20 +139,20 @@ properties:
 additionalProperties: false
 definitions:
   entry:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
 
 ```
-## Browser
+## Url
 ```
 id: 'http://waml.automate.website/draft-0.2/url-command-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Browser
+title: Url
 description: Navigates to a certain URL in the user agent
 allOf:
   - $ref: 'http://waml.automate.website/draft-0.2/base-command-schema#'
   - properties:
       url:
-        type: string
+        $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
         description: The url to which the navigation takes place.
     required:
       - url
@@ -167,32 +173,16 @@ properties:
     description: 'If set, the step is only executed if the value evaluates to false'
 
 ```
-## Include Scenario
+## Enter key sequence
 ```
-id: 'http://waml.automate.website/draft-0.2/include-command-schema#'
+id: 'http://waml.automate.website/draft-0.2/enter-command-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Include Scenario
-description: Includes a scenario with a certain title
+title: Enter key sequence
+description: Send a sequence of key strokes to an element.
 properties:
-  include:
-    type: string
-    description: The title of the scenario to include
-required:
-  - include
-
-```
-## Ensure the presence of an element
-```
-id: 'http://waml.automate.website/draft-0.2/ensure-command-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Ensure the presence of an element
-description: Ensures the presence of an element using different criteria
-properties:
-  ensure:
-    description: A CSS selector as value or a hash of conditionals.
-    oneOf:
-      - type: string
-      - $ref: 'http://waml.automate.website/draft-0.2/ensure-criteria-schema#'
+  setValue:
+    description: Send a sequence of key strokes to an element.
+    $ref: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
 additionalProperties: false
 
 ```
@@ -211,6 +201,25 @@ properties:
 additionalProperties: false
 
 ```
+## Text enter criteria
+```
+id: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Text enter criteria
+description: Qualifier for element which gets the new text.
+properties:
+  selector:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: CSS selector of element to select.
+  text:
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: Text to set.
+additionalProperties: false
+required:
+  - selector
+  - text
+
+```
 ## Option criteria
 ```
 id: 'http://waml.automate.website/draft-0.2/option-criteria-schema#'
@@ -219,16 +228,18 @@ title: Option criteria
 description: Qualifier for select an option from a select.
 properties:
   index:
-    type: number
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: number
     description: Option index (selectByIndex)
   name:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: Name of option element to get selected (selectByName)
   value:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: Value of option element to get selected (selectByValue)
   text:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: Text of option element to get selected (selectByText)
 additionalProperties: false
 minProperties: 1
@@ -242,10 +253,10 @@ title: Parent conditionals
 description: Qualifier for parent element selection.
 properties:
   selector:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: CSS selector of element to select.
   text:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: Select element which contains the given text.
 additionalProperties: false
 
@@ -258,7 +269,7 @@ title: Option criteria
 description: Qualifier for select an option from a select.
 properties:
   selector:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: CSS selector of element to select.
   option:
     description: Criteria of option to select.
@@ -266,28 +277,6 @@ properties:
 additionalProperties: false
 required:
   - option
-
-```
-## Ensure conditionals
-```
-id: 'http://waml.automate.website/draft-0.2/ensure-criteria-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Ensure conditionals
-description: Conditionals to precise the criteria of ensure command.
-properties:
-  selector:
-    type: string
-    description: CSS selector of element to select.
-  visible:
-    type: boolean
-    description: Select visible or invisible elements only.
-  text:
-    type: string
-    description: Select element which contains the given text.
-  timeout:
-    type: number
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
-additionalProperties: false
 
 ```
 ## Click conditionals
@@ -298,38 +287,58 @@ title: Click conditionals
 description: Qualifier for click command.
 properties:
   selector:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: CSS selector of element to select.
   text:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: Select element which contains the given text.
   timeout:
-    type: number
     description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    oneOf:
+      - type: number
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
   parent:
     description: Presence of the parent element according given creteria.
     oneOf:
-      - type: string
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
       - $ref: 'http://waml.automate.website/draft-0.2/parent-criteria-schema'
 additionalProperties: false
 
 ```
-## Text enter criteria
+## Ensure conditionals
 ```
-id: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
+id: 'http://waml.automate.website/draft-0.2/ensure-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Text enter criteria
-description: Qualifier for element which gets the new text.
+title: Ensure conditionals
+description: Conditionals to precise the criteria of ensure command.
 properties:
   selector:
-    type: string
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
     description: CSS selector of element to select.
+  visible:
+    description: Select visible or invisible elements only.
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: boolean
   text:
-    type: string
-    description: Text to set.
+    $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+    description: Select element which contains the given text.
+  timeout:
+    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    oneOf:
+      - $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
+      - type: number
 additionalProperties: false
-required:
-  - selector
-  - text
+
+```
+## Expression
+```
+id: 'http://waml.automate.website/draft-0.2/expression-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Expression
+description: An expression is a evaluable statement that can be utilized on certain properties.
+type:
+  - string
+  - boolean
 
 ```

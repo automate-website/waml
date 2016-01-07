@@ -4,8 +4,8 @@ title: Option criteria
 description: Qualifier for select an option from a select.
 properties:
     selector:
-            type: string
-            description: CSS selector of element to select.
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        description: CSS selector of element to select.
     option:
         description: Criteria of option to select.
         $ref: http://waml.automate.website/draft-0.2/option-criteria-schema#

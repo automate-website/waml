@@ -1,12 +1,12 @@
 id: http://waml.automate.website/draft-0.2/url-command-schema#
 $schema: http://json-schema.org/draft-04/schema#
-title: Browser
+title: Url
 description: Navigates to a certain URL in the user agent
 allOf: 
     - $ref: http://waml.automate.website/draft-0.2/base-command-schema#
     - properties:
           url:
-              type: string
+              $ref: http://waml.automate.website/draft-0.2/expression-schema#
               description: The url to which the navigation takes place.
       required:
           - url

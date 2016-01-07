@@ -21,7 +21,8 @@ var _ = require('lodash-node'),
 	               'scenario-schema', 
 	               'step-schema', 
 	               'command-schema', 
-	               'criteria-schema'];
+	               'criteria-schema',
+	               'expression-schema'];
 
 var ajv = new Ajv(), pkg = require('./package.json');
 

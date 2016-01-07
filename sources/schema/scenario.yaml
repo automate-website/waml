@@ -28,7 +28,9 @@ properties:
         description: Defines the particular priority of the scenario during execution of independent scenarios.
         default: -1
     timeout:
-        type: integer
+        oneOf:
+            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - type: integer
         description: Maximal time [ms] to wait for conditions to be true.
         default: 1000
     steps:

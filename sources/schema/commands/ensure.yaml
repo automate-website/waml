@@ -6,6 +6,6 @@ properties:
     ensure:
         description: A CSS selector as value or a hash of conditionals.
         oneOf:
-            - type: string
+            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
             - $ref: http://waml.automate.website/draft-0.2/ensure-criteria-schema#
 additionalProperties: false

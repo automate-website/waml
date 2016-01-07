@@ -11,4 +11,4 @@ properties:
 additionalProperties: false
 definitions:
     entry:
-        type: string
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
