@@ -1,0 +1,10 @@
+$schema: http://waml.automate.website/draft-0.2/scenario-schema#
+title: Full featured scenario
+name: full-featured-scenario
+description: A full featured scenario
+type: doable
+precendence: 1
+timeout: 1000
+if: ${ true }
+steps:
+  - url: www.example.com

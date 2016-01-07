@@ -1,54 +1,7 @@
-<html><body><div class="content"><style type="text/css">
-    
-    body {
-        margin: 0;
-        padding: 0;
-    }
-    
-    div.content {
-        margin-left: auto;
-	    margin-right: auto;
-	    max-width: 50em;
-	    border-color:  #E9EEF2;
-    }
-    
-    code {
-       white-space: pre;
-       padding-left: 1em;
-       display: block;
-       background-color: #E9EEF2;
-    }
-    
-    h2 {
-       background-color: rgb(30, 33, 40);
-       color: #FFF;
-       padding: 1em 10px 0.5em 10px;
-       margin: 0;
-    }
-    
-    h1 {
-      color: rgb(102, 196, 232);
-      background-color: rgb(30, 33, 40);
-      margin-top: 0;
-      padding: 1em 10px 0.5em 10px;
-    }
-    
-    p {
-      margin: 0;
-      padding: 1em 10px;
-    }
-    
-    section {
-      border: 1px solid rgb(30, 33, 40);
-      margin: 2em 0;
-    }
-    
-</style>
-<h1>WAML - 0.0.2</h1>
-<section>
-<h2>Web Automation Markup Language</h2>
-<p>A simple markup language for web automation.</p>
-<code>
+# Web Automation Markup Language
+
+## Web Automation Markup Language
+```
 id: 'http://waml.automate.website/draft-0.2/base-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Web Automation Markup Language
@@ -58,12 +11,9 @@ items:
   $ref: 'http://waml.automate.website/draft-0.2/scenario-schema#'
 additionalProperties: false
 
-</code>
-</section>
-<section>
-<h2>Scenario</h2>
-<p>A scenario combines a collection of tasks that must be executed together in a certain order.</p>
-<code>
+```
+## Scenario
+```
 id: 'http://waml.automate.website/draft-0.2/scenario-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Scenario
@@ -118,12 +68,9 @@ required:
   - name
   - steps
 
-</code>
-</section>
-<section>
-<h2>Store variable</h2>
-<p>Includes a scenario with a certain title</p>
-<code>
+```
+## Store variable
+```
 id: 'http://waml.automate.website/draft-0.2/store-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Store variable
@@ -151,12 +98,9 @@ definitions:
   entry:
     $ref: 'http://waml.automate.website/draft-0.2/expression-schema#'
 
-</code>
-</section>
-<section>
-<h2>Select from dropdown</h2>
-<p>Selects from dropdown by the given criteria.</p>
-<code>
+```
+## Select from dropdown
+```
 id: 'http://waml.automate.website/draft-0.2/select-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Select from dropdown
@@ -179,12 +123,9 @@ properties:
     $ref: 'http://waml.automate.website/draft-0.2/select-criteria-schema#'
 additionalProperties: false
 
-</code>
-</section>
-<section>
-<h2>Moves to the given element</h2>
-<p>Moves to the given visible element.</p>
-<code>
+```
+## Moves to the given element
+```
 id: 'http://waml.automate.website/draft-0.2/move-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Moves to the given element
@@ -209,12 +150,9 @@ properties:
       - $ref: 'http://waml.automate.website/draft-0.2/click-criteria-schema#'
 additionalProperties: false
 
-</code>
-</section>
-<section>
-<h2>Include Scenario</h2>
-<p>Includes a scenario with a certain title</p>
-<code>
+```
+## Include Scenario
+```
 id: 'http://waml.automate.website/draft-0.2/include-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Include Scenario
@@ -239,12 +177,9 @@ required:
   - include
 additionalProperties: false
 
-</code>
-</section>
-<section>
-<h2>Enter key sequence</h2>
-<p>Send a sequence of key strokes to an element.</p>
-<code>
+```
+## Enter key sequence
+```
 id: 'http://waml.automate.website/draft-0.2/enter-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Enter key sequence
@@ -267,12 +202,9 @@ properties:
     $ref: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
 additionalProperties: false
 
-</code>
-</section>
-<section>
-<h2>Ensure the presence of an element</h2>
-<p>Ensures the presence of an element using different criteria</p>
-<code>
+```
+## Ensure the presence of an element
+```
 id: 'http://waml.automate.website/draft-0.2/ensure-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Ensure the presence of an element
@@ -297,12 +229,9 @@ properties:
       - $ref: 'http://waml.automate.website/draft-0.2/ensure-criteria-schema#'
 additionalProperties: false
 
-</code>
-</section>
-<section>
-<h2>Url</h2>
-<p>Navigates to a certain URL in the user agent</p>
-<code>
+```
+## Url
+```
 id: 'http://waml.automate.website/draft-0.2/url-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Url
@@ -327,12 +256,9 @@ required:
   - url
 additionalProperties: false
 
-</code>
-</section>
-<section>
-<h2>Click on the given element</h2>
-<p>Clicks on the given visible element.</p>
-<code>
+```
+## Click on the given element
+```
 id: 'http://waml.automate.website/draft-0.2/click-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Click on the given element
@@ -357,12 +283,9 @@ properties:
       - $ref: 'http://waml.automate.website/draft-0.2/click-criteria-schema#'
 additionalProperties: false
 
-</code>
-</section>
-<section>
-<h2>Step</h2>
-<p>A step represents the smallest identifiable user action.</p>
-<code>
+```
+## Step
+```
 id: 'http://waml.automate.website/draft-0.2/step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Step
@@ -377,12 +300,9 @@ oneOf:
   - $ref: 'http://waml.automate.website/draft-0.2/select-step-schema#'
   - $ref: 'http://waml.automate.website/draft-0.2/enter-step-schema#'
 
-</code>
-</section>
-<section>
-<h2>Click criteria</h2>
-<p>Qualifier for an element click.</p>
-<code>
+```
+## Click criteria
+```
 id: 'http://waml.automate.website/draft-0.2/click-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Click criteria
@@ -408,12 +328,9 @@ additionalProperties: false
 required:
   - selector
 
-</code>
-</section>
-<section>
-<h2>Select criteria</h2>
-<p>Qualifier for an element option selection.</p>
-<code>
+```
+## Select criteria
+```
 id: 'http://waml.automate.website/draft-0.2/select-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Select criteria
@@ -461,12 +378,9 @@ required:
   - selector
   - value
 
-</code>
-</section>
-<section>
-<h2>Parent criteria</h2>
-<p>Qualifier for parent element selection.</p>
-<code>
+```
+## Parent criteria
+```
 id: 'http://waml.automate.website/draft-0.2/parent-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Parent criteria
@@ -482,12 +396,9 @@ additionalProperties: false
 required:
   - selector
 
-</code>
-</section>
-<section>
-<h2>Move criteria</h2>
-<p>Qualifier for moving to an element.</p>
-<code>
+```
+## Move criteria
+```
 id: 'http://waml.automate.website/draft-0.2/move-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Move criteria
@@ -513,12 +424,9 @@ additionalProperties: false
 required:
   - selector
 
-</code>
-</section>
-<section>
-<h2>Enter criteria</h2>
-<p>Qualifier for an element value change.</p>
-<code>
+```
+## Enter criteria
+```
 id: 'http://waml.automate.website/draft-0.2/enter-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Enter criteria
@@ -547,12 +455,9 @@ required:
   - selector
   - value
 
-</code>
-</section>
-<section>
-<h2>Ensure criteria</h2>
-<p>Qualifier for an element state validation.</p>
-<code>
+```
+## Ensure criteria
+```
 id: 'http://waml.automate.website/draft-0.2/ensure-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Ensure criteria
@@ -597,12 +502,9 @@ properties:
     default: equals
 additionalProperties: false
 
-</code>
-</section>
-<section>
-<h2>Expression</h2>
-<p>An expression is a evaluable statement that can be utilized on certain properties.</p>
-<code>
+```
+## Expression
+```
 id: 'http://waml.automate.website/draft-0.2/expression-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Expression
@@ -610,6 +512,4 @@ description: An expression is a evaluable statement that can be utilized on cert
 type:
   - string
 
-</code>
-</section>
-</div><body></html>
+```

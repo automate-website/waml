@@ -1,0 +1,3 @@
+$schema: http://waml.automate.website/draft-0.2/include-step-schema#
+include: another scenario
+

@@ -1,0 +1,5 @@
+$schema: http://waml.automate.website/draft-0.2/scenario-schema#
+name: fragment-scenario
+type: doable
+steps:
+  - url: www.example.com

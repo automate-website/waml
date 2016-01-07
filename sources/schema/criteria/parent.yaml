@@ -1,0 +1,14 @@
+id: http://waml.automate.website/draft-0.2/parent-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Parent criteria
+description: Qualifier for parent element selection.
+properties:
+    selector:
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        description: CSS selector of element to select.
+    text:
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        description: Select element which contains the given text.    
+additionalProperties: false
+required:
+    - selector

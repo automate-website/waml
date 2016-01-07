@@ -1,0 +1,24 @@
+id: http://waml.automate.website/draft-0.2/move-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Move criteria
+description: Qualifier for moving to an element.
+properties:
+    selector:
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        description: CSS selector of element to select.
+    text:
+        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        description: Select element which contains the given text.
+    timeout:
+        description: Maximal time [ms] to wait for the element which meets the given criteria.
+        oneOf:
+            - type: number
+            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+    parent:
+        description: Presence of the parent element according given creteria.
+        oneOf:
+            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - $ref: http://waml.automate.website/draft-0.2/parent-criteria-schema#
+additionalProperties: false
+required:
+    - selector
