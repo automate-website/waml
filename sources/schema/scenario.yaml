@@ -1,4 +1,4 @@
-id: http://waml.automate.website/draft-0.2/scenario-schema#
+id: http://waml-schema.org/draft-02/scenario-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Scenario
 description: A scenario combines a collection of tasks that must be executed together in a certain order.
@@ -29,22 +29,22 @@ properties:
         default: -1
     timeout:
         oneOf:
-            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
             - type: integer
         description: Maximal time [ms] to wait for conditions to be true.
         default: 1000
     steps:
         type: array
         items:
-            $ref: http://waml.automate.website/draft-0.2/step-schema#
+            $ref: http://waml-schema.org/draft-02/step-schema#
     if:
         oneOf:
-            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
             - type: boolean
         description: If set, the scenario is only executed if the value evaluates to true
     unless:
         oneOf:
-            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
             - type: boolean
         description: If set, the scenario is only executed if the value evaluates to false
 additionalProperties: false

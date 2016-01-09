@@ -1,4 +1,4 @@
-$schema: http://waml.automate.website/draft-0.2/scenario-schema#
+$schema: http://waml-schema.org/draft-02/scenario-schema#
 title: Full featured scenario
 name: full-featured-scenario
 description: A full featured scenario

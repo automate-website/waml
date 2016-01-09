@@ -1,24 +1,24 @@
-id: http://waml.automate.website/draft-0.2/ensure-criteria-schema#
+id: http://waml-schema.org/draft-02/ensure-criteria-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Ensure criteria
 description: Qualifier for an element state validation.
 properties:
     selector:
-        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        $ref: http://waml-schema.org/draft-02/expression-schema#
         description: CSS selector of element to select.
     text:
-        $ref: http://waml.automate.website/draft-0.2/expression-schema#
+        $ref: http://waml-schema.org/draft-02/expression-schema#
         description: Select element which contains the given text.
     timeout:
         description: Maximal time [ms] to wait for the element which meets the given criteria.
         oneOf:
             - type: number
-            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
     parent:
         description: Presence of the parent element according given creteria.
         oneOf:
-            - $ref: http://waml.automate.website/draft-0.2/expression-schema#
-            - $ref: http://waml.automate.website/draft-0.2/parent-criteria-schema#
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
+            - $ref: http://waml-schema.org/draft-02/parent-criteria-schema#
     source:
         description: The element's value source
         enum:
@@ -29,7 +29,7 @@ properties:
     value:
         oneOf:
           - type: ["number", "boolean"]
-          - $ref: http://waml.automate.website/draft-0.2/expression-schema#
+          - $ref: http://waml-schema.org/draft-02/expression-schema#
         description: Value that should be checked against
     mode:
         description: Value comparison mode.

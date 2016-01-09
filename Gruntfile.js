@@ -16,12 +16,11 @@ var _ = require('lodash-node'),
 	templateSubschemaHtmlPath = sources + '/templates/html/subschema.html',
     templateHeaderHtmlPath = sources + '/templates/html/header.html',
 	templateSettings = { interpolate: /{{([\s\S]+?)}}/g },
-	title = 'Web Automation Markup Language',
 	shortTitle = 'WAML',
-	schemaOrder = ['base-schema', 
-	               'scenario-schema', 
+	schemaOrder = ['/schema', 
+	               'scenario-schema',
+	               '/step-schema',
 	               'step-schema', 
-	               'command-schema', 
 	               'criteria-schema',
 	               'expression-schema'];
 
@@ -30,11 +29,20 @@ var ajv = new Ajv(), pkg = require('./package.json');
 module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	
 	grunt.initConfig({
 		pkg : pkg,
 		
-		clean : [ distPattern ]
+		clean : [ distPattern ],
+		
+		copy: {
+			main: {
+				files: [
+				        {expand: true, flatten: true, src: ['sources/schema/**'], dest: 'draft-02', filter: 'isFile'}
+				]
+			}
+		}
 	});
 
 	grunt.registerTask('validate-schema', 'Validates waml json based schema.',
@@ -103,8 +111,10 @@ module.exports = function(grunt) {
         return mergeToPath('./index.html', saveHtml, this.async());
     });
 
-	grunt.registerTask('default', [ 'clean', 'validate',
+	grunt.registerTask('merge', [ 'clean', 'validate',
 			'merge-yaml', 'merge-json', 'merge-md', 'merge-html' ]);
+	
+	grunt.registerTask('default', [ 'merge', 'copy' ]);
 	
 	grunt.registerTask('validate', [ 'validate-schema', 'validate-examples'] );
 
@@ -169,7 +179,6 @@ module.exports = function(grunt) {
         content = content + headerTemplate({
             model: {
                 pkg: pkg,
-                title: title,
                 shortTitle: shortTitle
             }
         });
