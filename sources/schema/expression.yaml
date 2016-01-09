@@ -1,4 +1,4 @@
-id: http://waml.automate.website/draft-0.2/expression-schema#
+id: http://waml-schema.org/draft-02/expression-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Expression
 description: An expression is a evaluable statement that can be utilized on certain properties.

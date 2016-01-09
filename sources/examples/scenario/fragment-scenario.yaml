@@ -1,4 +1,4 @@
-$schema: http://waml.automate.website/draft-0.2/scenario-schema#
+$schema: http://waml-schema.org/draft-02/scenario-schema#
 name: fragment-scenario
 type: fragment
 steps:
