@@ -1,0 +1,44 @@
+id: http://waml-schema.org/draft-02/select-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Select criteria
+description: Qualifier for an element option selection.
+properties:
+    selector:
+        $ref: http://waml-schema.org/draft-02/expression-schema#
+        description: CSS selector of element to select.
+    text:
+        $ref: http://waml-schema.org/draft-02/expression-schema#
+        description: Select element which contains the given text.
+    timeout:
+        description: Maximal time [ms] to wait for the element which meets the given criteria.
+        oneOf:
+            - type: number
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
+    parent:
+        description: Presence of the parent element according given creteria.
+        oneOf:
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
+            - $ref: http://waml-schema.org/draft-02/parent-criteria-schema#
+    source:
+        description: The element's value source
+        enum:
+            - value
+            - text
+            - title
+        default: text
+    value:
+        oneOf:
+          - type: ["number", "boolean"]
+          - $ref: http://waml-schema.org/draft-02/expression-schema#
+        description: Value that should be checked against
+    mode:
+        description: Value comparison mode.
+        enum:
+            - equals
+            - contains
+            - regex
+        default: equals
+additionalProperties: false
+required:
+    - selector
+    - value
