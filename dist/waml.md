@@ -1,4 +1,4 @@
-# 
+# WAML: undefined
 
 ## Web Automation Markup Language
 ```

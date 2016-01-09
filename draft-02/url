@@ -1,0 +1,23 @@
+id: http://waml-schema.org/draft-02/url-step-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Url
+description: Navigates to a certain URL in the user agent
+properties:
+    $schema:
+        type: string
+    if:
+        oneOf:
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
+            - type: boolean
+        description: If set, the step is only executed if the value evaluates to true
+    unless:
+        oneOf:
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
+            - type: boolean
+        description: If set, the step is only executed if the value evaluates to false
+    url:
+        $ref: http://waml-schema.org/draft-02/expression-schema#
+        description: The url to which the navigation takes place.
+required:
+    - url
+additionalProperties: false

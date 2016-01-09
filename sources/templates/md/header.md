@@ -1,2 +1,2 @@
-# {{ model.title }}
+# {{ model.shortTitle + ": " + model.pkg.shortVersion }}
 

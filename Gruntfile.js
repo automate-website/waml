@@ -39,8 +39,18 @@ module.exports = function(grunt) {
 		copy: {
 			main: {
 				files: [
-				        {expand: true, flatten: true, src: ['sources/schema/**'], dest: 'draft-02', filter: 'isFile'}
+				        {
+				        	expand: true, 
+				        	flatten: true, 
+				        	src: ['sources/schema/**'], 
+				        	dest: 'draft-02', 
+				        	filter: 'isFile',
+				        	rename: function(dest, src) {
+						        return dest + '/' + src.replace('.yaml', '');
+						    }
+				        }
 				]
+				
 			}
 		}
 	});
