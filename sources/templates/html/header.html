@@ -1,5 +1,11 @@
 <style type="text/css">
     
+    .separator {
+        color:  #FF0000;
+    }
+    .schema-version {
+        color: #FFF;
+    }
     body {
         margin: 0;
         padding: 0;
@@ -45,4 +51,4 @@
     }
     
 </style>
-<h1>{{ model.shortTitle }} - {{ model.pkg.version }}</h1>
+<h1>{{ model.shortTitle }}<span class="separator">: </span><span class="schema-version">{{ model.pkg.schemaVersion }}</span></h1>
