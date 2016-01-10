@@ -1,5 +1,7 @@
 <html><body><div class="content"><style type="text/css">
-    
+    .comment {
+        color: rgb(102, 196, 232);
+    }
     .separator {
         color:  #FF0000;
     }
@@ -41,8 +43,7 @@
     
     p {
       margin: 0;
-      padding: 1em 10px;
-      background-color: #E9EEF2;
+      padding: 1em 10px 0 10px;
     }
     
     section {
@@ -54,7 +55,7 @@
 <h1>WAML<span class="separator">: </span><span class="schema-version">draft-02</span></h1>
 <section>
 <h2>schema<span class="separator">: </span></h2>
-<p>A simple markup language for web automation.</p>
+<p><span class="comment"># A simple markup language for web automation.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -69,7 +70,7 @@ additionalProperties: false
 </section>
 <section>
 <h2>schema<span class="separator">: </span>scenario<span class="separator">: </span></h2>
-<p>A scenario combines a collection of tasks that must be executed together in a certain order.</p>
+<p><span class="comment"># A scenario combines a collection of tasks that must be executed together in a certain order.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/scenario-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -129,7 +130,7 @@ required:
 </section>
 <section>
 <h2>schema<span class="separator">: </span>step<span class="separator">: </span></h2>
-<p>A step represents the smallest identifiable user action.</p>
+<p><span class="comment"># A step represents the smallest identifiable user action.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -150,7 +151,7 @@ oneOf:
 </section>
 <section>
 <h2>schema<span class="separator">: </span>step<span class="separator">: </span>select<span class="separator">: </span></h2>
-<p>Selects from dropdown by the given criteria.</p>
+<p><span class="comment"># Selects from dropdown by the given criteria.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/select-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -178,7 +179,7 @@ additionalProperties: false
 </section>
 <section>
 <h2>schema<span class="separator">: </span>step<span class="separator">: </span>move<span class="separator">: </span></h2>
-<p>Moves to the given visible element.</p>
+<p><span class="comment"># Moves to the given visible element.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/move-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -208,7 +209,7 @@ additionalProperties: false
 </section>
 <section>
 <h2>schema<span class="separator">: </span>step<span class="separator">: </span>include<span class="separator">: </span></h2>
-<p>Includes a scenario with a certain title</p>
+<p><span class="comment"># Includes a scenario with a certain title</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/include-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -238,7 +239,7 @@ additionalProperties: false
 </section>
 <section>
 <h2>schema<span class="separator">: </span>step<span class="separator">: </span>enter<span class="separator">: </span></h2>
-<p>Send a sequence of key strokes to an element.</p>
+<p><span class="comment"># Send a sequence of key strokes to an element.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/enter-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -266,7 +267,7 @@ additionalProperties: false
 </section>
 <section>
 <h2>schema<span class="separator">: </span>step<span class="separator">: </span>url<span class="separator">: </span></h2>
-<p>Navigates to a certain URL in the user agent</p>
+<p><span class="comment"># Navigates to a certain URL in the user agent</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/url-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -296,7 +297,7 @@ additionalProperties: false
 </section>
 <section>
 <h2>schema<span class="separator">: </span>step<span class="separator">: </span>store<span class="separator">: </span></h2>
-<p>Includes a scenario with a certain title</p>
+<p><span class="comment"># Includes a scenario with a certain title</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/store-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -329,7 +330,7 @@ definitions:
 </section>
 <section>
 <h2>schema<span class="separator">: </span>step<span class="separator">: </span>ensure<span class="separator">: </span></h2>
-<p>Ensures the presence of an element using different criteria</p>
+<p><span class="comment"># Ensures the presence of an element using different criteria</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/ensure-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -359,7 +360,7 @@ additionalProperties: false
 </section>
 <section>
 <h2>schema<span class="separator">: </span>step<span class="separator">: </span>click<span class="separator">: </span></h2>
-<p>Clicks on the given visible element.</p>
+<p><span class="comment"># Clicks on the given visible element.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/click-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -389,7 +390,7 @@ additionalProperties: false
 </section>
 <section>
 <h2>schema<span class="separator">: </span>criteria<span class="separator">: </span>ensure<span class="separator">: </span></h2>
-<p>Qualifier for an element state validation.</p>
+<p><span class="comment"># Qualifier for an element state validation.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/ensure-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -439,7 +440,7 @@ additionalProperties: false
 </section>
 <section>
 <h2>schema<span class="separator">: </span>criteria<span class="separator">: </span>select<span class="separator">: </span></h2>
-<p>Qualifier for an element option selection.</p>
+<p><span class="comment"># Qualifier for an element option selection.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/select-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -492,7 +493,7 @@ required:
 </section>
 <section>
 <h2>schema<span class="separator">: </span>criteria<span class="separator">: </span>parent<span class="separator">: </span></h2>
-<p>Qualifier for parent element selection.</p>
+<p><span class="comment"># Qualifier for parent element selection.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -513,7 +514,7 @@ required:
 </section>
 <section>
 <h2>schema<span class="separator">: </span>criteria<span class="separator">: </span>move<span class="separator">: </span></h2>
-<p>Qualifier for moving to an element.</p>
+<p><span class="comment"># Qualifier for moving to an element.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/move-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -544,7 +545,7 @@ required:
 </section>
 <section>
 <h2>schema<span class="separator">: </span>criteria<span class="separator">: </span>enter<span class="separator">: </span></h2>
-<p>Qualifier for an element value change.</p>
+<p><span class="comment"># Qualifier for an element value change.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -578,7 +579,7 @@ required:
 </section>
 <section>
 <h2>schema<span class="separator">: </span>criteria<span class="separator">: </span>click<span class="separator">: </span></h2>
-<p>Qualifier for an element click.</p>
+<p><span class="comment"># Qualifier for an element click.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/click-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -609,7 +610,7 @@ required:
 </section>
 <section>
 <h2>schema<span class="separator">: </span>expression<span class="separator">: </span></h2>
-<p>An expression is a evaluable statement that can be utilized on certain properties.</p>
+<p><span class="comment"># An expression is a evaluable statement that can be utilized on certain properties.</span></p>
 <code>
 id: 'http://waml-schema.org/draft-02/expression-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
