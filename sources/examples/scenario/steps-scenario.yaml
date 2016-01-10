@@ -1,0 +1,6 @@
+$schema: http://waml-schema.org/draft-02/scenario-schema#
+name: Steps demonstation scenario
+description: Verifies the presence of the header.
+steps:
+  - url: www.example.com
+  - ensure: h1.greeting
