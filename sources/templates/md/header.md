@@ -1,2 +1,2 @@
-# {{ model.shortTitle + ": " + model.pkg.shortVersion }}
+# {{ model.shortTitle + ": " + model.pkg.schemaVersion }}
 

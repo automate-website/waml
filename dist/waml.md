@@ -1,4 +1,4 @@
-# WAML: undefined
+# WAML: draft-02
 
 ## schema: 
 ```
