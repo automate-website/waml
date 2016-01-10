@@ -28,7 +28,9 @@ properties:
         default: text
     value:
         oneOf:
-          - type: ["number", "boolean"]
+          - type:
+              - number
+              - boolean
           - $ref: http://waml-schema.org/draft-02/expression-schema#
         description: Value that should be checked against
     mode:

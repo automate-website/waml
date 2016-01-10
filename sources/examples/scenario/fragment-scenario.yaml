@@ -2,4 +2,4 @@ $schema: http://waml-schema.org/draft-02/scenario-schema#
 name: fragment-scenario
 type: fragment
 steps:
-  - url: www.example.com
+  - open: www.example.com

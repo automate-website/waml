@@ -1,4 +1,4 @@
-# WAML (draf-0.2)
+# WAML (draft-0.2)
 
 **Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case you have useful suggestions.
 
@@ -27,7 +27,7 @@ A very basic scenario must contain a ```name``` and ```steps``` property. The li
 $schema: http://waml-schema.org/draft-02/scenario-schema#
 name: Name of the scenario
 steps:
-  - url: www.example.com
+  - open: www.example.com
 ```
 
 This minimal example demonstrates the simplicity of WAML. The full list of supported metadata is depicted below.
@@ -39,10 +39,10 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 | description |_(Optional)_ Short summary of the overall scenario purpose. |string |
 | type |_(Optional)_ Defines if a scenario may be executed stand-alone or only as a part of another scenario. __Default:__ doable |_Enum:_<br/>fragment,<br/> doable |
 | precendence |_(Optional)_ Defines the particular priority of the scenario during execution of independent scenarios. __Default:__ -1 |integer |
-| timeout |_(Optional)_ Maximal time [ms] to wait for conditions to be true. __Default:__ 1000 |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> integer |
-| steps | |_Sequence of:_<br/>[step-schema](http://waml-schema.org/draft-02/step-schema#) |
-| if |_(Optional)_ If set, the scenario is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| unless |_(Optional)_ If set, the scenario is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
+| timeout |_(Optional)_ Maximal time [ms] to wait for conditions to be true. __Default:__ 1000 |_One of:_<br/>[expression-schema](#expression-schema),<br/> integer |
+| steps |Sequence of actions. |_Sequence of:_<br/>[step-schema](#step-schema) |
+| if |_(Optional)_ If set, the scenario is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the scenario is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 Using this properties, the following more comprehensive example can be created:
@@ -57,16 +57,16 @@ precendence: 1
 timeout: 1000
 if: ${ true }
 steps:
-  - url: www.example.com
+  - open: www.example.com
 ```
 
-## Steps Schema
+## Step Schema
 
 The steps property must be represented as a sequence of actions. Every step represents the smallest identifiable user action.
 
 | Property | Description | Type |
 |---|---|---|
-|  &ndash;  |A step represents the smallest identifiable user action. |_One of:_<br/>[url-step-schema](http://waml-schema.org/draft-02/url-step-schema#),<br/> [include-step-schema](http://waml-schema.org/draft-02/include-step-schema#),<br/> [store-step-schema](http://waml-schema.org/draft-02/store-step-schema#),<br/> [ensure-step-schema](http://waml-schema.org/draft-02/ensure-step-schema#),<br/> [click-step-schema](http://waml-schema.org/draft-02/click-step-schema#),<br/> [select-step-schema](http://waml-schema.org/draft-02/select-step-schema#),<br/> [enter-step-schema](http://waml-schema.org/draft-02/enter-step-schema#),<br/> [move-step-schema](http://waml-schema.org/draft-02/move-step-schema#) |
+|  &ndash;  |A step represents the smallest identifiable user action. |_One of:_<br/>[open-step-schema](#open-step-schema),<br/> [include-step-schema](#include-step-schema),<br/> [store-step-schema](#store-step-schema),<br/> [ensure-step-schema](#ensure-step-schema),<br/> [click-step-schema](#click-step-schema),<br/> [select-step-schema](#select-step-schema),<br/> [enter-step-schema](#enter-step-schema),<br/> [move-step-schema](#move-step-schema) |
 
 
 The actions could be:
@@ -81,91 +81,177 @@ $schema: http://waml-schema.org/draft-02/scenario-schema#
 name: Steps demonstation scenario
 description: Verifies the presence of the header.
 steps:
-  - url: www.example.com
-  - ensure: h1.greeting
+  - open: www.example.com
+  - ensure:
+      selector: h1.greeting
 ```
 
-## Actions
-
+## Actions and Criteria
 ### Open
+#### Open Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| url |The url to which the navigation takes place. |[expression-schema](http://waml-schema.org/draft-02/expression-schema#) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| open |The url to which the navigation takes place. |[expression-schema](#expression-schema) |
 
+
+#### Open Criteria Schema
+
+The ```open``` action has no additional criteria.
 
 ### Ensure
+#### Ensure Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| ensure |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> [ensure-criteria-schema](http://waml-schema.org/draft-02/ensure-criteria-schema#) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| ensure |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [ensure-criteria-schema](#ensure-criteria-schema) |
 
+
+#### Ensure Criteria Schema
+
+| Property | Description | Type |
+|---|---|---|
+| selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| source |_(Optional)_ The element's value source __Default:__ text |_Enum:_<br/>value,<br/> text,<br/> title |
+| value |_(Optional)_ Value that should be checked against |_One of:_<br/>number,boolean,<br/> [expression-schema](#expression-schema) |
+| mode |_(Optional)_ Value comparison mode. __Default:__ equals |_Enum:_<br/>equals,<br/> contains,<br/> regex |
 
 
 ### Move
+#### Move Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| move |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> [click-criteria-schema](http://waml-schema.org/draft-02/click-criteria-schema#) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| move |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [click-criteria-schema](#click-criteria-schema) |
+
+
+#### Move Criteria Schema
+
+| Property | Description | Type |
+|---|---|---|
+| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 
 
 ### Click
+#### Click Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| click |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> [click-criteria-schema](http://waml-schema.org/draft-02/click-criteria-schema#) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| click |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [click-criteria-schema](#click-criteria-schema) |
+
+
+#### Click Criteria Schema
+
+| Property | Description | Type |
+|---|---|---|
+| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 
 
 ### Select
+#### Select Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| select |_(Optional)_ Criteria of the element to select. |[select-criteria-schema](http://waml-schema.org/draft-02/select-criteria-schema#) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| select |_(Optional)_ Criteria of the element to select. |[select-criteria-schema](#select-criteria-schema) |
+
+
+#### Select Criteria Schema
+
+| Property | Description | Type |
+|---|---|---|
+| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| source |_(Optional)_ The element's value source __Default:__ text |_Enum:_<br/>value,<br/> text,<br/> title |
+| value |Value that should be checked against |_One of:_<br/>number,boolean,<br/> [expression-schema](#expression-schema) |
+| mode |_(Optional)_ Value comparison mode. __Default:__ equals |_Enum:_<br/>equals,<br/> contains,<br/> regex |
 
 
 ### Enter
 
+#### Enter Step Schema
+
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| enter |_(Optional)_ Send a sequence of key strokes to an element. |[enter-criteria-schema](http://waml-schema.org/draft-02/enter-criteria-schema#) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| enter |_(Optional)_ Send a sequence of key strokes to an element. |[enter-criteria-schema](#enter-criteria-schema) |
+
+
+#### Enter Criteria Schema
+
+| Property | Description | Type |
+|---|---|---|
+| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| value |Value to set. |string |
 
 
 ### Include
+#### Include Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| include |The title of the scenario to include |[expression-schema](http://waml-schema.org/draft-02/expression-schema#) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| include |The title of the scenario to include |[expression-schema](#expression-schema) |
 
 
+#### Include Criteria Schema
+
+The ```include``` action has no additional criteria.
 
 ### Store
+#### Store Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](http://waml-schema.org/draft-02/expression-schema#),<br/> boolean |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | store |_(Optional)_ A hash of variables to be defined in the execution context. |object |
 
 
+#### Store Criteria Schema
+
+The ```store``` action has no additional criteria.
+
 ## Expressions
+### Expression Schema
 
 | Property | Description | Type |
 |---|---|---|
 |  &ndash;  |An expression is a evaluable statement that can be utilized on certain properties. |string |
+
+
+## Shared Criteria
+### Parent Criteria Schema
+
+| Property | Description | Type |
+|---|---|---|
+| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
 
 
 

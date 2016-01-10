@@ -1,4 +1,4 @@
-# WAML (draf-0.2)
+# WAML (draft-0.2)
 
 **Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case you have useful suggestions.
 
@@ -37,7 +37,7 @@ Using this properties, the following more comprehensive example can be created:
 {{ include('./sources/examples/scenario/full-featured-scenario.yaml') }}
 ```
 
-## Steps Schema
+## Step Schema
 
 The steps property must be represented as a sequence of actions. Every step represents the smallest identifiable user action.
 
@@ -54,45 +54,89 @@ This would look like the following in WAML.
 {{ include('./sources/examples/scenario/steps-scenario.yaml') }}
 ```
 
-## Actions
-
+## Actions and Criteria
 ### Open
+#### Open Step Schema
 
-{{ schema2md('./sources/schema/steps/url-step-schema.yaml') }}
+{{ schema2md('./sources/schema/steps/open-step-schema.yaml') }}
+
+#### Open Criteria Schema
+
+The ```open``` action has no additional criteria.
 
 ### Ensure
+#### Ensure Step Schema
 
 {{ schema2md('./sources/schema/steps/ensure-step-schema.yaml') }}
 
+#### Ensure Criteria Schema
+
+{{ schema2md('./sources/schema/criteria/ensure-criteria-schema.yaml') }}
 
 ### Move
+#### Move Step Schema
 
 {{ schema2md('./sources/schema/steps/move-step-schema.yaml') }}
 
+#### Move Criteria Schema
+
+{{ schema2md('./sources/schema/criteria/move-criteria-schema.yaml') }}
+
 ### Click
+#### Click Step Schema
 
 {{ schema2md('./sources/schema/steps/click-step-schema.yaml') }}
 
+#### Click Criteria Schema
+
+{{ schema2md('./sources/schema/criteria/click-criteria-schema.yaml') }}
+
 ### Select
+#### Select Step Schema
 
 {{ schema2md('./sources/schema/steps/select-step-schema.yaml') }}
 
+#### Select Criteria Schema
+
+{{ schema2md('./sources/schema/criteria/select-criteria-schema.yaml') }}
+
 ### Enter
+
+#### Enter Step Schema
 
 {{ schema2md('./sources/schema/steps/enter-step-schema.yaml') }}
 
+#### Enter Criteria Schema
+
+{{ schema2md('./sources/schema/criteria/enter-criteria-schema.yaml') }}
+
 ### Include
+#### Include Step Schema
 
 {{ schema2md('./sources/schema/steps/include-step-schema.yaml') }}
 
+#### Include Criteria Schema
+
+The ```include``` action has no additional criteria.
 
 ### Store
+#### Store Step Schema
 
 {{ schema2md('./sources/schema/steps/store-step-schema.yaml') }}
 
+#### Store Criteria Schema
+
+The ```store``` action has no additional criteria.
+
 ## Expressions
+### Expression Schema
 
 {{ schema2md('./sources/schema/expression-schema.yaml') }}
+
+## Shared Criteria
+### Parent Criteria Schema
+
+{{ schema2md('./sources/schema/criteria/parent-criteria-schema.yaml') }}
 
 
 ## Management of Multiple Scenarios

@@ -21,6 +21,7 @@ properties:
             - $ref: http://waml-schema.org/draft-02/parent-criteria-schema#
     value:
         description: Value to set.
+        type: string
 additionalProperties: false
 required:
     - selector

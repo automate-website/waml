@@ -50,6 +50,7 @@ properties:
     description: 'Maximal time [ms] to wait for conditions to be true.'
     default: 1000
   steps:
+    description: Sequence of actions.
     type: array
     items:
       $ref: 'http://waml-schema.org/draft-02/step-schema#'
@@ -77,7 +78,7 @@ title: Step
 type: object
 description: A step represents the smallest identifiable user action.
 oneOf:
-  - $ref: 'http://waml-schema.org/draft-02/url-step-schema#'
+  - $ref: 'http://waml-schema.org/draft-02/open-step-schema#'
   - $ref: 'http://waml-schema.org/draft-02/include-step-schema#'
   - $ref: 'http://waml-schema.org/draft-02/store-step-schema#'
   - $ref: 'http://waml-schema.org/draft-02/ensure-step-schema#'
@@ -87,12 +88,12 @@ oneOf:
   - $ref: 'http://waml-schema.org/draft-02/move-step-schema#'
 
 ```
-## schema: step: select: 
+## schema: step: open: 
 ```
-id: 'http://waml-schema.org/draft-02/select-step-schema#'
+id: 'http://waml-schema.org/draft-02/open-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Select from dropdown
-description: Selects from dropdown by the given criteria.
+title: Url
+description: Navigates to a certain URL in the user agent
 properties:
   $schema:
     type: string
@@ -106,9 +107,11 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
     description: 'If set, the step is only executed if the value evaluates to false'
-  select:
-    description: Criteria of the element to select.
-    $ref: 'http://waml-schema.org/draft-02/select-criteria-schema#'
+  open:
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+    description: The url to which the navigation takes place.
+required:
+  - open
 additionalProperties: false
 
 ```
@@ -191,33 +194,6 @@ properties:
 additionalProperties: false
 
 ```
-## schema: step: url: 
-```
-id: 'http://waml-schema.org/draft-02/url-step-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Url
-description: Navigates to a certain URL in the user agent
-properties:
-  $schema:
-    type: string
-  if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
-  url:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: The url to which the navigation takes place.
-required:
-  - url
-additionalProperties: false
-
-```
 ## schema: step: store: 
 ```
 id: 'http://waml-schema.org/draft-02/store-step-schema#'
@@ -246,6 +222,31 @@ additionalProperties: false
 definitions:
   entry:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+
+```
+## schema: step: select: 
+```
+id: 'http://waml-schema.org/draft-02/select-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Select from dropdown
+description: Selects from dropdown by the given criteria.
+properties:
+  $schema:
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false'
+  select:
+    description: Criteria of the element to select.
+    $ref: 'http://waml-schema.org/draft-02/select-criteria-schema#'
+additionalProperties: false
 
 ```
 ## schema: step: ensure: 
@@ -470,6 +471,7 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
   value:
     description: Value to set.
+    type: string
 additionalProperties: false
 required:
   - selector

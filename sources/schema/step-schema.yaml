@@ -4,7 +4,7 @@ title: Step
 type: object
 description: A step represents the smallest identifiable user action.
 oneOf:
-    - $ref: http://waml-schema.org/draft-02/url-step-schema#
+    - $ref: http://waml-schema.org/draft-02/open-step-schema#
     - $ref: http://waml-schema.org/draft-02/include-step-schema#
     - $ref: http://waml-schema.org/draft-02/store-step-schema#
     - $ref: http://waml-schema.org/draft-02/ensure-step-schema#
