@@ -1,4 +1,4 @@
-## {{model.schema.title}}
+## {{ model.schemaPath.join(': ') + ': ' }}
 ```
 {{model.schemaStr}}
 ```

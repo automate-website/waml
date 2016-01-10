@@ -159,6 +159,11 @@ module.exports = function(grunt) {
         writeFile(filePath, content, done)
     }
 	
+	function parseSchemaPath(id){
+		var schemaPathStr = id.substring(id.lastIndexOf('/') + 1, id.length - 1);
+		return schemaPathStr.split('-').reverse();
+	}
+	
 	function sortSchemasByOrder(schemas){
 	    schemas.sort(function(left, right){
 	        var leftIndex = indexOfSchemaKey(schemaOrder, left.id),
@@ -198,7 +203,8 @@ module.exports = function(grunt) {
             
             content = content + subschemaTemplate({ model : {
                 schemaStr: yamlStr,
-                schema: object 
+                schema: object,
+                schemaPath: parseSchemaPath(object.id)
             }});
         });
         

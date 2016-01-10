@@ -1,6 +1,6 @@
 <section>
-<h2>{{ model.schema.title }}</h2>
-<p>{{ model.schema.description }}</p>
+<h2>{{ model.schemaPath.join('<span class="separator">: </span>') + '<span class="separator">: </span>' }}</h2>
+<p><span class="comment"># {{ model.schema.description }}</span></p>
 <code>
 {{ model.schemaStr }}
 </code>
