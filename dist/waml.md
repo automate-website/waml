@@ -1,6 +1,6 @@
 # WAML: undefined
 
-## Web Automation Markup Language
+## schema: 
 ```
 id: 'http://waml-schema.org/draft-02/schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -12,7 +12,7 @@ items:
 additionalProperties: false
 
 ```
-## Scenario
+## schema: scenario: 
 ```
 id: 'http://waml-schema.org/draft-02/scenario-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -69,7 +69,7 @@ required:
   - steps
 
 ```
-## Step
+## schema: step: 
 ```
 id: 'http://waml-schema.org/draft-02/step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -84,9 +84,10 @@ oneOf:
   - $ref: 'http://waml-schema.org/draft-02/click-step-schema#'
   - $ref: 'http://waml-schema.org/draft-02/select-step-schema#'
   - $ref: 'http://waml-schema.org/draft-02/enter-step-schema#'
+  - $ref: 'http://waml-schema.org/draft-02/move-step-schema#'
 
 ```
-## Select from dropdown
+## schema: step: select: 
 ```
 id: 'http://waml-schema.org/draft-02/select-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -111,7 +112,7 @@ properties:
 additionalProperties: false
 
 ```
-## Moves to the given element
+## schema: step: move: 
 ```
 id: 'http://waml-schema.org/draft-02/move-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -138,7 +139,7 @@ properties:
 additionalProperties: false
 
 ```
-## Include Scenario
+## schema: step: include: 
 ```
 id: 'http://waml-schema.org/draft-02/include-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -165,7 +166,7 @@ required:
 additionalProperties: false
 
 ```
-## Enter key sequence
+## schema: step: enter: 
 ```
 id: 'http://waml-schema.org/draft-02/enter-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -190,7 +191,7 @@ properties:
 additionalProperties: false
 
 ```
-## Url
+## schema: step: url: 
 ```
 id: 'http://waml-schema.org/draft-02/url-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -217,7 +218,7 @@ required:
 additionalProperties: false
 
 ```
-## Store variable
+## schema: step: store: 
 ```
 id: 'http://waml-schema.org/draft-02/store-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -247,7 +248,7 @@ definitions:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
 
 ```
-## Ensure the presence of an element
+## schema: step: ensure: 
 ```
 id: 'http://waml-schema.org/draft-02/ensure-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -274,7 +275,7 @@ properties:
 additionalProperties: false
 
 ```
-## Click on the given element
+## schema: step: click: 
 ```
 id: 'http://waml-schema.org/draft-02/click-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -301,7 +302,7 @@ properties:
 additionalProperties: false
 
 ```
-## Ensure criteria
+## schema: criteria: ensure: 
 ```
 id: 'http://waml-schema.org/draft-02/ensure-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -348,7 +349,7 @@ properties:
 additionalProperties: false
 
 ```
-## Select criteria
+## schema: criteria: select: 
 ```
 id: 'http://waml-schema.org/draft-02/select-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -398,7 +399,7 @@ required:
   - value
 
 ```
-## Parent criteria
+## schema: criteria: parent: 
 ```
 id: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -416,7 +417,7 @@ required:
   - selector
 
 ```
-## Move criteria
+## schema: criteria: move: 
 ```
 id: 'http://waml-schema.org/draft-02/move-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -444,7 +445,7 @@ required:
   - selector
 
 ```
-## Enter criteria
+## schema: criteria: enter: 
 ```
 id: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -475,7 +476,7 @@ required:
   - value
 
 ```
-## Click criteria
+## schema: criteria: click: 
 ```
 id: 'http://waml-schema.org/draft-02/click-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
@@ -503,7 +504,7 @@ required:
   - selector
 
 ```
-## Expression
+## schema: expression: 
 ```
 id: 'http://waml-schema.org/draft-02/expression-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'

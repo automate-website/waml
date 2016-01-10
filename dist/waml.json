@@ -121,6 +121,9 @@
             },
             {
                 "$ref": "http://waml-schema.org/draft-02/enter-step-schema#"
+            },
+            {
+                "$ref": "http://waml-schema.org/draft-02/move-step-schema#"
             }
         ]
     },
