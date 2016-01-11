@@ -35,7 +35,7 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 |---|---|---|
 | name |Unique name that is used to reference a certain scenario. |string |
 | description |_(Optional)_ Short summary of the overall scenario purpose. |string |
-| fragment |_(Optional)_ Defines if a scenario is a fragment or may be executed stand-alone. |boolean |
+| fragment |_(Optional)_ Defines if a scenario is a fragment or may be executed stand-alone. __Default:__ false |boolean |
 | precendence |_(Optional)_ Defines the particular priority of the scenario during execution of independent scenarios. __Default:__ -1 |integer |
 | timeout |_(Optional)_ Maximal time [ms] to wait for conditions to be true. __Default:__ 1000 |_One of:_<br/>[expression-schema](#expression-schema),<br/> integer |
 | steps |Sequence of actions. |_Sequence of:_<br/>[step-schema](#step-schema) |
