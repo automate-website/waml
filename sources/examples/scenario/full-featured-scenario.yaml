@@ -3,8 +3,8 @@ title: Full featured scenario
 name: full-featured-scenario
 description: A full featured scenario
 type: doable
-precendence: 1
-timeout: 1000
+precendence: 100
+timeout: 5000
 if: ${ true }
 steps:
   - open: www.example.com

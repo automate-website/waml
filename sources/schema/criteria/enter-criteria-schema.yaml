@@ -2,6 +2,7 @@ id: http://waml-schema.org/draft-02/enter-criteria-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Enter criteria
 description: Qualifier for an element value change.
+type: object
 properties:
     selector:
         $ref: http://waml-schema.org/draft-02/expression-schema#

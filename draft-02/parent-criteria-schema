@@ -2,13 +2,14 @@ id: http://waml-schema.org/draft-02/parent-criteria-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Parent criteria
 description: Qualifier for parent element selection.
+type: object
 properties:
     selector:
         $ref: http://waml-schema.org/draft-02/expression-schema#
         description: CSS selector of element to select.
     text:
         $ref: http://waml-schema.org/draft-02/expression-schema#
-        description: Select element which contains the given text.    
+        description: Select element which contains the given text.
 additionalProperties: false
 required:
     - selector

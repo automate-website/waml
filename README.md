@@ -1,6 +1,6 @@
 # WAML (draft-0.2)
 
-**Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case you have useful suggestions.
+**Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.
 
 Refer to the [changelog] for recent notable changes and modifications.
 
@@ -24,7 +24,6 @@ WAML is based on [JSON Schema] that lives at [waml-schema.org]. WAML schema is a
 A very basic scenario must contain a ```name``` and ```steps``` property. The list of actions may be empty, however, it is reasonable to have at least one action.
 
 ```yaml
-$schema: http://waml-schema.org/draft-02/scenario-schema#
 name: Name of the scenario
 steps:
   - open: www.example.com
@@ -48,13 +47,12 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 Using this properties, the following more comprehensive example can be created:
 
 ```yaml
-$schema: http://waml-schema.org/draft-02/scenario-schema#
 title: Full featured scenario
 name: full-featured-scenario
 description: A full featured scenario
 type: doable
-precendence: 1
-timeout: 1000
+precendence: 100
+timeout: 5000
 if: ${ true }
 steps:
   - open: www.example.com
@@ -69,32 +67,19 @@ The steps property must be represented as a sequence of actions. Every step repr
 |  &ndash;  |A step represents the smallest identifiable user action. |_One of:_<br/>[open-step-schema](#open-step-schema),<br/> [include-step-schema](#include-step-schema),<br/> [store-step-schema](#store-step-schema),<br/> [ensure-step-schema](#ensure-step-schema),<br/> [click-step-schema](#click-step-schema),<br/> [select-step-schema](#select-step-schema),<br/> [enter-step-schema](#enter-step-schema),<br/> [move-step-schema](#move-step-schema) |
 
 
-The actions could be:
 
-1. Open a web page.
-2. Verify the presence of a header with a certain class.
-
-This would look like the following in WAML.
-
-```yaml
-$schema: http://waml-schema.org/draft-02/scenario-schema#
-name: Steps demonstation scenario
-description: Verifies the presence of the header.
-steps:
-  - open: www.example.com
-  - ensure:
-      selector: h1.greeting
-```
 
 ## Actions and Criteria
 ### Open
 #### Open Step Schema
 
+Like for a real user, ```open``` is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
+
 | Property | Description | Type |
 |---|---|---|
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| open |The url to which the navigation takes place. |[expression-schema](#expression-schema) |
+| open |The URL to which the navigation takes place. |[expression-schema](#expression-schema) |
 
 
 #### Open Criteria Schema
@@ -103,6 +88,8 @@ The ```open``` action has no additional criteria.
 
 ### Ensure
 #### Ensure Step Schema
+
+To verify the integrity of the page it may be reasonable to ensure the presence of a certain element. The action ```ensure``` verifies, whether the particular element is present on the page.
 
 | Property | Description | Type |
 |---|---|---|
@@ -124,8 +111,37 @@ The ```open``` action has no additional criteria.
 | mode |_(Optional)_ Value comparison mode. __Default:__ equals |_Enum:_<br/>equals,<br/> contains,<br/> regex |
 
 
+#### Ensure Examples
+The following simple scenario can be created using the shot-notation of ```ensure``` action:
+
+1. Open a web page.
+2. Verify the presence of a header with a certain class.
+
+This would look like the following in WAML.
+
+```yaml
+name: Ensure demonstation scenario
+steps:
+  - open: www.example.com
+  - ensure: h1.greeting
+```
+
+Using the additional criteria not only the presence of the element can be ensured but also elements content and its appearance within a defined a time constraint.
+
+```yaml
+name: Ensure demonstation scenario with additional contstraints
+steps:
+  - open: www.example.com
+  - ensure:
+      selector: h1.greeting
+      timeout: 400
+      value: 'Welcome to example.com!'
+```
+
 ### Move
 #### Move Step Schema
+
+For hidden elements which appear only after the user has hovered a certain element the (mouse) ```move``` action can be used.  
 
 | Property | Description | Type |
 |---|---|---|
@@ -144,8 +160,25 @@ The ```open``` action has no additional criteria.
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 
 
+#### Move Example
+
+The following example depicts the usage of the ```move``` action.
+
+```yaml
+name: Move demonstation scenario
+steps:
+  - open: www.example.com
+  - move: a.help
+  - ensure:
+      selector: .help-tooltip
+      text: 'Click here to get help.'
+```
+
+
 ### Click
 #### Click Step Schema
+
+Every kind of clicks can be simulated with the ```click``` action.
 
 | Property | Description | Type |
 |---|---|---|
@@ -163,6 +196,28 @@ The ```open``` action has no additional criteria.
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 
+
+#### Click Examples
+
+In the following short-notation example click happens on an anchor element selected by CSS. 
+
+```yaml
+name: Click demonstation scenario
+steps:
+  - open: www.example.com
+  - click: a.sign-up
+```
+
+The ```text``` criteria may be used to verify the wording of the target.
+ 
+```yaml
+name: Click demonstation scenario 2
+steps:
+  - open: www.example.com
+  - click:
+      selector: a.sign-up
+      text: 'Join now for free!'
+```
 
 ### Select
 #### Select Step Schema

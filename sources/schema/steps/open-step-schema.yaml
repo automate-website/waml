@@ -1,7 +1,7 @@
 id: http://waml-schema.org/draft-02/open-step-schema#
 $schema: http://json-schema.org/draft-04/schema#
-title: Url
-description: Navigates to a certain URL in the user agent
+title: Open
+description: Navigates to a certain URL in the user agent.
 properties:
     $schema:
         type: string
@@ -17,7 +17,7 @@ properties:
         description: If set, the step is only executed if the value evaluates to false
     open:
         $ref: http://waml-schema.org/draft-02/expression-schema#
-        description: The url to which the navigation takes place.
+        description: The URL to which the navigation takes place.
 required:
     - open
 additionalProperties: false

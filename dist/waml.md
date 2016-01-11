@@ -92,8 +92,8 @@ oneOf:
 ```
 id: 'http://waml-schema.org/draft-02/open-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Url
-description: Navigates to a certain URL in the user agent
+title: Open
+description: Navigates to a certain URL in the user agent.
 properties:
   $schema:
     type: string
@@ -109,7 +109,7 @@ properties:
     description: 'If set, the step is only executed if the value evaluates to false'
   open:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: The url to which the navigation takes place.
+    description: The URL to which the navigation takes place.
 required:
   - open
 additionalProperties: false
@@ -309,6 +309,7 @@ id: 'http://waml-schema.org/draft-02/ensure-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Ensure criteria
 description: Qualifier for an element state validation.
+type: object
 properties:
   selector:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
@@ -356,6 +357,7 @@ id: 'http://waml-schema.org/draft-02/select-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Select criteria
 description: Qualifier for an element option selection.
+type: object
 properties:
   selector:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
@@ -406,6 +408,7 @@ id: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Parent criteria
 description: Qualifier for parent element selection.
+type: object
 properties:
   selector:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
@@ -424,6 +427,7 @@ id: 'http://waml-schema.org/draft-02/move-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Move criteria
 description: Qualifier for moving to an element.
+type: object
 properties:
   selector:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
@@ -452,6 +456,7 @@ id: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Enter criteria
 description: Qualifier for an element value change.
+type: object
 properties:
   selector:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
@@ -484,6 +489,7 @@ id: 'http://waml-schema.org/draft-02/click-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
 title: Click criteria
 description: Qualifier for an element click.
+type: object
 properties:
   selector:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'

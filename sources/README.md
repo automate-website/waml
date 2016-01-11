@@ -1,6 +1,6 @@
 # WAML (draft-0.2)
 
-**Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case you have useful suggestions.
+**Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.
 
 Refer to the [changelog] for recent notable changes and modifications.
 
@@ -23,9 +23,7 @@ WAML is based on [JSON Schema] that lives at [waml-schema.org]. WAML schema is a
 
 A very basic scenario must contain a ```name``` and ```steps``` property. The list of actions may be empty, however, it is reasonable to have at least one action.
 
-```yaml
-{{ include('./sources/examples/scenario/simple-scenario.yaml') }}
-```
+{{ includeScenario('./sources/examples/scenario/simple-scenario.yaml') }}
 
 This minimal example demonstrates the simplicity of WAML. The full list of supported metadata is depicted below.
 
@@ -33,9 +31,7 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 
 Using this properties, the following more comprehensive example can be created:
 
-```yaml
-{{ include('./sources/examples/scenario/full-featured-scenario.yaml') }}
-```
+{{ includeScenario('./sources/examples/scenario/full-featured-scenario.yaml') }}
 
 ## Step Schema
 
@@ -43,20 +39,13 @@ The steps property must be represented as a sequence of actions. Every step repr
 
 {{ schema2md('./sources/schema/step-schema.yaml') }}
 
-The actions could be:
 
-1. Open a web page.
-2. Verify the presence of a header with a certain class.
-
-This would look like the following in WAML.
-
-```yaml
-{{ include('./sources/examples/scenario/steps-scenario.yaml') }}
-```
 
 ## Actions and Criteria
 ### Open
 #### Open Step Schema
+
+Like for a real user, ```open``` is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
 
 {{ schema2md('./sources/schema/steps/open-step-schema.yaml') }}
 
@@ -67,14 +56,32 @@ The ```open``` action has no additional criteria.
 ### Ensure
 #### Ensure Step Schema
 
+To verify the integrity of the page it may be reasonable to ensure the presence of a certain element. The action ```ensure``` verifies, whether the particular element is present on the page.
+
 {{ schema2md('./sources/schema/steps/ensure-step-schema.yaml') }}
 
 #### Ensure Criteria Schema
 
 {{ schema2md('./sources/schema/criteria/ensure-criteria-schema.yaml') }}
 
+#### Ensure Examples
+The following simple scenario can be created using the shot-notation of ```ensure``` action:
+
+1. Open a web page.
+2. Verify the presence of a header with a certain class.
+
+This would look like the following in WAML.
+
+{{ includeScenario('./sources/examples/scenario/ensure-scenario-1.yaml') }}
+
+Using the additional criteria not only the presence of the element can be ensured but also elements content and its appearance within a defined a time constraint.
+
+{{ includeScenario('./sources/examples/scenario/ensure-scenario-2.yaml') }}
+
 ### Move
 #### Move Step Schema
+
+For hidden elements which appear only after the user has hovered a certain element the (mouse) ```move``` action can be used.  
 
 {{ schema2md('./sources/schema/steps/move-step-schema.yaml') }}
 
@@ -82,14 +89,33 @@ The ```open``` action has no additional criteria.
 
 {{ schema2md('./sources/schema/criteria/move-criteria-schema.yaml') }}
 
+#### Move Example
+
+The following example depicts the usage of the ```move``` action.
+
+{{ includeScenario('./sources/examples/scenario/move-scenario-1.yaml') }}
+
+
 ### Click
 #### Click Step Schema
+
+Every kind of clicks can be simulated with the ```click``` action.
 
 {{ schema2md('./sources/schema/steps/click-step-schema.yaml') }}
 
 #### Click Criteria Schema
 
 {{ schema2md('./sources/schema/criteria/click-criteria-schema.yaml') }}
+
+#### Click Examples
+
+In the following short-notation example click happens on an anchor element selected by CSS. 
+
+{{ includeScenario('./sources/examples/scenario/click-scenario-1.yaml') }}
+
+The ```text``` criteria may be used to verify the wording of the target.
+ 
+{{ includeScenario('./sources/examples/scenario/click-scenario-2.yaml') }}
 
 ### Select
 #### Select Step Schema
