@@ -35,7 +35,7 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 |---|---|---|
 | name |Unique name that is used to reference a certain scenario. |string |
 | description |_(Optional)_ Short summary of the overall scenario purpose. |string |
-| type |_(Optional)_ Defines if a scenario may be executed stand-alone or only as a part of another scenario. __Default:__ doable |_Enum:_<br/>fragment,<br/> doable |
+| fragment |_(Optional)_ Defines if a scenario is a fragment or may be executed stand-alone. |boolean |
 | precendence |_(Optional)_ Defines the particular priority of the scenario during execution of independent scenarios. __Default:__ -1 |integer |
 | timeout |_(Optional)_ Maximal time [ms] to wait for conditions to be true. __Default:__ 1000 |_One of:_<br/>[expression-schema](#expression-schema),<br/> integer |
 | steps |Sequence of actions. |_Sequence of:_<br/>[step-schema](#step-schema) |
@@ -48,7 +48,7 @@ Using this properties, the following more comprehensive example can be created:
 ```yaml
 name: full-featured-scenario
 description: A full featured scenario
-type: doable
+fragment: false
 precendence: 100
 timeout: 5000
 if: ${ true }

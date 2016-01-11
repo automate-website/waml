@@ -1,7 +1,7 @@
 $schema: http://waml-schema.org/draft-02/scenario-schema#
 name: full-featured-scenario
 description: A full featured scenario
-type: doable
+fragment: false
 precendence: 100
 timeout: 5000
 if: ${ true }

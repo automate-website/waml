@@ -13,13 +13,10 @@ properties:
     description:
         type: string
         description: Short summary of the overall scenario purpose.
-    type:
-        type: string
-        description: Defines if a scenario may be executed stand-alone or only as a part of another scenario.
-        enum:
-            - fragment
-            - doable
-        default: doable
+    fragment:
+        type: boolean
+        description: Defines if a scenario is a fragment or may be executed stand-alone.
+        default: false
     precendence:
         type: integer
         description: Defines the particular priority of the scenario during execution of independent scenarios.
