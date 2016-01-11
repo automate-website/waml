@@ -4,7 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Created basic specification of the language
-- Changed action ```url``` to ```open```. 
+- Created basic specification of the language.
+- Changed action ```url``` to ```open```.
+- Removed ```title``` property from scenario metadata.
 
 [Unreleased]: https://github.com/automate-website/web-automation-markup-language/compare/0.0.0...HEAD

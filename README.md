@@ -34,7 +34,6 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 | Property | Description | Type |
 |---|---|---|
 | name |Unique name that is used to reference a certain scenario. |string |
-| title |_(Optional)_ Human readable scenario name. |string |
 | description |_(Optional)_ Short summary of the overall scenario purpose. |string |
 | type |_(Optional)_ Defines if a scenario may be executed stand-alone or only as a part of another scenario. __Default:__ doable |_Enum:_<br/>fragment,<br/> doable |
 | precendence |_(Optional)_ Defines the particular priority of the scenario during execution of independent scenarios. __Default:__ -1 |integer |
@@ -47,7 +46,6 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 Using this properties, the following more comprehensive example can be created:
 
 ```yaml
-title: Full featured scenario
 name: full-featured-scenario
 description: A full featured scenario
 type: doable

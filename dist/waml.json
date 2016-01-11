@@ -25,10 +25,6 @@
                 "type": "string",
                 "description": "Unique name that is used to reference a certain scenario."
             },
-            "title": {
-                "type": "string",
-                "description": "Human readable scenario name."
-            },
             "description": {
                 "type": "string",
                 "description": "Short summary of the overall scenario purpose."
