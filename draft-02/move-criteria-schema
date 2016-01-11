@@ -21,5 +21,3 @@ properties:
             - $ref: http://waml-schema.org/draft-02/expression-schema#
             - $ref: http://waml-schema.org/draft-02/parent-criteria-schema#
 additionalProperties: false
-required:
-    - selector

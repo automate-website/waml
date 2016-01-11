@@ -21,7 +21,7 @@ properties:
             - $ref: http://waml-schema.org/draft-02/expression-schema#
             - $ref: http://waml-schema.org/draft-02/parent-criteria-schema#
     source:
-        description: The element's value source
+        description: The element's value source.
         enum:
             - value
             - text
@@ -29,9 +29,10 @@ properties:
         default: text
     value:
         oneOf:
-          - type: ["number", "boolean"]
+          - type: number
+          - type: boolean
           - $ref: http://waml-schema.org/draft-02/expression-schema#
-        description: Value that should be checked against
+        description: Value that should be checked against.
     mode:
         description: Value comparison mode.
         enum:
@@ -41,5 +42,4 @@ properties:
         default: equals
 additionalProperties: false
 required:
-    - selector
     - value

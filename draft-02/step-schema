@@ -12,3 +12,4 @@ oneOf:
     - $ref: http://waml-schema.org/draft-02/select-step-schema#
     - $ref: http://waml-schema.org/draft-02/enter-step-schema#
     - $ref: http://waml-schema.org/draft-02/move-step-schema#
+    - $ref: http://waml-schema.org/draft-02/wait-step-schema#

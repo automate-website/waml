@@ -11,5 +11,4 @@ properties:
         $ref: http://waml-schema.org/draft-02/expression-schema#
         description: Select element which contains the given text.
 additionalProperties: false
-required:
-    - selector
+

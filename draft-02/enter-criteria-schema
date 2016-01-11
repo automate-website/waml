@@ -25,5 +25,4 @@ properties:
         type: string
 additionalProperties: false
 required:
-    - selector
     - value

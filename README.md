@@ -62,7 +62,7 @@ The steps property must be represented as a sequence of actions. Every step repr
 
 | Property | Description | Type |
 |---|---|---|
-|  &ndash;  |A step represents the smallest identifiable user action. |_One of:_<br/>[open-step-schema](#open-step-schema),<br/> [include-step-schema](#include-step-schema),<br/> [store-step-schema](#store-step-schema),<br/> [ensure-step-schema](#ensure-step-schema),<br/> [click-step-schema](#click-step-schema),<br/> [select-step-schema](#select-step-schema),<br/> [enter-step-schema](#enter-step-schema),<br/> [move-step-schema](#move-step-schema) |
+|  &ndash;  |A step represents the smallest identifiable user action. |_One of:_<br/>[open-step-schema](#open-step-schema),<br/> [include-step-schema](#include-step-schema),<br/> [store-step-schema](#store-step-schema),<br/> [ensure-step-schema](#ensure-step-schema),<br/> [click-step-schema](#click-step-schema),<br/> [select-step-schema](#select-step-schema),<br/> [enter-step-schema](#enter-step-schema),<br/> [move-step-schema](#move-step-schema),<br/> [wait-step-schema](#wait-step-schema) |
 
 
 
@@ -152,7 +152,7 @@ For hidden elements which appear only after the user has hovered a certain eleme
 
 | Property | Description | Type |
 |---|---|---|
-| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
@@ -189,7 +189,7 @@ Every kind of clicks can be simulated with the ```click``` action.
 
 | Property | Description | Type |
 |---|---|---|
-| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
@@ -231,12 +231,12 @@ steps:
 
 | Property | Description | Type |
 |---|---|---|
-| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
-| source |_(Optional)_ The element's value source __Default:__ text |_Enum:_<br/>value,<br/> text,<br/> title |
-| value |Value that should be checked against |_One of:_<br/>number,boolean,<br/> [expression-schema](#expression-schema) |
+| source |_(Optional)_ The element's value source. __Default:__ text |_Enum:_<br/>value,<br/> text,<br/> title |
+| value |Value that should be checked against. |_One of:_<br/>number,<br/> boolean,<br/> [expression-schema](#expression-schema) |
 | mode |_(Optional)_ Value comparison mode. __Default:__ equals |_Enum:_<br/>equals,<br/> contains,<br/> regex |
 
 
@@ -255,7 +255,7 @@ steps:
 
 | Property | Description | Type |
 |---|---|---|
-| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
@@ -303,7 +303,7 @@ The ```store``` action has no additional criteria.
 
 | Property | Description | Type |
 |---|---|---|
-| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
+| selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
 
 

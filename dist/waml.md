@@ -83,6 +83,32 @@ oneOf:
   - $ref: 'http://waml-schema.org/draft-02/select-step-schema#'
   - $ref: 'http://waml-schema.org/draft-02/enter-step-schema#'
   - $ref: 'http://waml-schema.org/draft-02/move-step-schema#'
+  - $ref: 'http://waml-schema.org/draft-02/wait-step-schema#'
+
+```
+## schema: step: select: 
+```
+id: 'http://waml-schema.org/draft-02/select-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Select from dropdown
+description: Selects from dropdown by the given criteria.
+properties:
+  $schema:
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false'
+  select:
+    description: Criteria of the element to select.
+    $ref: 'http://waml-schema.org/draft-02/select-criteria-schema#'
+additionalProperties: false
 
 ```
 ## schema: step: open: 
@@ -166,28 +192,22 @@ required:
 additionalProperties: false
 
 ```
-## schema: step: enter: 
+## schema: step: wait: 
 ```
-id: 'http://waml-schema.org/draft-02/enter-step-schema#'
+id: 'http://waml-schema.org/draft-02/wait-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Enter key sequence
-description: Send a sequence of key strokes to an element.
+title: Wait
+description: Does nothing (waits) a certain amount of time.
 properties:
   $schema:
     type: string
-  if:
+  wait:
+    description: 'Time to wait in [ms].'
     oneOf:
+      - type: number
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
-  enter:
-    description: Send a sequence of key strokes to an element.
-    $ref: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
+required:
+  - wait
 additionalProperties: false
 
 ```
@@ -221,12 +241,12 @@ definitions:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
 
 ```
-## schema: step: select: 
+## schema: step: enter: 
 ```
-id: 'http://waml-schema.org/draft-02/select-step-schema#'
+id: 'http://waml-schema.org/draft-02/enter-step-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Select from dropdown
-description: Selects from dropdown by the given criteria.
+title: Enter key sequence
+description: Send a sequence of key strokes to an element.
 properties:
   $schema:
     type: string
@@ -240,36 +260,9 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
     description: 'If set, the step is only executed if the value evaluates to false'
-  select:
-    description: Criteria of the element to select.
-    $ref: 'http://waml-schema.org/draft-02/select-criteria-schema#'
-additionalProperties: false
-
-```
-## schema: step: ensure: 
-```
-id: 'http://waml-schema.org/draft-02/ensure-step-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Ensure the presence of an element
-description: Ensures the presence of an element using different criteria
-properties:
-  $schema:
-    type: string
-  if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
-  ensure:
-    description: A CSS selector as value or a hash of conditionals.
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - $ref: 'http://waml-schema.org/draft-02/ensure-criteria-schema#'
+  enter:
+    description: Send a sequence of key strokes to an element.
+    $ref: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
 additionalProperties: false
 
 ```
@@ -297,6 +290,33 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/click-criteria-schema#'
+additionalProperties: false
+
+```
+## schema: step: ensure: 
+```
+id: 'http://waml-schema.org/draft-02/ensure-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Ensure the presence of an element
+description: Ensures the presence of an element using different criteria
+properties:
+  $schema:
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false'
+  ensure:
+    description: A CSS selector as value or a hash of conditionals.
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - $ref: 'http://waml-schema.org/draft-02/ensure-criteria-schema#'
 additionalProperties: false
 
 ```
@@ -373,7 +393,7 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
   source:
-    description: "The element's value source"
+    description: "The element's value source."
     enum:
       - value
       - text
@@ -381,11 +401,10 @@ properties:
     default: text
   value:
     oneOf:
-      - type:
-          - number
-          - boolean
+      - type: number
+      - type: boolean
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: Value that should be checked against
+    description: Value that should be checked against.
   mode:
     description: Value comparison mode.
     enum:
@@ -395,7 +414,6 @@ properties:
     default: equals
 additionalProperties: false
 required:
-  - selector
   - value
 
 ```
@@ -414,8 +432,6 @@ properties:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     description: Select element which contains the given text.
 additionalProperties: false
-required:
-  - selector
 
 ```
 ## schema: criteria: move: 
@@ -443,8 +459,6 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
 additionalProperties: false
-required:
-  - selector
 
 ```
 ## schema: criteria: enter: 
@@ -476,7 +490,6 @@ properties:
     type: string
 additionalProperties: false
 required:
-  - selector
   - value
 
 ```
@@ -505,8 +518,6 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
 additionalProperties: false
-required:
-  - selector
 
 ```
 ## schema: expression: 
