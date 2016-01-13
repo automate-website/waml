@@ -336,12 +336,12 @@
         "type": "object",
         "properties": {
             "selector": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "CSS selector of element to select."
+                "description": "CSS selector of element to select.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "Select element which contains the given text."
+                "description": "Select element which matches the given regular expression.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             }
         },
         "additionalProperties": false
@@ -354,18 +354,32 @@
         "type": "object",
         "properties": {
             "selector": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "CSS selector of element to select."
+                "description": "CSS selector of element to select.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "Select element which contains the given text."
+                "description": "Select element which matches the given regular expression.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
                 "description": "Maximal time [ms] to wait for the element which meets the given criteria.",
                 "oneOf": [
                     {
                         "type": "number"
+                    },
+                    {
+                        "$ref": "http://waml-schema.org/draft-02/expression-schema#"
+                    }
+                ]
+            },
+            "value": {
+                "description": "Verify value attribute against this value.",
+                "oneOf": [
+                    {
+                        "type": "number"
+                    },
+                    {
+                        "type": "boolean"
                     },
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -383,39 +397,8 @@
                     }
                 ]
             },
-            "source": {
-                "description": "The element's value source",
-                "enum": [
-                    "value",
-                    "text",
-                    "title"
-                ],
-                "default": "text"
-            },
-            "value": {
-                "oneOf": [
-                    {
-                        "type": [
-                            "number",
-                            "boolean"
-                        ]
-                    },
-                    {
-                        "$ref": "http://waml-schema.org/draft-02/expression-schema#"
-                    }
-                ],
-                "description": "Value that should be checked against"
-            },
-            "mode": {
-                "description": "Value comparison mode.",
-                "enum": [
-                    "equals",
-                    "contains",
-                    "regex"
-                ],
-                "default": "equals"
-            },
             "if": {
+                "description": "If set, the step is only executed if the value evaluates to true.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -423,10 +406,10 @@
                     {
                         "type": "boolean"
                     }
-                ],
-                "description": "If set, the step is only executed if the value evaluates to true."
+                ]
             },
             "unless": {
+                "description": "If set, the step is only executed if the value evaluates to false.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -434,8 +417,7 @@
                     {
                         "type": "boolean"
                     }
-                ],
-                "description": "If set, the step is only executed if the value evaluates to false."
+                ]
             }
         },
         "additionalProperties": false
@@ -546,7 +528,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "description": "Select element which contains the given text.",
+                "description": "Select element which matches the given regular expression.",
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
@@ -571,17 +553,8 @@
                     }
                 ]
             },
-            "source": {
-                "description": "The element's value source.",
-                "enum": [
-                    "value",
-                    "text",
-                    "title"
-                ],
-                "default": "text"
-            },
             "value": {
-                "description": "Value that should be checked against.",
+                "description": "Value attribute will be checked against this value.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -593,15 +566,6 @@
                         "type": "boolean"
                     }
                 ]
-            },
-            "mode": {
-                "description": "Value comparison mode.",
-                "enum": [
-                    "equals",
-                    "contains",
-                    "regex"
-                ],
-                "default": "equals"
             },
             "if": {
                 "description": "If set, the step is only executed if the value evaluates to true.",
@@ -636,12 +600,12 @@
         "type": "object",
         "properties": {
             "selector": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "CSS selector of element to select."
+                "description": "CSS selector of element to select.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "Select element which contains the given text."
+                "description": "Select element which matches the given regular expression.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
                 "description": "Maximal time [ms] to wait for the element which meets the given criteria.",
@@ -667,9 +631,17 @@
             },
             "value": {
                 "description": "Value to set.",
-                "type": "string"
+                "oneOf": [
+                    {
+                        "$ref": "http://waml-schema.org/draft-02/expression-schema#"
+                    },
+                    {
+                        "type": "number"
+                    }
+                ]
             },
             "if": {
+                "description": "If set, the step is only executed if the value evaluates to true.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -677,10 +649,10 @@
                     {
                         "type": "boolean"
                     }
-                ],
-                "description": "If set, the step is only executed if the value evaluates to true."
+                ]
             },
             "unless": {
+                "description": "If set, the step is only executed if the value evaluates to false.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -688,8 +660,7 @@
                     {
                         "type": "boolean"
                     }
-                ],
-                "description": "If set, the step is only executed if the value evaluates to false."
+                ]
             }
         },
         "additionalProperties": false,
@@ -744,12 +715,12 @@
         "type": "object",
         "properties": {
             "selector": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "CSS selector of element to select."
+                "description": "CSS selector of element to select.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "Select element which contains the given text."
+                "description": "Select element which matches the given regular expression.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
                 "description": "Maximal time [ms] to wait for the element which meets the given criteria.",
@@ -770,6 +741,28 @@
                     },
                     {
                         "$ref": "http://waml-schema.org/draft-02/parent-criteria-schema#"
+                    }
+                ]
+            },
+            "if": {
+                "description": "If set, the step is only executed if the value evaluates to true.",
+                "oneOf": [
+                    {
+                        "$ref": "http://waml-schema.org/draft-02/expression-schema#"
+                    },
+                    {
+                        "type": "boolean"
+                    }
+                ]
+            },
+            "unless": {
+                "description": "If set, the step is only executed if the value evaluates to false.",
+                "oneOf": [
+                    {
+                        "$ref": "http://waml-schema.org/draft-02/expression-schema#"
+                    },
+                    {
+                        "type": "boolean"
                     }
                 ]
             }
@@ -823,12 +816,12 @@
         "type": "object",
         "properties": {
             "selector": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "CSS selector of element to select."
+                "description": "CSS selector of element to select.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "$ref": "http://waml-schema.org/draft-02/expression-schema#",
-                "description": "Select element which contains the given text."
+                "description": "Select element which matches the given regular expression.",
+                "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
                 "description": "Maximal time [ms] to wait for the element which meets the given criteria.",
@@ -853,6 +846,7 @@
                 ]
             },
             "if": {
+                "description": "If set, the step is only executed if the value evaluates to true.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -860,10 +854,10 @@
                     {
                         "type": "boolean"
                     }
-                ],
-                "description": "If set, the step is only executed if the value evaluates to true."
+                ]
             },
             "unless": {
+                "description": "If set, the step is only executed if the value evaluates to false.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -871,8 +865,7 @@
                     {
                         "type": "boolean"
                     }
-                ],
-                "description": "If set, the step is only executed if the value evaluates to false."
+                ]
             }
         },
         "additionalProperties": false

@@ -14,6 +14,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removed the requirement of _selector_ criteria from _click_, _enter_, _move_, _parent_, and _select_ actions.
 - Switched from _type_ to more explicit _fragment_ flag property in scenario schema.
 - Moved conditionals (_if_, _unless_) from step schemas to criteria.
+- Let _text_ criteria be regular expression per default.
+- Simplified _ensure_ criteria.
 
 
 [Unreleased]: https://github.com/automate-website/waml/compare/0.0.0...HEAD

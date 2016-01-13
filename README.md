@@ -140,12 +140,10 @@ To verify the integrity of the page it may be reasonable to ensure the presence 
 | Property | Description | Type |
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
-| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| value |_(Optional)_ Verify value attribute against this value. |_One of:_<br/>number,<br/> boolean,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
-| source |_(Optional)_ The element's value source __Default:__ text |_Enum:_<br/>value,<br/> text,<br/> title |
-| value |_(Optional)_ Value that should be checked against |_One of:_<br/>number,boolean,<br/> [expression-schema](#expression-schema) |
-| mode |_(Optional)_ Value comparison mode. __Default:__ equals |_Enum:_<br/>equals,<br/> contains,<br/> regex |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
@@ -192,9 +190,11 @@ For hidden elements which appear only after the user has hovered a certain eleme
 | Property | Description | Type |
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
-| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Move Example
@@ -241,7 +241,7 @@ Every kind of clicks can be simulated with the ```click``` action.
 | Property | Description | Type |
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
-| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
@@ -289,12 +289,10 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
-| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
-| source |_(Optional)_ The element's value source. __Default:__ text |_Enum:_<br/>value,<br/> text,<br/> title |
-| value |_(Optional)_ Value that should be checked against. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
-| mode |_(Optional)_ Value comparison mode. __Default:__ equals |_Enum:_<br/>equals,<br/> contains,<br/> regex |
+| value |_(Optional)_ Value attribute will be checked against this value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
@@ -338,10 +336,10 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
-| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
-| value |Value to set. |string |
+| value |Value to set. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
@@ -358,6 +356,9 @@ steps:
   - enter:
       selector: input.password
       value: 'secret'
+  - enter:
+        selector: input.easy-captcha
+        value: 1234
   - click: button[type=submit]
 ```
 
@@ -495,7 +496,7 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
-| text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
+| text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
 
 
 

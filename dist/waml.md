@@ -247,11 +247,11 @@ description: Qualifier for parent element selection.
 type: object
 properties:
   selector:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     description: CSS selector of element to select.
-  text:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: Select element which contains the given text.
+  text:
+    description: Select element which matches the given regular expression.
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
 additionalProperties: false
 
 ```
@@ -264,52 +264,37 @@ description: Qualifier for an element state validation.
 type: object
 properties:
   selector:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     description: CSS selector of element to select.
-  text:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: Select element which contains the given text.
+  text:
+    description: Select element which matches the given regular expression.
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
     oneOf:
       - type: number
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+  value:
+    description: Verify value attribute against this value.
+    oneOf:
+      - type: number
+      - type: boolean
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   parent:
     description: Presence of the parent element according given creteria.
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
-  source:
-    description: "The element's value source"
-    enum:
-      - value
-      - text
-      - title
-    default: text
-  value:
-    oneOf:
-      - type:
-          - number
-          - boolean
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: Value that should be checked against
-  mode:
-    description: Value comparison mode.
-    enum:
-      - equals
-      - contains
-      - regex
-    default: equals
   if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
     description: 'If set, the step is only executed if the value evaluates to true.'
-  unless:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
+  unless:
     description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
 additionalProperties: false
 
 ```
@@ -381,7 +366,7 @@ properties:
     description: CSS selector of element to select.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   text:
-    description: Select element which contains the given text.
+    description: Select element which matches the given regular expression.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
@@ -393,26 +378,12 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
-  source:
-    description: "The element's value source."
-    enum:
-      - value
-      - text
-      - title
-    default: text
   value:
-    description: Value that should be checked against.
+    description: Value attribute will be checked against this value.
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: number
       - type: boolean
-  mode:
-    description: Value comparison mode.
-    enum:
-      - equals
-      - contains
-      - regex
-    default: equals
   if:
     description: 'If set, the step is only executed if the value evaluates to true.'
     oneOf:
@@ -435,11 +406,11 @@ description: Qualifier for an element value change.
 type: object
 properties:
   selector:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     description: CSS selector of element to select.
-  text:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: Select element which contains the given text.
+  text:
+    description: Select element which matches the given regular expression.
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
     oneOf:
@@ -452,17 +423,19 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
   value:
     description: Value to set.
-    type: string
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: number
   if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
     description: 'If set, the step is only executed if the value evaluates to true.'
-  unless:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
+  unless:
     description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
 additionalProperties: false
 required:
   - value
@@ -503,11 +476,11 @@ description: Qualifier for moving to an element.
 type: object
 properties:
   selector:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     description: CSS selector of element to select.
-  text:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: Select element which contains the given text.
+  text:
+    description: Select element which matches the given regular expression.
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
     oneOf:
@@ -518,6 +491,16 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
+  if:
+    description: 'If set, the step is only executed if the value evaluates to true.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+  unless:
+    description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
 additionalProperties: false
 
 ```
@@ -556,11 +539,11 @@ description: Qualifier for an element click.
 type: object
 properties:
   selector:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     description: CSS selector of element to select.
-  text:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: Select element which contains the given text.
+  text:
+    description: Select element which matches the given regular expression.
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
     oneOf:
@@ -572,15 +555,15 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
   if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
     description: 'If set, the step is only executed if the value evaluates to true.'
-  unless:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
+  unless:
     description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
 additionalProperties: false
 
 ```
