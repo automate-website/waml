@@ -357,8 +357,8 @@ steps:
       selector: input.password
       value: 'secret'
   - enter:
-        selector: input.easy-captcha
-        value: 1234
+      selector: input.easy-captcha
+      value: 1234
   - click: button[type=submit]
 ```
 
