@@ -5,8 +5,8 @@ steps:
   - click:
       selector: a.sign-up
       text: 'Join now for free!'
-      if: ${ isDesktop }
+      if: ${isDesktop}
   - click:
       selector: a.sign-up
       text: 'Join now!'
-      if: ${ !isDesktop }
+      if: ${isMobile}

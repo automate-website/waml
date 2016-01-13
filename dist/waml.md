@@ -181,7 +181,7 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/ensure-criteria-schema#'
-require:
+required:
   - ensure
 additionalProperties: false
 
@@ -193,14 +193,12 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Click on the given element
 description: Clicks on the given visible element.
 properties:
-  $schema:
-    type: string
   click:
-    description: A CSS selector as value or a hash of conditionals.
+    description: A CSS selector as value or a mapping of criteria.
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/click-criteria-schema#'
-require:
+required:
   - click
 additionalProperties: false
 

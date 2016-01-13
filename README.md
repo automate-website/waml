@@ -113,6 +113,7 @@ steps:
 ```
 
 Complex example:
+
 ```yaml
 name: Open demonstration scenario 2
 steps:
@@ -131,7 +132,7 @@ To verify the integrity of the page it may be reasonable to ensure the presence 
 
 | Property | Description | Type |
 |---|---|---|
-| ensure |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [ensure-criteria-schema](#ensure-criteria-schema) |
+| ensure |A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [ensure-criteria-schema](#ensure-criteria-schema) |
 
 
 #### Ensure Criteria Schema
@@ -232,7 +233,7 @@ Every kind of clicks can be simulated with the ```click``` action.
 
 | Property | Description | Type |
 |---|---|---|
-| click |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [click-criteria-schema](#click-criteria-schema) |
+| click |A CSS selector as value or a mapping of criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [click-criteria-schema](#click-criteria-schema) |
 
 
 #### Click Criteria Schema
@@ -267,11 +268,11 @@ steps:
   - click:
       selector: a.sign-up
       text: 'Join now for free!'
-      if: ${ isDesktop }
+      if: ${isDesktop}
   - click:
       selector: a.sign-up
       text: 'Join now!'
-      if: ${ !isDesktop }
+      if: ${isMobile}
 ```
 
 
