@@ -4,15 +4,18 @@
 
 Refer to the [changelog] for recent notable changes and modifications.
 
+
 ## Abstract
 
 Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of [YAML 1.2] which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.
+
 
 ## Terminology
 
 The underlying format for WAML is YAML so that it inherits all its benefits such as hosting of multiple document within one stream. A WAML stream may contain multiple _scenarios_. Every _scenario_ must be represented by a set of _metadata_ as well as sequence of _actions_ to execute. Every _action_ must have at least one _criteria_ which is represented as _scalar_ (string, integer, etc.) value or a _mapping_.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119].
+
 
 ## Schema
 
@@ -33,12 +36,19 @@ Using this properties, the following more comprehensive example can be created:
 
 {{ includeScenario('./sources/examples/scenario/full-featured-scenario.yaml') }}
 
+
 ## Step Schema
 
 The steps property must be represented as a sequence of actions. Every step represents the smallest identifiable user action.
 
 {{ schema2md('./sources/schema/step-schema.yaml') }}
 
+
+## Fragment Scenarios
+
+Fragment scenarios can not be executed independently but can only be used in ```include``` actions of other scenarios or fragments.
+
+{{ includeScenario('./sources/examples/scenario/fragment-scenario.yaml') }}
 
 
 ## Actions and Criteria
@@ -51,7 +61,17 @@ Like for a real user, ```open``` is often the very first action of a scenarios. 
 
 #### Open Criteria Schema
 
-The ```open``` action has no additional criteria.
+{{ schema2md('./sources/schema/criteria/open-criteria-schema.yaml') }}
+
+#### Open Examples
+
+Short notation example of ```open```:
+
+{{ includeScenario('./sources/examples/scenario/open-scenario-1.yaml') }}
+
+Complex example:
+
+{{ includeScenario('./sources/examples/scenario/open-scenario-2.yaml') }}
 
 ### Ensure
 #### Ensure Step Schema
@@ -95,6 +115,10 @@ The following example depicts the usage of the ```move``` action.
 
 {{ includeScenario('./sources/examples/scenario/move-scenario-1.yaml') }}
 
+Complex example:
+
+{{ includeScenario('./sources/examples/scenario/move-scenario-2.yaml') }}
+
 
 ### Click
 #### Click Step Schema
@@ -109,13 +133,14 @@ Every kind of clicks can be simulated with the ```click``` action.
 
 #### Click Examples
 
-In the following short-notation example click happens on an anchor element selected by CSS. 
+In the following short notation example click happens on an anchor element selected by CSS. 
 
 {{ includeScenario('./sources/examples/scenario/click-scenario-1.yaml') }}
 
 The ```text``` criteria may be used to verify the wording of the target.
  
 {{ includeScenario('./sources/examples/scenario/click-scenario-2.yaml') }}
+
 
 ### Select
 #### Select Step Schema
@@ -126,8 +151,18 @@ The ```text``` criteria may be used to verify the wording of the target.
 
 {{ schema2md('./sources/schema/criteria/select-criteria-schema.yaml') }}
 
-### Enter
+#### Select Example
 
+Short notation example of ```select```:
+
+{{ includeScenario('./sources/examples/scenario/select-scenario-1.yaml') }}
+
+Complex example:
+
+{{ includeScenario('./sources/examples/scenario/select-scenario-2.yaml') }}
+
+
+### Enter
 #### Enter Step Schema
 
 {{ schema2md('./sources/schema/steps/enter-step-schema.yaml') }}
@@ -136,6 +171,30 @@ The ```text``` criteria may be used to verify the wording of the target.
 
 {{ schema2md('./sources/schema/criteria/enter-criteria-schema.yaml') }}
 
+#### Enter Example
+
+{{ includeScenario('./sources/examples/scenario/enter-scenario-1.yaml') }}
+
+
+### Wait
+#### Wait Step Schema
+
+{{ schema2md('./sources/schema/steps/wait-step-schema.yaml') }}
+
+#### Wait Criteria Schema
+
+{{ schema2md('./sources/schema/criteria/wait-criteria-schema.yaml') }}
+
+#### Wait Example
+
+Short notation example of ```wait```:
+
+{{ includeScenario('./sources/examples/scenario/wait-scenario-1.yaml') }}
+
+#### Complex example
+{{ includeScenario('./sources/examples/scenario/wait-scenario-2.yaml') }}
+
+
 ### Include
 #### Include Step Schema
 
@@ -143,7 +202,18 @@ The ```text``` criteria may be used to verify the wording of the target.
 
 #### Include Criteria Schema
 
-The ```include``` action has no additional criteria.
+{{ schema2md('./sources/schema/criteria/include-criteria-schema.yaml') }}
+
+#### Include Examples
+
+Short notation example of ```include```:
+
+{{ includeScenario('./sources/examples/scenario/include-scenario-1.yaml') }}
+
+Complex example:
+
+{{ includeScenario('./sources/examples/scenario/include-scenario-2.yaml') }}
+
 
 ### Store
 #### Store Step Schema
@@ -152,7 +222,18 @@ The ```include``` action has no additional criteria.
 
 #### Store Criteria Schema
 
-The ```store``` action has no additional criteria.
+{{ schema2md('./sources/schema/criteria/store-criteria-schema.yaml') }}
+
+#### Store Examples
+
+An example of simple usage of ```store```:
+
+{{ includeScenario('./sources/examples/scenario/store-scenario-1.yaml') }}
+
+Complex example:
+
+{{ includeScenario('./sources/examples/scenario/store-scenario-2.yaml') }}
+
 
 ## Expressions
 ### Expression Schema

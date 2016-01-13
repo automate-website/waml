@@ -90,21 +90,11 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Select from dropdown
 description: Selects from dropdown by the given criteria.
 properties:
-  $schema:
-    type: string
-  if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
   select:
-    description: Criteria of the element to select.
-    $ref: 'http://waml-schema.org/draft-02/select-criteria-schema#'
+    description: CSS selector of element to select or an object of select criteria.
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - $ref: 'http://waml-schema.org/draft-02/select-criteria-schema#'
 additionalProperties: false
 
 ```
@@ -115,21 +105,11 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Open
 description: Navigates to a certain URL in the user agent.
 properties:
-  $schema:
-    type: string
-  if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
   open:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: The URL to which the navigation takes place.
+    description: The URL to which the navigation takes place as value or a complex open criteria.
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - $ref: 'http://waml-schema.org/draft-02/open-criteria-schema#'
 required:
   - open
 additionalProperties: false
@@ -142,23 +122,13 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Moves to the given element
 description: Moves to the given visible element.
 properties:
-  $schema:
-    type: string
-  if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
   move:
-    description: A CSS selector as value or a hash of conditionals.
+    description: A CSS selector as value or a complex move criteria.
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - $ref: 'http://waml-schema.org/draft-02/click-criteria-schema#'
+      - $ref: 'http://waml-schema.org/draft-02/move-criteria-schema#'
+required:
+  - move
 additionalProperties: false
 
 ```
@@ -171,71 +141,14 @@ description: Includes a scenario with a certain title
 properties:
   $schema:
     type: string
-  if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
   include:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: The title of the scenario to include
+    description: Include criteria schema.
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/include-criteria-schema#'
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
 required:
   - include
 additionalProperties: false
-
-```
-## schema: step: wait: 
-```
-id: 'http://waml-schema.org/draft-02/wait-step-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Wait
-description: Does nothing (waits) a certain amount of time.
-properties:
-  $schema:
-    type: string
-  wait:
-    description: 'Time to wait in [ms].'
-    oneOf:
-      - type: number
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-required:
-  - wait
-additionalProperties: false
-
-```
-## schema: step: store: 
-```
-id: 'http://waml-schema.org/draft-02/store-step-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Store variable
-description: Includes a scenario with a certain title
-properties:
-  $schema:
-    type: string
-  if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
-  store:
-    type: object
-    description: A hash of variables to be defined in the execution context.
-    minProperties: 1
-    $ref: null
-additionalProperties: false
-definitions:
-  entry:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
 
 ```
 ## schema: step: enter: 
@@ -245,48 +158,12 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Enter key sequence
 description: Send a sequence of key strokes to an element.
 properties:
-  $schema:
-    type: string
-  if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
   enter:
     description: Send a sequence of key strokes to an element.
-    $ref: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
-additionalProperties: false
-
-```
-## schema: step: click: 
-```
-id: 'http://waml-schema.org/draft-02/click-step-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Click on the given element
-description: Clicks on the given visible element.
-properties:
-  $schema:
-    type: string
-  if:
     oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
-  click:
-    description: A CSS selector as value or a hash of conditionals.
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - $ref: 'http://waml-schema.org/draft-02/click-criteria-schema#'
+      - $ref: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
+required:
+  - enter
 additionalProperties: false
 
 ```
@@ -299,21 +176,82 @@ description: Ensures the presence of an element using different criteria
 properties:
   $schema:
     type: string
-  if:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to true'
-  unless:
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - type: boolean
-    description: 'If set, the step is only executed if the value evaluates to false'
   ensure:
     description: A CSS selector as value or a hash of conditionals.
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/ensure-criteria-schema#'
+require:
+  - ensure
+additionalProperties: false
+
+```
+## schema: step: click: 
+```
+id: 'http://waml-schema.org/draft-02/click-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Click on the given element
+description: Clicks on the given visible element.
+properties:
+  $schema:
+    type: string
+  click:
+    description: A CSS selector as value or a hash of conditionals.
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - $ref: 'http://waml-schema.org/draft-02/click-criteria-schema#'
+require:
+  - click
+additionalProperties: false
+
+```
+## schema: step: wait: 
+```
+id: 'http://waml-schema.org/draft-02/wait-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Wait
+description: Does nothing (waits) a certain amount of time.
+properties:
+  wait:
+    description: 'Time to wait in [ms] or an object of wait criteria.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/wait-criteria-schema#'
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: number
+required:
+  - wait
+additionalProperties: false
+
+```
+## schema: step: store: 
+```
+id: 'http://waml-schema.org/draft-02/store-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Store variable
+description: Stores a certain value to a context varable.
+properties:
+  store:
+    type: object
+    description: A mapping of variables to be defined in the execution context.
+    minProperties: 1
+    $ref: 'http://waml-schema.org/draft-02/store-criteria-schema#'
+additionalProperties: false
+
+```
+## schema: criteria: parent: 
+```
+id: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Parent criteria
+description: Qualifier for parent element selection.
+type: object
+properties:
+  selector:
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+    description: CSS selector of element to select.
+  text:
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+    description: Select element which contains the given text.
 additionalProperties: false
 
 ```
@@ -362,6 +300,72 @@ properties:
       - contains
       - regex
     default: equals
+  if:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true.'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false.'
+additionalProperties: false
+
+```
+## schema: criteria: wait: 
+```
+id: 'http://waml-schema.org/draft-02/wait-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Wait criteria
+description: Qualifier for wait.
+type: object
+properties:
+  time:
+    description: 'Time to wait in [ms].'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: number
+  if:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true.'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false.'
+required:
+  - time
+additionalProperties: false
+
+```
+## schema: criteria: store: 
+```
+id: 'http://waml-schema.org/draft-02/store-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Store criteria
+description: Qualifier for values to store and a key-value store.
+type: object
+properties:
+  if:
+    description: 'If set, the step is only executed if the value evaluates to true.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+  unless:
+    description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+patternProperties:
+  '^([a-zA-Z0-9_.])+$':
+    description: Random key matching the given pattern with a value.
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+      - type: number
 additionalProperties: false
 
 ```
@@ -374,16 +378,16 @@ description: Qualifier for an element option selection.
 type: object
 properties:
   selector:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     description: CSS selector of element to select.
-  text:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+  text:
     description: Select element which contains the given text.
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
     oneOf:
-      - type: number
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: number
   parent:
     description: Presence of the parent element according given creteria.
     oneOf:
@@ -397,11 +401,11 @@ properties:
       - title
     default: text
   value:
+    description: Value that should be checked against.
     oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: number
       - type: boolean
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: Value that should be checked against.
   mode:
     description: Value comparison mode.
     enum:
@@ -409,17 +413,25 @@ properties:
       - contains
       - regex
     default: equals
+  if:
+    description: 'If set, the step is only executed if the value evaluates to true.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+  unless:
+    description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
 additionalProperties: false
-required:
-  - value
 
 ```
-## schema: criteria: parent: 
+## schema: criteria: enter: 
 ```
-id: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
+id: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Parent criteria
-description: Qualifier for parent element selection.
+title: Enter criteria
+description: Qualifier for an element value change.
 type: object
 properties:
   selector:
@@ -428,6 +440,57 @@ properties:
   text:
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     description: Select element which contains the given text.
+  timeout:
+    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: number
+  parent:
+    description: Presence of the parent element according given creteria.
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
+  value:
+    description: Value to set.
+    type: string
+  if:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true.'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false.'
+additionalProperties: false
+required:
+  - value
+
+```
+## schema: criteria: open: 
+```
+id: 'http://waml-schema.org/draft-02/open-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Open criteria
+description: Qualifier for an element value change.
+type: object
+properties:
+  url:
+    description: The URL to which the navigation takes place.
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+  if:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true.'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false.'
+required:
+  - url
 additionalProperties: false
 
 ```
@@ -458,36 +521,30 @@ properties:
 additionalProperties: false
 
 ```
-## schema: criteria: enter: 
+## schema: criteria: include: 
 ```
-id: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
+id: 'http://waml-schema.org/draft-02/include-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Enter criteria
+title: Include criteria
 description: Qualifier for an element value change.
 type: object
 properties:
-  selector:
+  scenario:
+    description: The name of the scenario to include.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: CSS selector of element to select.
-  text:
-    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-    description: Select element which contains the given text.
-  timeout:
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
-    oneOf:
-      - type: number
-      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-  parent:
-    description: Presence of the parent element according given creteria.
+  if:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
-      - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
-  value:
-    description: Value to set.
-    type: string
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true.'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false.'
 additionalProperties: false
 required:
-  - value
+  - scenario
 
 ```
 ## schema: criteria: click: 
@@ -514,6 +571,16 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
+  if:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true.'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false.'
 additionalProperties: false
 
 ```

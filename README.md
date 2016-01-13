@@ -4,15 +4,18 @@
 
 Refer to the [changelog] for recent notable changes and modifications.
 
+
 ## Abstract
 
 Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of [YAML 1.2] which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.
+
 
 ## Terminology
 
 The underlying format for WAML is YAML so that it inherits all its benefits such as hosting of multiple document within one stream. A WAML stream may contain multiple _scenarios_. Every _scenario_ must be represented by a set of _metadata_ as well as sequence of _actions_ to execute. Every _action_ must have at least one _criteria_ which is represented as _scalar_ (string, integer, etc.) value or a _mapping_.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119].
+
 
 ## Schema
 
@@ -56,6 +59,7 @@ steps:
   - open: www.example.com
 ```
 
+
 ## Step Schema
 
 The steps property must be represented as a sequence of actions. Every step represents the smallest identifiable user action.
@@ -66,6 +70,17 @@ The steps property must be represented as a sequence of actions. Every step repr
 
 
 
+## Fragment Scenarios
+
+Fragment scenarios can not be executed independently but can only be used in ```include``` actions of other scenarios or fragments.
+
+```yaml
+name: fragment-scenario
+fragment: true
+steps:
+  - open: www.example.com
+```
+
 
 ## Actions and Criteria
 ### Open
@@ -75,14 +90,39 @@ Like for a real user, ```open``` is often the very first action of a scenarios. 
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| open |The URL to which the navigation takes place. |[expression-schema](#expression-schema) |
+| open |The URL to which the navigation takes place as value or a complex open criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [open-criteria-schema](#open-criteria-schema) |
 
 
 #### Open Criteria Schema
 
-The ```open``` action has no additional criteria.
+| Property | Description | Type |
+|---|---|---|
+| url |The URL to which the navigation takes place. |[expression-schema](#expression-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+
+
+#### Open Examples
+
+Short notation example of ```open```:
+
+```yaml
+name: Open demonstration scenario
+steps:
+  - open: www.example.com
+```
+
+Complex example:
+```yaml
+name: Open demonstration scenario 2
+steps:
+  - open:
+      url: www.example.com
+      unless: ${isMobile}
+  - open:
+      url: m.example.com
+      if: ${isMobile}
+```
 
 ### Ensure
 #### Ensure Step Schema
@@ -91,8 +131,6 @@ To verify the integrity of the page it may be reasonable to ensure the presence 
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | ensure |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [ensure-criteria-schema](#ensure-criteria-schema) |
 
 
@@ -107,6 +145,8 @@ To verify the integrity of the page it may be reasonable to ensure the presence 
 | source |_(Optional)_ The element's value source __Default:__ text |_Enum:_<br/>value,<br/> text,<br/> title |
 | value |_(Optional)_ Value that should be checked against |_One of:_<br/>number,boolean,<br/> [expression-schema](#expression-schema) |
 | mode |_(Optional)_ Value comparison mode. __Default:__ equals |_Enum:_<br/>equals,<br/> contains,<br/> regex |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Ensure Examples
@@ -143,9 +183,7 @@ For hidden elements which appear only after the user has hovered a certain eleme
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| move |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [click-criteria-schema](#click-criteria-schema) |
+| move |A CSS selector as value or a complex move criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [move-criteria-schema](#move-criteria-schema) |
 
 
 #### Move Criteria Schema
@@ -166,6 +204,20 @@ The following example depicts the usage of the ```move``` action.
 name: Move demonstation scenario
 steps:
   - open: www.example.com
+  - move:
+      selector: a.help
+      text: 'Need help?'
+      parent:
+        selector: .help-container
+  - ensure: .help-tooltip
+```
+
+Complex example:
+
+```yaml
+name: Move demonstation scenario
+steps:
+  - open: www.example.com
   - move: a.help
   - ensure:
       selector: .help-tooltip
@@ -180,8 +232,6 @@ Every kind of clicks can be simulated with the ```click``` action.
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | click |_(Optional)_ A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [click-criteria-schema](#click-criteria-schema) |
 
 
@@ -193,14 +243,16 @@ Every kind of clicks can be simulated with the ```click``` action.
 | text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Click Examples
 
-In the following short-notation example click happens on an anchor element selected by CSS. 
+In the following short notation example click happens on an anchor element selected by CSS. 
 
 ```yaml
-name: Click demonstation scenario
+name: Click demonstration scenario
 steps:
   - open: www.example.com
   - click: a.sign-up
@@ -209,22 +261,26 @@ steps:
 The ```text``` criteria may be used to verify the wording of the target.
  
 ```yaml
-name: Click demonstation scenario 2
+name: Click demonstration scenario 2
 steps:
   - open: www.example.com
   - click:
       selector: a.sign-up
       text: 'Join now for free!'
+      if: ${ isDesktop }
+  - click:
+      selector: a.sign-up
+      text: 'Join now!'
+      if: ${ !isDesktop }
 ```
+
 
 ### Select
 #### Select Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| select |_(Optional)_ Criteria of the element to select. |[select-criteria-schema](#select-criteria-schema) |
+| select |_(Optional)_ CSS selector of element to select or an object of select criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [select-criteria-schema](#select-criteria-schema) |
 
 
 #### Select Criteria Schema
@@ -233,22 +289,47 @@ steps:
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
-| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | source |_(Optional)_ The element's value source. __Default:__ text |_Enum:_<br/>value,<br/> text,<br/> title |
-| value |Value that should be checked against. |_One of:_<br/>number,<br/> boolean,<br/> [expression-schema](#expression-schema) |
+| value |_(Optional)_ Value that should be checked against. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
 | mode |_(Optional)_ Value comparison mode. __Default:__ equals |_Enum:_<br/>equals,<br/> contains,<br/> regex |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+
+
+#### Select Example
+
+Short notation example of ```select```:
+
+```yaml
+name: Select demonstration scenario (short notation)
+steps:
+  - open: www.example.com
+  - select: '.actions option:first-child'
+```
+
+Complex example:
+
+```yaml
+name: Select demonstration scenario 2
+steps:
+  - open: www.example.com
+  - select:
+      selector: .title
+      text: 'PROF DR'
+  - select:
+      selector: .country
+      value: 'CH'
+```
 
 
 ### Enter
-
 #### Enter Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| enter |_(Optional)_ Send a sequence of key strokes to an element. |[enter-criteria-schema](#enter-criteria-schema) |
+| enter |Send a sequence of key strokes to an element. |_One of:_<br/>[enter-criteria-schema](#enter-criteria-schema) |
 
 
 #### Enter Criteria Schema
@@ -257,9 +338,66 @@ steps:
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which contains the given text. |[expression-schema](#expression-schema) |
-| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | value |Value to set. |string |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+
+
+#### Enter Example
+
+```yaml
+name: Enter demonstration scenario
+steps:
+  - open: www.example.com
+  - enter:
+      selector: input.email
+      value: 'me@example.com'
+  - enter:
+      selector: input.password
+      value: 'secret'
+  - click: button[type=submit]
+```
+
+
+### Wait
+#### Wait Step Schema
+
+| Property | Description | Type |
+|---|---|---|
+| wait |Time to wait in [ms] or an object of wait criteria. |_One of:_<br/>[wait-criteria-schema](#wait-criteria-schema),<br/> [expression-schema](#expression-schema),<br/> number |
+
+
+#### Wait Criteria Schema
+
+| Property | Description | Type |
+|---|---|---|
+| time |Time to wait in [ms]. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+
+
+#### Wait Example
+
+Short notation example of ```wait```:
+
+```yaml
+name: Wait demonstration scenario
+steps:
+  - open: www.example.com
+  - wait: 2000
+```
+
+#### Complex example
+```yaml
+name: Wait demonstration scenario 2
+steps:
+  - open: www.example.com
+  - wait:
+      time: 5000
+      if: ${slowConnection}
+```
 
 
 ### Include
@@ -267,28 +405,80 @@ steps:
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| include |The title of the scenario to include |[expression-schema](#expression-schema) |
+| include |Include criteria schema. |_One of:_<br/>[include-criteria-schema](#include-criteria-schema),<br/> [expression-schema](#expression-schema) |
 
 
 #### Include Criteria Schema
 
-The ```include``` action has no additional criteria.
+| Property | Description | Type |
+|---|---|---|
+| scenario |The name of the scenario to include. |[expression-schema](#expression-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+
+
+#### Include Examples
+
+Short notation example of ```include```:
+
+```yaml
+name: Include demonstation scenario
+steps:
+  - include: 'Click demonstration scenario'
+```
+
+Complex example:
+
+```yaml
+name: Include demonstation scenario
+steps:
+  - include:
+      scenario: 'Click demonstration scenario'
+      if: ${isDesktop}
+```
+
 
 ### Store
 #### Store Step Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| store |_(Optional)_ A hash of variables to be defined in the execution context. |object |
+| store |_(Optional)_ A mapping of variables to be defined in the execution context. |object |
 
 
 #### Store Criteria Schema
 
-The ```store``` action has no additional criteria.
+| Property | Description | Type |
+|---|---|---|
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| ^([a-zA-Z0-9_.])+$ |_(Optional)_ Random key matching the given pattern with a value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean,<br/> number |
+
+
+#### Store Examples
+
+An example of simple usage of ```store```:
+
+```yaml
+name: Store demonstration scenario
+steps:
+  - store:
+      language: 'en'
+```
+
+Complex example:
+
+```yaml
+name: Store demonstration scenario 2
+steps:
+  - store:
+      display_resolution: '1024x768'
+      isDesktop: true
+      1080p: false
+      width: 1024
+      if: ${isOldComputer}
+```
+
 
 ## Expressions
 ### Expression Schema

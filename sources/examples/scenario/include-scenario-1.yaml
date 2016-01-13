@@ -1,0 +1,4 @@
+$schema: http://waml-schema.org/draft-02/scenario-schema#
+name: Include demonstation scenario
+steps:
+  - include: 'Click demonstration scenario'

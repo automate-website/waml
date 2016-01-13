@@ -83,9 +83,9 @@ module.exports = function(grunt) {
 
 				return glob(schemaSourcesPattern, function(er, filePaths) {
 					_.each(filePaths, function(filePath) {
-						subSchema = requireYaml(filePath);
 						grunt.log.write('Validating', filePath, '... ');
-						try {
+                        subSchema = requireYaml(filePath);
+                        try {
 							ajv.addSchema(subSchema);
 							grunt.log.ok();
 						} catch (e) {

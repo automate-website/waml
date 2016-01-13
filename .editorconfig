@@ -22,3 +22,4 @@ trim_trailing_whitespace = false
 
 [*.yaml]
 indent_size = 2
+
