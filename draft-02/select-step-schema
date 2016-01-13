@@ -8,4 +8,6 @@ properties:
         oneOf:
             - $ref: http://waml-schema.org/draft-02/expression-schema#
             - $ref: http://waml-schema.org/draft-02/select-criteria-schema#
+required:
+  - select
 additionalProperties: false

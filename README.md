@@ -281,7 +281,7 @@ steps:
 
 | Property | Description | Type |
 |---|---|---|
-| select |_(Optional)_ CSS selector of element to select or an object of select criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [select-criteria-schema](#select-criteria-schema) |
+| select |CSS selector of element to select or an object of select criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [select-criteria-schema](#select-criteria-schema) |
 
 
 #### Select Criteria Schema
@@ -406,7 +406,7 @@ steps:
 
 | Property | Description | Type |
 |---|---|---|
-| include |Include criteria schema. |_One of:_<br/>[include-criteria-schema](#include-criteria-schema),<br/> [expression-schema](#expression-schema) |
+| include |Scenario name to include or include criteria. |_One of:_<br/>[include-criteria-schema](#include-criteria-schema),<br/> [expression-schema](#expression-schema) |
 
 
 #### Include Criteria Schema
@@ -444,7 +444,7 @@ steps:
 
 | Property | Description | Type |
 |---|---|---|
-| store |_(Optional)_ A mapping of variables to be defined in the execution context. |object |
+| store |A mapping of variables to be defined in the execution context. |object |
 
 
 #### Store Criteria Schema

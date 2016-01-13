@@ -95,6 +95,8 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/select-criteria-schema#'
+required:
+  - select
 additionalProperties: false
 
 ```
@@ -139,10 +141,8 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Include Scenario
 description: Includes a scenario with a certain title
 properties:
-  $schema:
-    type: string
   include:
-    description: Include criteria schema.
+    description: Scenario name to include or include criteria.
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/include-criteria-schema#'
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
@@ -233,6 +233,8 @@ properties:
     description: A mapping of variables to be defined in the execution context.
     minProperties: 1
     $ref: 'http://waml-schema.org/draft-02/store-criteria-schema#'
+required:
+  - store
 additionalProperties: false
 
 ```
