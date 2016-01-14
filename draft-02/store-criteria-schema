@@ -1,0 +1,24 @@
+id: http://waml-schema.org/draft-02/store-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Store criteria
+description: Qualifier for values to store and a key-value store.
+type: object
+properties:
+    if:
+        description: If set, the step is only executed if the value evaluates to true.
+        oneOf:
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
+            - type: boolean
+    unless:
+        description: If set, the step is only executed if the value evaluates to false.
+        oneOf:
+            - $ref: http://waml-schema.org/draft-02/expression-schema#
+            - type: boolean
+patternProperties:
+    "^([a-zA-Z0-9_.])+$":
+        description: Random key matching the given pattern with a value.
+        oneOf:
+          - $ref: http://waml-schema.org/draft-02/expression-schema#
+          - type: boolean
+          - type: number
+additionalProperties: false

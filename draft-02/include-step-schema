@@ -1,0 +1,13 @@
+id: http://waml-schema.org/draft-02/include-step-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Include Scenario
+description: Includes a scenario with a certain title
+properties:
+  include:
+    description: Scenario name to include or include criteria.
+    oneOf:
+      - $ref: http://waml-schema.org/draft-02/include-criteria-schema#
+      - $ref: http://waml-schema.org/draft-02/expression-schema#
+required:
+  - include
+additionalProperties: false
