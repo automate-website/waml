@@ -6,6 +6,9 @@
   "main": "index.js",
   "author": "Automate Website",
   "license": "MIT",
+  "scripts": {
+    "test": "grunt validate"
+  },
   "devDependencies": {
     "ajv": "^3.1.1",
     "js-yaml": "3.4.6",
