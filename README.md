@@ -339,7 +339,8 @@ steps:
 | text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
-| value |Value to set. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| value |_(Optional)_ Value of element to select. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
+| input |Value to set. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
@@ -352,13 +353,14 @@ steps:
   - open: www.example.com
   - enter:
       selector: input.email
-      value: 'me@example.com'
+      input: 'me@example.com'
   - enter:
       selector: input.password
-      value: 'secret'
+      input: 'secret'
   - enter:
       selector: input.easy-captcha
       value: 1234
+      input: 3421
   - click: button[type=submit]
 ```
 

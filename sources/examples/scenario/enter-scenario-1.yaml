@@ -4,11 +4,12 @@ steps:
   - open: www.example.com
   - enter:
       selector: input.email
-      value: 'me@example.com'
+      input: 'me@example.com'
   - enter:
       selector: input.password
-      value: 'secret'
+      input: 'secret'
   - enter:
       selector: input.easy-captcha
       value: 1234
+      input: 3421
   - click: button[type=submit]

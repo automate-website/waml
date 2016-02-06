@@ -422,10 +422,17 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - $ref: 'http://waml-schema.org/draft-02/parent-criteria-schema#'
   value:
+    description: Value of element to select.
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: number
+      - type: boolean
+  input:
     description: Value to set.
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: number
+      - type: boolean
   if:
     description: 'If set, the step is only executed if the value evaluates to true.'
     oneOf:
@@ -438,7 +445,7 @@ properties:
       - type: boolean
 additionalProperties: false
 required:
-  - value
+  - input
 
 ```
 ## schema: criteria: open: 
