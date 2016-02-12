@@ -48,7 +48,7 @@
                         "type": "integer"
                     }
                 ],
-                "description": "Maximal time [ms] to wait for conditions to be true.",
+                "description": "Maximal time [s] to wait for conditions to be true.",
                 "default": 1000
             },
             "steps": {
@@ -291,7 +291,7 @@
         "description": "Does nothing (waits) a certain amount of time.",
         "properties": {
             "wait": {
-                "description": "Time to wait in [ms] or an object of wait criteria.",
+                "description": "Time to wait in [s] or an object of wait criteria.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/wait-criteria-schema#"
@@ -362,7 +362,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
-                "description": "Maximal time [ms] to wait for the element which meets the given criteria.",
+                "description": "Maximal time [s] to wait for the element which meets the given criteria.",
                 "oneOf": [
                     {
                         "type": "number"
@@ -430,7 +430,7 @@
         "type": "object",
         "properties": {
             "time": {
-                "description": "Time to wait in [ms].",
+                "description": "Time to wait in [s].",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -532,7 +532,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
-                "description": "Maximal time [ms] to wait for the element which meets the given criteria.",
+                "description": "Maximal time [s] to wait for the element which meets the given criteria.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -608,7 +608,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
-                "description": "Maximal time [ms] to wait for the element which meets the given criteria.",
+                "description": "Maximal time [s] to wait for the element which meets the given criteria.",
                 "oneOf": [
                     {
                         "$ref": "http://waml-schema.org/draft-02/expression-schema#"
@@ -740,7 +740,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
-                "description": "Maximal time [ms] to wait for the element which meets the given criteria.",
+                "description": "Maximal time [s] to wait for the element which meets the given criteria.",
                 "oneOf": [
                     {
                         "type": "number"
@@ -841,7 +841,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
-                "description": "Maximal time [ms] to wait for the element which meets the given criteria.",
+                "description": "Maximal time [s] to wait for the element which meets the given criteria.",
                 "oneOf": [
                     {
                         "type": "number"

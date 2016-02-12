@@ -11,7 +11,7 @@ properties:
         description: Select element which matches the given regular expression.
         $ref: http://waml-schema.org/draft-02/expression-schema#
     timeout:
-        description: Maximal time [ms] to wait for the element which meets the given criteria.
+        description: Maximal time [s] to wait for the element which meets the given criteria.
         oneOf:
             - $ref: http://waml-schema.org/draft-02/expression-schema#
             - type: number

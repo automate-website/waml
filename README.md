@@ -40,7 +40,7 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 | description |_(Optional)_ Short summary of the overall scenario purpose. |string |
 | fragment |_(Optional)_ Defines if a scenario is a fragment or may be executed stand-alone. __Default:__ false |boolean |
 | precendence |_(Optional)_ Defines the particular priority of the scenario during execution of independent scenarios. __Default:__ -1 |integer |
-| timeout |_(Optional)_ Maximal time [ms] to wait for conditions to be true. __Default:__ 1000 |_One of:_<br/>[expression-schema](#expression-schema),<br/> integer |
+| timeout |_(Optional)_ Maximal time [s] to wait for conditions to be true. __Default:__ 1000 |_One of:_<br/>[expression-schema](#expression-schema),<br/> integer |
 | steps |Sequence of actions. |_Sequence of:_<br/>[step-schema](#step-schema) |
 | if |_(Optional)_ If set, the scenario is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the scenario is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
@@ -141,7 +141,7 @@ To verify the integrity of the page it may be reasonable to ensure the presence 
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
-| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | value |_(Optional)_ Verify value attribute against this value. |_One of:_<br/>number,<br/> boolean,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
@@ -191,7 +191,7 @@ For hidden elements which appear only after the user has hovered a certain eleme
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
-| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
@@ -242,7 +242,7 @@ Every kind of clicks can be simulated with the ```click``` action.
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
-| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
+| timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
@@ -290,7 +290,7 @@ steps:
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
-| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | value |_(Optional)_ Value attribute will be checked against this value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
@@ -337,7 +337,7 @@ steps:
 |---|---|---|
 | selector |_(Optional)_ CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which matches the given regular expression. |[expression-schema](#expression-schema) |
-| timeout |_(Optional)_ Maximal time [ms] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | value |_(Optional)_ Value of element to select. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
 | input |Value to set. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
@@ -370,14 +370,14 @@ steps:
 
 | Property | Description | Type |
 |---|---|---|
-| wait |Time to wait in [ms] or an object of wait criteria. |_One of:_<br/>[wait-criteria-schema](#wait-criteria-schema),<br/> [expression-schema](#expression-schema),<br/> number |
+| wait |Time to wait in [s] or an object of wait criteria. |_One of:_<br/>[wait-criteria-schema](#wait-criteria-schema),<br/> [expression-schema](#expression-schema),<br/> number |
 
 
 #### Wait Criteria Schema
 
 | Property | Description | Type |
 |---|---|---|
-| time |Time to wait in [ms]. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| time |Time to wait in [s]. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
