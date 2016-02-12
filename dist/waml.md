@@ -41,7 +41,7 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: integer
-    description: 'Maximal time [ms] to wait for conditions to be true.'
+    description: 'Maximal time [s] to wait for conditions to be true.'
     default: 1000
   steps:
     description: Sequence of actions.
@@ -211,7 +211,7 @@ title: Wait
 description: Does nothing (waits) a certain amount of time.
 properties:
   wait:
-    description: 'Time to wait in [ms] or an object of wait criteria.'
+    description: 'Time to wait in [s] or an object of wait criteria.'
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/wait-criteria-schema#'
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
@@ -270,7 +270,7 @@ properties:
     description: Select element which matches the given regular expression.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    description: 'Maximal time [s] to wait for the element which meets the given criteria.'
     oneOf:
       - type: number
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
@@ -307,7 +307,7 @@ description: Qualifier for wait.
 type: object
 properties:
   time:
-    description: 'Time to wait in [ms].'
+    description: 'Time to wait in [s].'
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: number
@@ -369,7 +369,7 @@ properties:
     description: Select element which matches the given regular expression.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    description: 'Maximal time [s] to wait for the element which meets the given criteria.'
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: number
@@ -412,7 +412,7 @@ properties:
     description: Select element which matches the given regular expression.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    description: 'Maximal time [s] to wait for the element which meets the given criteria.'
     oneOf:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: number
@@ -489,7 +489,7 @@ properties:
     description: Select element which matches the given regular expression.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    description: 'Maximal time [s] to wait for the element which meets the given criteria.'
     oneOf:
       - type: number
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
@@ -552,7 +552,7 @@ properties:
     description: Select element which matches the given regular expression.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
-    description: 'Maximal time [ms] to wait for the element which meets the given criteria.'
+    description: 'Maximal time [s] to wait for the element which meets the given criteria.'
     oneOf:
       - type: number
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'

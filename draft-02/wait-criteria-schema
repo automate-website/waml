@@ -5,7 +5,7 @@ description: Qualifier for wait.
 type: object
 properties:
     time:
-        description: Time to wait in [ms].
+        description: Time to wait in [s].
         oneOf:
           - $ref: http://waml-schema.org/draft-02/expression-schema#
           - type: number
