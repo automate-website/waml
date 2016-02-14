@@ -224,6 +224,10 @@
         - type: number
         - type: boolean
         - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+    absent:
+      description: 'If set to true, the element matching remaining criteria is expected to be absent.'
+      type: boolean
+      default: false
     parent:
       description: Presence of the parent element according given creteria.
       oneOf:
