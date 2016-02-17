@@ -41,3 +41,5 @@ properties:
             - $ref: http://waml-schema.org/draft-02/expression-schema#
             - type: boolean
 additionalProperties: false
+required:
+    - selector

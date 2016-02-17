@@ -253,6 +253,8 @@ properties:
     description: Select element which matches the given regular expression.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: criteria: ensure: 
@@ -300,6 +302,8 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: criteria: wait: 
@@ -399,6 +403,8 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: criteria: enter: 
@@ -450,6 +456,7 @@ properties:
 additionalProperties: false
 required:
   - input
+  - selector
 
 ```
 ## schema: criteria: open: 
@@ -513,6 +520,8 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: criteria: include: 
@@ -576,6 +585,8 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: expression: 

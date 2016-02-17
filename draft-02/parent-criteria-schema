@@ -11,4 +11,6 @@ properties:
         description: Select element which matches the given regular expression.
         $ref: http://waml-schema.org/draft-02/expression-schema#
 additionalProperties: false
+required:
+    - selector
 

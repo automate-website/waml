@@ -201,6 +201,8 @@
       description: Select element which matches the given regular expression.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/ensure-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Ensure criteria
@@ -244,6 +246,8 @@
         - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
         - type: boolean
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/wait-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Wait criteria
@@ -331,6 +335,8 @@
         - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
         - type: boolean
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Enter criteria
@@ -378,6 +384,7 @@
   additionalProperties: false
   required:
     - input
+    - selector
 - id: 'http://waml-schema.org/draft-02/open-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Open criteria
@@ -433,6 +440,8 @@
         - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
         - type: boolean
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/include-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Include criteria
@@ -488,6 +497,8 @@
         - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
         - type: boolean
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/expression-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Expression
