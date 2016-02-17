@@ -340,11 +340,14 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "description": "Select element which matches the given regular expression.",
+                "description": "Select element which text represenation contains the given value.",
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "required": [
+            "selector"
+        ]
     },
     {
         "id": "http://waml-schema.org/draft-02/ensure-criteria-schema#",
@@ -358,7 +361,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "description": "Select element which matches the given regular expression.",
+                "description": "Select element which text represenation contains the given value.",
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
@@ -425,7 +428,10 @@
                 ]
             }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "required": [
+            "selector"
+        ]
     },
     {
         "id": "http://waml-schema.org/draft-02/wait-criteria-schema#",
@@ -533,7 +539,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "description": "Select element which matches the given regular expression.",
+                "description": "Select element which text represenation contains the given value.",
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
@@ -595,7 +601,10 @@
                 ]
             }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "required": [
+            "selector"
+        ]
     },
     {
         "id": "http://waml-schema.org/draft-02/enter-criteria-schema#",
@@ -609,7 +618,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "description": "Select element which matches the given regular expression.",
+                "description": "Select element which text represenation contains the given value.",
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
@@ -687,7 +696,8 @@
         },
         "additionalProperties": false,
         "required": [
-            "input"
+            "input",
+            "selector"
         ]
     },
     {
@@ -741,7 +751,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "description": "Select element which matches the given regular expression.",
+                "description": "Select element which text represenation contains the given value.",
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
@@ -789,7 +799,10 @@
                 ]
             }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "required": [
+            "selector"
+        ]
     },
     {
         "id": "http://waml-schema.org/draft-02/include-criteria-schema#",
@@ -842,7 +855,7 @@
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "text": {
-                "description": "Select element which matches the given regular expression.",
+                "description": "Select element which text represenation contains the given value.",
                 "$ref": "http://waml-schema.org/draft-02/expression-schema#"
             },
             "timeout": {
@@ -890,7 +903,10 @@
                 ]
             }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "required": [
+            "selector"
+        ]
     },
     {
         "id": "http://waml-schema.org/draft-02/expression-schema#",

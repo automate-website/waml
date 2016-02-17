@@ -250,9 +250,11 @@ properties:
     description: CSS selector of element to select.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   text:
-    description: Select element which matches the given regular expression.
+    description: Select element which text represenation contains the given value.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: criteria: ensure: 
@@ -267,7 +269,7 @@ properties:
     description: CSS selector of element to select.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   text:
-    description: Select element which matches the given regular expression.
+    description: Select element which text represenation contains the given value.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -300,6 +302,8 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: criteria: wait: 
@@ -370,7 +374,7 @@ properties:
     description: CSS selector of element to select.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   text:
-    description: Select element which matches the given regular expression.
+    description: Select element which text represenation contains the given value.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -399,6 +403,8 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: criteria: enter: 
@@ -413,7 +419,7 @@ properties:
     description: CSS selector of element to select.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   text:
-    description: Select element which matches the given regular expression.
+    description: Select element which text represenation contains the given value.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -450,6 +456,7 @@ properties:
 additionalProperties: false
 required:
   - input
+  - selector
 
 ```
 ## schema: criteria: open: 
@@ -490,7 +497,7 @@ properties:
     description: CSS selector of element to select.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   text:
-    description: Select element which matches the given regular expression.
+    description: Select element which text represenation contains the given value.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -513,6 +520,8 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: criteria: include: 
@@ -553,7 +562,7 @@ properties:
     description: CSS selector of element to select.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   text:
-    description: Select element which matches the given regular expression.
+    description: Select element which text represenation contains the given value.
     $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   timeout:
     description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -576,6 +585,8 @@ properties:
       - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
       - type: boolean
 additionalProperties: false
+required:
+  - selector
 
 ```
 ## schema: expression: 

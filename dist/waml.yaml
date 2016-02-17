@@ -198,9 +198,11 @@
       description: CSS selector of element to select.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     text:
-      description: Select element which matches the given regular expression.
+      description: Select element which text represenation contains the given value.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/ensure-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Ensure criteria
@@ -211,7 +213,7 @@
       description: CSS selector of element to select.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     text:
-      description: Select element which matches the given regular expression.
+      description: Select element which text represenation contains the given value.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     timeout:
       description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -244,6 +246,8 @@
         - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
         - type: boolean
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/wait-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Wait criteria
@@ -302,7 +306,7 @@
       description: CSS selector of element to select.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     text:
-      description: Select element which matches the given regular expression.
+      description: Select element which text represenation contains the given value.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     timeout:
       description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -331,6 +335,8 @@
         - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
         - type: boolean
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/enter-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Enter criteria
@@ -341,7 +347,7 @@
       description: CSS selector of element to select.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     text:
-      description: Select element which matches the given regular expression.
+      description: Select element which text represenation contains the given value.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     timeout:
       description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -378,6 +384,7 @@
   additionalProperties: false
   required:
     - input
+    - selector
 - id: 'http://waml-schema.org/draft-02/open-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Open criteria
@@ -410,7 +417,7 @@
       description: CSS selector of element to select.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     text:
-      description: Select element which matches the given regular expression.
+      description: Select element which text represenation contains the given value.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     timeout:
       description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -433,6 +440,8 @@
         - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
         - type: boolean
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/include-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Include criteria
@@ -465,7 +474,7 @@
       description: CSS selector of element to select.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     text:
-      description: Select element which matches the given regular expression.
+      description: Select element which text represenation contains the given value.
       $ref: 'http://waml-schema.org/draft-02/expression-schema#'
     timeout:
       description: 'Maximal time [s] to wait for the element which meets the given criteria.'
@@ -488,6 +497,8 @@
         - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
         - type: boolean
   additionalProperties: false
+  required:
+    - selector
 - id: 'http://waml-schema.org/draft-02/expression-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Expression
