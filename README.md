@@ -1,5 +1,7 @@
 # WAML (draft-0.2)
 
+[![Join the chat at https://gitter.im/automate-website/waml](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 **Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.
 
 Refer to the [changelog] for recent notable changes and modifications.
