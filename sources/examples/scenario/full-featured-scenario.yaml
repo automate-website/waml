@@ -3,7 +3,7 @@ name: full-featured-scenario
 description: A full featured scenario
 fragment: false
 precendence: 100
-timeout: 5000
+timeout: 5
 if: ${ true }
 steps:
   - open: www.example.com
