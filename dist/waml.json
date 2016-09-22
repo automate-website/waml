@@ -49,7 +49,7 @@
                     }
                 ],
                 "description": "Maximal time [s] to wait for conditions to be true.",
-                "default": 1000
+                "default": 5
             },
             "steps": {
                 "description": "Sequence of actions.",

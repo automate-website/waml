@@ -3,5 +3,5 @@ name: Wait demonstration scenario 2
 steps:
   - open: www.example.com
   - wait:
-      time: 5000
+      time: 5
       if: ${slowConnection}

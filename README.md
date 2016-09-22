@@ -1,5 +1,7 @@
 # WAML (draft-0.2)
 
+[![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 **Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.
 
 Refer to the [changelog] for recent notable changes and modifications.
@@ -40,7 +42,7 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 | description |_(Optional)_ Short summary of the overall scenario purpose. |string |
 | fragment |_(Optional)_ Defines if a scenario is a fragment or may be executed stand-alone. __Default:__ false |boolean |
 | precendence |_(Optional)_ Defines the particular priority of the scenario during execution of independent scenarios. __Default:__ -1 |integer |
-| timeout |_(Optional)_ Maximal time [s] to wait for conditions to be true. __Default:__ 1000 |_One of:_<br/>[expression-schema](#expression-schema),<br/> integer |
+| timeout |_(Optional)_ Maximal time [s] to wait for conditions to be true. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> integer |
 | steps |Sequence of actions. |_Sequence of:_<br/>[step-schema](#step-schema) |
 | if |_(Optional)_ If set, the scenario is only executed if the value evaluates to true |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the scenario is only executed if the value evaluates to false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
@@ -53,7 +55,7 @@ name: full-featured-scenario
 description: A full featured scenario
 fragment: false
 precendence: 100
-timeout: 5000
+timeout: 5
 if: ${ true }
 steps:
   - open: www.example.com
@@ -391,7 +393,7 @@ Short notation example of ```wait```:
 name: Wait demonstration scenario
 steps:
   - open: www.example.com
-  - wait: 2000
+  - wait: 2
 ```
 
 #### Complex example
@@ -400,7 +402,7 @@ name: Wait demonstration scenario 2
 steps:
   - open: www.example.com
   - wait:
-      time: 5000
+      time: 5
       if: ${slowConnection}
 ```
 
