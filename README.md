@@ -1,4 +1,4 @@
-# WAML (draft-0.2)
+# Web Automation Markup Language (draft-0.2)
 
 [![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
@@ -26,7 +26,7 @@ WAML is based on [JSON Schema] that lives at [waml-schema.org]. WAML schema is a
 
 ## Scenario Schema
 
-A very basic scenario must contain a ```name``` and ```steps``` property. The list of actions may be empty, however, it is reasonable to have at least one action.
+A very basic scenario must contain a `name` and `steps` property. The list of actions may be empty, however, it is reasonable to have at least one action.
 
 ```yaml
 name: Name of the scenario
@@ -88,7 +88,8 @@ steps:
 ### Open
 #### Open Step Schema
 
-Like for a real user, ```open``` is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
+Like for a real user, `open` is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
+The `http://` scheme should be automatically added to the `url` if no scheme is specified.
 
 | Property | Description | Type |
 |---|---|---|
@@ -390,15 +391,15 @@ steps:
 Short notation example of ```wait```:
 
 ```yaml
-name: Wait demonstration scenario
+name: Wait 2.5 seconds demonstration scenario
 steps:
   - open: www.example.com
-  - wait: 2
+  - wait: 2.5
 ```
 
 #### Complex example
 ```yaml
-name: Wait demonstration scenario 2
+name: Wait 5 seconds demonstration scenario 2
 steps:
   - open: www.example.com
   - wait:
