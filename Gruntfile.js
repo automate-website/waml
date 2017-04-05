@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 				        	expand: true,
 				        	flatten: true,
 				        	src: ['sources/schema/**'],
-				        	dest: 'draft-02',
+				        	dest: 'draft-03',
 				        	filter: 'isFile',
 				        	rename: function(dest, src) {
 						        return dest + '/' + src.replace('.yaml', '');

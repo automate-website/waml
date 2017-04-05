@@ -1,4 +1,4 @@
-# Web Automation Markup Language (draft-0.2)
+# Web Automation Markup Language (draft-0.3)
 
 [![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 

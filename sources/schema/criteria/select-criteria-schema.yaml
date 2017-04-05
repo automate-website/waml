@@ -1,4 +1,4 @@
-id: http://waml-schema.org/draft-02/select-criteria-schema#
+id: http://waml-schema.org/draft-03/select-criteria-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Select criteria
 description: Qualifier for an element option selection.
@@ -6,36 +6,26 @@ type: object
 properties:
     selector:
         description: CSS selector of element to select.
-        $ref: http://waml-schema.org/draft-02/expression-schema#
+        $ref: http://waml-schema.org/draft-03/expression-schema#
     text:
         description: Select element which text represenation contains the given value.
-        $ref: http://waml-schema.org/draft-02/expression-schema#
+        $ref: http://waml-schema.org/draft-03/expression-schema#
     timeout:
         description: Maximal time [s] to wait for the element which meets the given criteria.
         oneOf:
-            - $ref: http://waml-schema.org/draft-02/expression-schema#
+            - $ref: http://waml-schema.org/draft-03/expression-schema#
             - type: number
     parent:
         description: Presence of the parent element according given creteria.
         oneOf:
-            - $ref: http://waml-schema.org/draft-02/expression-schema#
-            - $ref: http://waml-schema.org/draft-02/parent-criteria-schema#
+            - $ref: http://waml-schema.org/draft-03/expression-schema#
+            - $ref: http://waml-schema.org/draft-03/parent-criteria-schema#
     value:
         description: Value attribute will be checked against this value.
         oneOf:
-          - $ref: http://waml-schema.org/draft-02/expression-schema#
+          - $ref: http://waml-schema.org/draft-03/expression-schema#
           - type: number
           - type: boolean
-    if:
-        description: If set, the step is only executed if the value evaluates to true.
-        oneOf:
-            - $ref: http://waml-schema.org/draft-02/expression-schema#
-            - type: boolean
-    unless:
-        description: If set, the step is only executed if the value evaluates to false.
-        oneOf:
-            - $ref: http://waml-schema.org/draft-02/expression-schema#
-            - type: boolean
 additionalProperties: false
 required:
     - selector

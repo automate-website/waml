@@ -1,4 +1,4 @@
-$schema: http://waml-schema.org/draft-02/scenario-schema#
+$schema: http://waml-schema.org/draft-03/scenario-schema#
 name: Ensure demonstation scenario with explicit defined absent constraint
 steps:
   - open: www.example.com

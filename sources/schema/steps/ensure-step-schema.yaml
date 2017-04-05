@@ -1,4 +1,4 @@
-id: http://waml-schema.org/draft-02/ensure-step-schema#
+id: http://waml-schema.org/draft-03/ensure-step-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Ensure the presence of an element
 description: Ensures the presence of an element using different criteria
@@ -8,8 +8,18 @@ properties:
   ensure:
     description: A CSS selector as value or a hash of conditionals.
     oneOf:
-      - $ref: http://waml-schema.org/draft-02/expression-schema#
-      - $ref: http://waml-schema.org/draft-02/ensure-criteria-schema#
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+      - $ref: http://waml-schema.org/draft-03/ensure-criteria-schema#
+  if:
+    description: If set, the step is only executed if the value evaluates to true.
+    oneOf:
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+      - type: boolean
+  unless:
+    description: If set, the step is only executed if the value evaluates to false.
+    oneOf:
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+      - type: boolean
 required:
   - ensure
 additionalProperties: false

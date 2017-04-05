@@ -1,4 +1,4 @@
-id: http://waml-schema.org/draft-02/include-step-schema#
+id: http://waml-schema.org/draft-03/include-step-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Include Scenario
 description: Includes a scenario with a certain title
@@ -6,8 +6,18 @@ properties:
   include:
     description: Scenario name to include or include criteria.
     oneOf:
-      - $ref: http://waml-schema.org/draft-02/include-criteria-schema#
-      - $ref: http://waml-schema.org/draft-02/expression-schema#
+      - $ref: http://waml-schema.org/draft-03/include-criteria-schema#
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+  if:
+    description: If set, the step is only executed if the value evaluates to true.
+    oneOf:
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+      - type: boolean
+  unless:
+    description: If set, the step is only executed if the value evaluates to false.
+    oneOf:
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+      - type: boolean
 required:
   - include
 additionalProperties: false

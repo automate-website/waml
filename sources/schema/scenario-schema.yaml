@@ -1,48 +1,48 @@
-id: http://waml-schema.org/draft-02/scenario-schema#
+id: http://waml-schema.org/draft-03/scenario-schema#
 $schema: http://json-schema.org/draft-04/schema#
 title: Scenario
 description: A scenario combines a collection of tasks that must be executed together in a certain order.
 type: object
 properties:
-    $schema:
-        type: string
-        description: Defines the scenario schema in a specific version.
-    name:
-        type: string
-        description: Unique name that is used to reference a certain scenario.
-    description:
-        type: string
-        description: Short summary of the overall scenario purpose.
-    fragment:
-        type: boolean
-        description: Defines if a scenario is a fragment or may be executed stand-alone.
-        default: false
-    precendence:
-        type: integer
-        description: Defines the particular priority of the scenario during execution of independent scenarios.
-        default: -1
-    timeout:
-        oneOf:
-            - $ref: http://waml-schema.org/draft-02/expression-schema#
-            - type: integer
-        description: Maximal time [s] to wait for conditions to be true.
-        default: 5
-    steps:
-        description: Sequence of actions.
-        type: array
-        items:
-            $ref: http://waml-schema.org/draft-02/step-schema#
-    if:
-        oneOf:
-            - $ref: http://waml-schema.org/draft-02/expression-schema#
-            - type: boolean
-        description: If set, the scenario is only executed if the value evaluates to true
-    unless:
-        oneOf:
-            - $ref: http://waml-schema.org/draft-02/expression-schema#
-            - type: boolean
-        description: If set, the scenario is only executed if the value evaluates to false
+  $schema:
+    type: string
+    description: Defines the scenario schema in a specific version.
+  name:
+    type: string
+    description: Unique name that is used to reference a certain scenario.
+  description:
+    type: string
+    description: Short summary of the overall scenario purpose.
+  fragment:
+    type: boolean
+    description: Defines if a scenario is a fragment or may be executed stand-alone.
+    default: false
+  precendence:
+    type: integer
+    description: Defines the particular priority of the scenario during execution of independent scenarios.
+    default: -1
+  timeout:
+    oneOf:
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+      - type: integer
+    description: Maximal time [s] to wait for conditions to be true.
+    default: 5
+  steps:
+    description: Sequence of actions.
+    type: array
+    items:
+      $ref: http://waml-schema.org/draft-03/step-schema#
+  if:
+    description: If set, the scenario is only executed if the value evaluates to true
+    oneOf:
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+      - type: boolean
+  unless:
+    description: If set, the scenario is only executed if the value evaluates to false
+    oneOf:
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+      - type: boolean
 additionalProperties: false
 required:
-    - name
-    - steps
+  - name
+  - steps

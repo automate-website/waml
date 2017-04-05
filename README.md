@@ -1,4 +1,4 @@
-# Web Automation Markup Language (draft-0.2)
+# Web Automation Markup Language (draft-0.3)
 
 [![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
@@ -94,6 +94,8 @@ The `http://` scheme should be automatically added to the `url` if no scheme is 
 | Property | Description | Type |
 |---|---|---|
 | open |The URL to which the navigation takes place as value or a complex open criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [open-criteria-schema](#open-criteria-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Open Criteria Schema
@@ -101,8 +103,6 @@ The `http://` scheme should be automatically added to the `url` if no scheme is 
 | Property | Description | Type |
 |---|---|---|
 | url |The URL to which the navigation takes place. |[expression-schema](#expression-schema) |
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Open Examples
@@ -122,10 +122,11 @@ name: Open demonstration scenario 2
 steps:
   - open:
       url: www.example.com
-      unless: ${isMobile}
+    unless: ${isMobile}
+
   - open:
       url: m.example.com
-      if: ${isMobile}
+    if: ${isMobile}
 ```
 
 ### Ensure
@@ -136,6 +137,8 @@ To verify the integrity of the page it may be reasonable to ensure the presence 
 | Property | Description | Type |
 |---|---|---|
 | ensure |A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [ensure-criteria-schema](#ensure-criteria-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Ensure Criteria Schema
@@ -148,8 +151,6 @@ To verify the integrity of the page it may be reasonable to ensure the presence 
 | value |_(Optional)_ Verify value attribute against this value. |_One of:_<br/>number,<br/> boolean,<br/> [expression-schema](#expression-schema) |
 | absent |_(Optional)_ If set to true, the element matching remaining criteria is expected to be absent. __Default:__ false |boolean |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Ensure Examples
@@ -187,6 +188,8 @@ For hidden elements which appear only after the user has hovered a certain eleme
 | Property | Description | Type |
 |---|---|---|
 | move |A CSS selector as value or a complex move criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [move-criteria-schema](#move-criteria-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Move Criteria Schema
@@ -197,8 +200,6 @@ For hidden elements which appear only after the user has hovered a certain eleme
 | text |_(Optional)_ Select element which text represenation contains the given value. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Move Example
@@ -238,6 +239,8 @@ Every kind of clicks can be simulated with the ```click``` action.
 | Property | Description | Type |
 |---|---|---|
 | click |A CSS selector as value or a mapping of criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [click-criteria-schema](#click-criteria-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Click Criteria Schema
@@ -248,8 +251,6 @@ Every kind of clicks can be simulated with the ```click``` action.
 | text |_(Optional)_ Select element which text represenation contains the given value. |[expression-schema](#expression-schema) |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. |_One of:_<br/>number,<br/> [expression-schema](#expression-schema) |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Click Examples
@@ -269,14 +270,16 @@ The ```text``` criteria may be used to verify the wording of the target.
 name: Click demonstration scenario 2
 steps:
   - open: www.example.com
+
   - click:
       selector: a.sign-up
       text: 'Join now for free!'
-      if: ${isDesktop}
+    if: ${isDesktop}
+
   - click:
       selector: a.sign-up
       text: 'Join now!'
-      if: ${isMobile}
+    if: ${isMobile}
 ```
 
 
@@ -286,6 +289,8 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | select |CSS selector of element to select or an object of select criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [select-criteria-schema](#select-criteria-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Select Criteria Schema
@@ -297,8 +302,6 @@ steps:
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | value |_(Optional)_ Value attribute will be checked against this value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Select Example
@@ -333,6 +336,8 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | enter |Send a sequence of key strokes to an element. |_One of:_<br/>[enter-criteria-schema](#enter-criteria-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Enter Criteria Schema
@@ -345,8 +350,6 @@ steps:
 | parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
 | value |_(Optional)_ Value of element to select. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
 | input |Value to set. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Enter Example
@@ -375,6 +378,8 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | wait |Time to wait in [s] or an object of wait criteria. |_One of:_<br/>[wait-criteria-schema](#wait-criteria-schema),<br/> [expression-schema](#expression-schema),<br/> number |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Wait Criteria Schema
@@ -382,8 +387,6 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | time |Time to wait in [s]. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Wait Example
@@ -402,9 +405,10 @@ steps:
 name: Wait 5 seconds demonstration scenario 2
 steps:
   - open: www.example.com
+
   - wait:
       time: 5
-      if: ${slowConnection}
+    if: ${slowConnection}
 ```
 
 
@@ -414,6 +418,8 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | include |Scenario name to include or include criteria. |_One of:_<br/>[include-criteria-schema](#include-criteria-schema),<br/> [expression-schema](#expression-schema) |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Include Criteria Schema
@@ -421,8 +427,6 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | scenario |The name of the scenario to include. |[expression-schema](#expression-schema) |
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Include Examples
@@ -442,7 +446,7 @@ name: Include demonstation scenario
 steps:
   - include:
       scenario: 'Click demonstration scenario'
-      if: ${isDesktop}
+    if: ${isDesktop}
 ```
 
 
@@ -452,14 +456,14 @@ steps:
 | Property | Description | Type |
 |---|---|---|
 | store |A mapping of variables to be defined in the execution context. |object |
+| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Store Criteria Schema
 
 | Property | Description | Type |
 |---|---|---|
-| if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
-| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | ^([a-zA-Z0-9_.])+$ |_(Optional)_ Random key matching the given pattern with a value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean,<br/> number |
 
 

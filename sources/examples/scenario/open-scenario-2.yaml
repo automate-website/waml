@@ -1,9 +1,9 @@
-$schema: http://waml-schema.org/draft-02/scenario-schema#
+$schema: http://waml-schema.org/draft-03/scenario-schema#
 name: Open demonstration scenario 2
 steps:
   - open:
       url: www.example.com
-      unless: ${isMobile}
+    unless: ${isMobile}
   - open:
       url: m.example.com
-      if: ${isMobile}
+    if: ${isMobile}
