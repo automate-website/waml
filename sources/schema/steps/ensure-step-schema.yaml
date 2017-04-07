@@ -20,6 +20,11 @@ properties:
     oneOf:
       - $ref: http://waml-schema.org/draft-03/expression-schema#
       - type: boolean
+  register:
+    description: If set, the reference to the element found in this step is stored under the specified value.
+    oneOf:
+      - $ref: http://waml-schema.org/draft-03/expression-schema#
+      - type: string
 required:
   - ensure
 additionalProperties: false
