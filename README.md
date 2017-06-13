@@ -96,6 +96,7 @@ The `http://` scheme should be automatically added to the `url` if no scheme is 
 | open |The URL to which the navigation takes place as value or a complex open criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [open-criteria-schema](#open-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| register |_(Optional)_ If set, the reference to the element found in this step is stored under the specified value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> string |
 
 
 #### Open Criteria Schema
@@ -123,7 +124,6 @@ steps:
   - open:
       url: www.example.com
     unless: ${isMobile}
-
   - open:
       url: m.example.com
     if: ${isMobile}
@@ -139,6 +139,7 @@ To verify the integrity of the page it may be reasonable to ensure the presence 
 | ensure |A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [ensure-criteria-schema](#ensure-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| register |_(Optional)_ If set, the reference to the element found in this step is stored under the specified value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> string |
 
 
 #### Ensure Criteria Schema
@@ -190,6 +191,7 @@ For hidden elements which appear only after the user has hovered a certain eleme
 | move |A CSS selector as value or a complex move criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [move-criteria-schema](#move-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| register |_(Optional)_ If set, the reference to the element found in this step is stored under the specified value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> string |
 
 
 #### Move Criteria Schema
@@ -241,6 +243,7 @@ Every kind of clicks can be simulated with the ```click``` action.
 | click |A CSS selector as value or a mapping of criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [click-criteria-schema](#click-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| register |_(Optional)_ If set, the reference to the element found in this step is stored under the specified value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> string |
 
 
 #### Click Criteria Schema
@@ -291,6 +294,7 @@ steps:
 | select |CSS selector of element to select or an object of select criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [select-criteria-schema](#select-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| register |_(Optional)_ If set, the reference to the element found in this step is stored under the specified value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> string |
 
 
 #### Select Criteria Schema
@@ -338,6 +342,7 @@ steps:
 | enter |Send a sequence of key strokes to an element. |_One of:_<br/>[enter-criteria-schema](#enter-criteria-schema) |
 | if |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| register |_(Optional)_ If set, the reference to the element found in this step is stored under the specified value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> string |
 
 
 #### Enter Criteria Schema

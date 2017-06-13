@@ -1,0 +1,6 @@
+$schema: http://waml-schema.org/draft-03/scenario-schema#
+name: Print var value with verbosity >= 2
+steps:
+  - debug:
+      msg: ${var}
+      verbosity: 2
