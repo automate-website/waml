@@ -6,9 +6,7 @@ type: object
 properties:
   msg:
     description: The debug message.
-    oneOf:
-      - $ref: http://waml-schema.org/draft-03/expression-schema#
-      - type: string
+    $ref: http://waml-schema.org/draft-03/expression-schema#
   verbosity:
     description: A number that controls when the debug is run.
     type: integer

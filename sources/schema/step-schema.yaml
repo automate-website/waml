@@ -13,3 +13,4 @@ oneOf:
   - $ref: http://waml-schema.org/draft-03/enter-step-schema#
   - $ref: http://waml-schema.org/draft-03/move-step-schema#
   - $ref: http://waml-schema.org/draft-03/wait-step-schema#
+  - $ref: http://waml-schema.org/draft-03/debug-step-schema#

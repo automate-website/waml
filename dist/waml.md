@@ -81,6 +81,7 @@ oneOf:
   - $ref: 'http://waml-schema.org/draft-03/enter-step-schema#'
   - $ref: 'http://waml-schema.org/draft-03/move-step-schema#'
   - $ref: 'http://waml-schema.org/draft-03/wait-step-schema#'
+  - $ref: 'http://waml-schema.org/draft-03/debug-step-schema#'
 
 ```
 ## schema: step: select: 
@@ -411,9 +412,7 @@ type: object
 properties:
   msg:
     description: The debug message.
-    oneOf:
-      - $ref: 'http://waml-schema.org/draft-03/expression-schema#'
-      - type: string
+    $ref: 'http://waml-schema.org/draft-03/expression-schema#'
   verbosity:
     description: A number that controls when the debug is run.
     type: integer
