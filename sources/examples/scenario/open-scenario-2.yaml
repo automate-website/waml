@@ -1,5 +1,6 @@
 $schema: http://waml-schema.org/draft-02/scenario-schema#
-name: Open demonstration scenario 2
+# Full notation
+name: 'Open demonstration scenario 2'
 steps:
   - open:
       url: www.example.com

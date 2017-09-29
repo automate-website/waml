@@ -1,8 +1,11 @@
-# Web Automation Markup Language (draft-0.2)
+<!--#
+title: 'Web Automation Markup Language (draft-0.2)'
+description: 'Human-readable way to define action sequences to perform on a web resources.'
+#-->
+
+# WAML (draft-0.2)
 
 [![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
-[![Example Scenario](img/scenario-register-at-automate-website-write-and-run.gif)](img/scenario-register-at-automate-website-write-and-run.gif)
 
 **Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.
 
@@ -10,6 +13,19 @@ Refer to the [changelog] for recent notable changes and modifications.
 
 
 ## Abstract
+```yaml
+# Example of login process automation
+name: Sign in
+steps:
+  - open: 'https://example.com/login'
+  - enter:
+      selector: input[name=email]
+      input: username@example.com
+  - enter:
+      selector: input[name=password]
+      input: s3cr3t
+  - click: button[type=submit]
+```
 
 Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of [YAML 1.2] which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.
 
@@ -28,10 +44,23 @@ WAML is based on [JSON Schema] that lives at [waml-schema.org]. WAML schema is a
 
 ## Scenario Schema
 
-A very basic scenario must contain a `name` and `steps` property. The list of actions may be empty, however, it is reasonable to have at least one action.
-
 ```yaml
 name: Name of the scenario
+steps:
+  - open: www.example.com
+```
+
+A very basic scenario must contain a `name` and `steps` property. The list of actions may be empty, however, it is reasonable to have at least one action.
+
+### Minimal Example
+
+```yaml
+name: full-featured-scenario
+description: A full featured scenario
+fragment: false
+precendence: 100
+timeout: 5
+if: ${ true }
 steps:
   - open: www.example.com
 ```
@@ -52,17 +81,6 @@ This minimal example demonstrates the simplicity of WAML. The full list of suppo
 
 Using this properties, the following more comprehensive example can be created:
 
-```yaml
-name: full-featured-scenario
-description: A full featured scenario
-fragment: false
-precendence: 100
-timeout: 5
-if: ${ true }
-steps:
-  - open: www.example.com
-```
-
 
 ## Step Schema
 
@@ -76,8 +94,6 @@ The steps property must be represented as a sequence of actions. Every step repr
 
 ## Fragment Scenarios
 
-Fragment scenarios can not be executed independently but can only be used in ```include``` actions of other scenarios or fragments.
-
 ```yaml
 name: fragment-scenario
 fragment: true
@@ -85,13 +101,34 @@ steps:
   - open: www.example.com
 ```
 
+Fragment scenarios can not be executed independently but can only be used in ```include``` actions of other scenarios or fragments.
+
 
 ## Actions and Criteria
 ### Open
-#### Open Step Schema
+
+```yaml
+# Short notation
+name: Open demonstration scenario
+steps:
+  - open: www.example.com
+```
+```yaml
+# Full notation
+name: 'Open demonstration scenario 2'
+steps:
+  - open:
+      url: www.example.com
+      unless: ${isMobile}
+  - open:
+      url: m.example.com
+      if: ${isMobile}
+```
 
 Like for a real user, `open` is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
 The `http://` scheme should be automatically added to the `url` if no scheme is specified.
+
+#### Open Step Schema
 
 | Property | Description | Type |
 |---|---|---|
@@ -107,33 +144,36 @@ The `http://` scheme should be automatically added to the `url` if no scheme is 
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
-#### Open Examples
-
-Short notation example of ```open```:
+### Ensure
 
 ```yaml
-name: Open demonstration scenario
+# Short notation of 'ensure'
+name: Ensure demonstation scenario
 steps:
   - open: www.example.com
+  - ensure: h1.greeting
 ```
-
-Complex example:
-
 ```yaml
-name: Open demonstration scenario 2
+# Full notation
+name: Ensure scenario with additional contstraints
 steps:
-  - open:
-      url: www.example.com
-      unless: ${isMobile}
-  - open:
-      url: m.example.com
-      if: ${isMobile}
+  - open: www.example.com
+  - ensure:
+      selector: h1.greeting
+      timeout: 400
+      value: 'Welcome to example.com!'
 ```
-
-### Ensure
-#### Ensure Step Schema
 
 To verify the integrity of the page it may be reasonable to ensure the presence of a certain element. The action ```ensure``` verifies, whether the particular element is present on the page.
+
+The depicted simple scenario can be created using the shot-notation of ```ensure``` action:
+
+1. Open a web page.
+2. Verify the presence of a header with a certain class.
+
+Using the additional criteria not only the presence of the element can be ensured but also elements content and its appearance within a defined a time constraint.
+
+#### Ensure Step Schema
 
 | Property | Description | Type |
 |---|---|---|
@@ -154,37 +194,37 @@ To verify the integrity of the page it may be reasonable to ensure the presence 
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
-#### Ensure Examples
-The following simple scenario can be created using the shot-notation of ```ensure``` action:
-
-1. Open a web page.
-2. Verify the presence of a header with a certain class.
-
-This would look like the following in WAML.
-
-```yaml
-name: Ensure demonstation scenario
-steps:
-  - open: www.example.com
-  - ensure: h1.greeting
-```
-
-Using the additional criteria not only the presence of the element can be ensured but also elements content and its appearance within a defined a time constraint.
-
-```yaml
-name: Ensure demonstation scenario with additional contstraints
-steps:
-  - open: www.example.com
-  - ensure:
-      selector: h1.greeting
-      timeout: 400
-      value: 'Welcome to example.com!'
-```
-
 ### Move
-#### Move Step Schema
+
+```yaml
+# Short notation
+name: Move demonstation scenario
+steps:
+  - open: www.example.com
+  - move: a.help
+  - ensure:
+      selector: .help-tooltip
+      text: 'Click here to get help.'
+```
+
+```yaml
+# Full notation
+name: Move demonstation scenario
+steps:
+  - open: www.example.com
+  - move:
+      selector: a.help
+      text: 'Need help?'
+      parent:
+        selector: .help-container
+  - ensure: .help-tooltip
+```
 
 For hidden elements which appear only after the user has hovered a certain element the (mouse) ```move``` action can be used.  
+
+The examples depicts the usage of the ```move``` action. 
+
+#### Move Step Schema
 
 | Property | Description | Type |
 |---|---|---|
@@ -203,39 +243,34 @@ For hidden elements which appear only after the user has hovered a certain eleme
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
-#### Move Example
-
-The following example depicts the usage of the ```move``` action.
-
-```yaml
-name: Move demonstation scenario
-steps:
-  - open: www.example.com
-  - move:
-      selector: a.help
-      text: 'Need help?'
-      parent:
-        selector: .help-container
-  - ensure: .help-tooltip
-```
-
-Complex example:
-
-```yaml
-name: Move demonstation scenario
-steps:
-  - open: www.example.com
-  - move: a.help
-  - ensure:
-      selector: .help-tooltip
-      text: 'Click here to get help.'
-```
-
-
 ### Click
-#### Click Step Schema
+
+```yaml
+name: Click demonstration scenario
+steps:
+  - open: www.example.com
+  - click: a.sign-up
+```
+```yaml
+name: Click demonstration scenario 2
+steps:
+  - open: www.example.com
+  - click:
+      selector: a.sign-up
+      text: 'Join now for free!'
+      if: ${isDesktop}
+  - click:
+      selector: a.sign-up
+      text: 'Join now!'
+      if: ${isMobile}
+```
 
 Every kind of clicks can be simulated with the ```click``` action.
+
+In the short notation example a click happens on an anchor element selected by CSS. 
+Also the ```text``` criteria may be used to verify the wording of the target.
+
+#### Click Step Schema
 
 | Property | Description | Type |
 |---|---|---|
@@ -254,35 +289,31 @@ Every kind of clicks can be simulated with the ```click``` action.
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
-#### Click Examples
-
-In the following short notation example click happens on an anchor element selected by CSS. 
-
-```yaml
-name: Click demonstration scenario
-steps:
-  - open: www.example.com
-  - click: a.sign-up
-```
-
-The ```text``` criteria may be used to verify the wording of the target.
- 
-```yaml
-name: Click demonstration scenario 2
-steps:
-  - open: www.example.com
-  - click:
-      selector: a.sign-up
-      text: 'Join now for free!'
-      if: ${isDesktop}
-  - click:
-      selector: a.sign-up
-      text: 'Join now!'
-      if: ${isMobile}
-```
-
 
 ### Select
+
+```yaml
+# Short notation
+name: Select demonstration scenario
+steps:
+  - open: www.example.com
+  - select: '.actions option:first-child'
+```
+```yaml
+# Full notation of 'select'
+name: 'Select demonstration scenario 2'
+steps:
+  - open: www.example.com
+  - select:
+      selector: .title
+      text: 'PROF DR'
+  - select:
+      selector: .country
+      value: 'CH'
+```
+
+Short notation example of ```select``` and a complex example.
+
 #### Select Step Schema
 
 | Property | Description | Type |
@@ -303,33 +334,27 @@ steps:
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
-#### Select Example
-
-Short notation example of ```select```:
-
-```yaml
-name: Select demonstration scenario (short notation)
-steps:
-  - open: www.example.com
-  - select: '.actions option:first-child'
-```
-
-Complex example:
-
-```yaml
-name: Select demonstration scenario 2
-steps:
-  - open: www.example.com
-  - select:
-      selector: .title
-      text: 'PROF DR'
-  - select:
-      selector: .country
-      value: 'CH'
-```
-
 
 ### Enter
+
+```yaml
+# Full notation of 'enter'
+name: Enter demonstration scenario
+steps:
+  - open: www.example.com
+  - enter:
+      selector: input.email
+      input: 'me@example.com'
+  - enter:
+      selector: input.password
+      input: 'secret'
+  - enter:
+      selector: input.easy-captcha
+      value: 1234
+      input: 3421
+  - click: button[type=submit]
+```
+
 #### Enter Step Schema
 
 | Property | Description | Type |
@@ -351,27 +376,27 @@ steps:
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
-#### Enter Example
+### Wait
 
 ```yaml
-name: Enter demonstration scenario
+# Short notation of 'wait'
+name: Wait 2.5 seconds demonstration scenario
 steps:
   - open: www.example.com
-  - enter:
-      selector: input.email
-      input: 'me@example.com'
-  - enter:
-      selector: input.password
-      input: 'secret'
-  - enter:
-      selector: input.easy-captcha
-      value: 1234
-      input: 3421
-  - click: button[type=submit]
+  - wait: 2.5
+```
+```yaml
+# Full notation of 'wait'
+name: 'Wait 5 seconds demonstration scenario 2'
+steps:
+  - open: www.example.com
+  - wait:
+      time: 5
+      if: ${slowConnection}
 ```
 
+Short notation examples of ```wait```.
 
-### Wait
 #### Wait Step Schema
 
 | Property | Description | Type |
@@ -388,29 +413,24 @@ steps:
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
-#### Wait Example
-
-Short notation example of ```wait```:
-
-```yaml
-name: Wait 2.5 seconds demonstration scenario
-steps:
-  - open: www.example.com
-  - wait: 2.5
-```
-
-#### Complex example
-```yaml
-name: Wait 5 seconds demonstration scenario 2
-steps:
-  - open: www.example.com
-  - wait:
-      time: 5
-      if: ${slowConnection}
-```
-
 
 ### Include
+
+```yaml
+name: Include demonstation scenario
+steps:
+  - include: 'Click demonstration scenario'
+```
+```yaml
+name: Include demonstation scenario
+steps:
+  - include:
+      scenario: 'Click demonstration scenario'
+      if: ${isDesktop}
+```
+
+Short notation example of ```include``` and a complex example.
+
 #### Include Step Schema
 
 | Property | Description | Type |
@@ -427,28 +447,28 @@ steps:
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
-#### Include Examples
-
-Short notation example of ```include```:
-
-```yaml
-name: Include demonstation scenario
-steps:
-  - include: 'Click demonstration scenario'
-```
-
-Complex example:
-
-```yaml
-name: Include demonstation scenario
-steps:
-  - include:
-      scenario: 'Click demonstration scenario'
-      if: ${isDesktop}
-```
-
 
 ### Store
+
+```yaml
+name: Store demonstration scenario
+steps:
+  - store:
+      language: 'en'
+```
+```yaml
+name: Store demonstration scenario 2
+steps:
+  - store:
+      display_resolution: '1024x768'
+      isDesktop: true
+      1080p: false
+      width: 1024
+      if: ${isOldComputer}
+```
+
+An example of simple usage of ```store``` as well as a more complex example.
+
 #### Store Step Schema
 
 | Property | Description | Type |
@@ -464,30 +484,6 @@ steps:
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | ^([a-zA-Z0-9_.])+$ |_(Optional)_ Random key matching the given pattern with a value. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean,<br/> number |
 
-
-#### Store Examples
-
-An example of simple usage of ```store```:
-
-```yaml
-name: Store demonstration scenario
-steps:
-  - store:
-      language: 'en'
-```
-
-Complex example:
-
-```yaml
-name: Store demonstration scenario 2
-steps:
-  - store:
-      display_resolution: '1024x768'
-      isDesktop: true
-      1080p: false
-      width: 1024
-      if: ${isOldComputer}
-```
 
 
 ## Expressions
@@ -513,8 +509,6 @@ steps:
 A single WAML file may contain multiple scenarios. Therefore, the capability of YAML to store multiple documents by splitting them with ```---``` is used.
 
 
-
-
 [YAML 1.2]: http://yaml.org/spec/1.2/spec.html
 [RFC 2119]: https://www.ietf.org/rfc/rfc2119.txt
 
@@ -523,4 +517,3 @@ A single WAML file may contain multiple scenarios. Therefore, the capability of 
 [waml-json]: dist/waml.json
 [waml-yaml]: dist/waml.yaml
 [waml-schema.org]: http://waml-schema.org
-
