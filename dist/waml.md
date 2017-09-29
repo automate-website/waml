@@ -33,7 +33,7 @@ properties:
     type: boolean
     description: Defines if a scenario is a fragment or may be executed stand-alone.
     default: false
-  precendence:
+  precedence:
     type: integer
     description: Defines the particular priority of the scenario during execution of independent scenarios.
     default: -1
