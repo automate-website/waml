@@ -1,0 +1,9 @@
+$schema: http://waml-schema.org/draft-02/scenario-schema#
+name: Store demonstration scenario 2
+steps:
+  - store:
+      display_resolution: '1024x768'
+      isDesktop: true
+      1080p: false
+      width: 1024
+      if: ${isOldComputer}

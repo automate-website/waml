@@ -1,0 +1,5 @@
+$schema: http://waml-schema.org/draft-02/scenario-schema#
+name: Store demonstration scenario
+steps:
+  - store:
+      language: 'en'

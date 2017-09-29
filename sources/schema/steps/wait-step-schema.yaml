@@ -1,0 +1,14 @@
+id: http://waml-schema.org/draft-02/wait-step-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Wait
+description: Does nothing (waits) a certain amount of time.
+properties:
+  wait:
+    description: Time to wait in [s] or an object of wait criteria.
+    oneOf:
+      - $ref: http://waml-schema.org/draft-02/wait-criteria-schema#
+      - $ref: http://waml-schema.org/draft-02/expression-schema#
+      - type: number
+required:
+  - wait
+additionalProperties: false

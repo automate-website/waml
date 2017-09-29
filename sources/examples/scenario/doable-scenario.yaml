@@ -1,5 +1,0 @@
-$schema: http://waml-schema.org/draft-02/scenario-schema#
-name: fragment-scenario
-type: doable
-steps:
-  - url: www.example.com
