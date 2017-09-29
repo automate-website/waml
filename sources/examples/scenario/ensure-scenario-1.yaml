@@ -1,4 +1,5 @@
 $schema: http://waml-schema.org/draft-02/scenario-schema#
+# Short notation of 'ensure'
 name: Ensure demonstation scenario
 steps:
   - open: www.example.com

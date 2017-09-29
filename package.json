@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "test": "grunt validate",
+    "build": "grunt && npm run build-html",
     "build-html": "node node_modules/slatify/lib/slatify-cli README.md index.html"
   },
   "devDependencies": {

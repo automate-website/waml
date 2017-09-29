@@ -155,12 +155,13 @@ module.exports = function(grunt) {
         });
     });
 
+  // Deprecated
 	grunt.registerTask('merge-html', 'Merges schemas to a html file.', function() {
         return mergeToPath('./index.html', saveHtml, this.async());
     });
 
 	grunt.registerTask('merge', [ 'clean', 'validate',
-			'merge-yaml', 'merge-json', 'merge-md', 'merge-html' ]);
+			'merge-yaml', 'merge-json', 'merge-md' ]);
 
 	grunt.registerTask('default', [ 'merge', 'process-md', 'copy' ]);
 
