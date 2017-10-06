@@ -9,13 +9,14 @@ var _ = require('lodash'),
 
 
 
-var ajv = new Ajv(), pkg = require('./package.json');
+var ajv = new Ajv(),
+  pkg = require('./package.json');
+
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
 
-
 module.exports = function(grunt) {
-  var version =  grunt.option('version') || '2.0',
-    sources = './sources/' + version,
+  var schemaVersion = pkg.schemaVersion,
+    sources = './sources/' + schemaVersion,
     schemaSourcesPattern = sources
       + '/schema/**/*.yaml',
     exampleSourcesPattern = sources
@@ -158,13 +159,13 @@ module.exports = function(grunt) {
     });
 
   grunt.registerTask('save-schema', 'Merges schemas to md file.', function() {
-    if (!fs.existsSync(version)){
-      fs.mkdirSync(version);
+    if (!fs.existsSync(schemaVersion)){
+      fs.mkdirSync(schemaVersion);
     }
 
     schemas.forEach(schema => {
       const outputFile = path.basename(schema.id).replace('#', '');
-      const filename = version + '/' + outputFile;
+      const filename = schemaVersion + '/' + outputFile;
       grunt.log.write('Writing', filename, '... ');
 
       const content = yaml.safeDump(schema);

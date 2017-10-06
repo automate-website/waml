@@ -1,4 +1,4 @@
-# WAML: draft-02
+# WAML: 2.0
 
 ## schema: decorator: timeout: 
 ```

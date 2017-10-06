@@ -1,11 +1,20 @@
 {
   "name": "waml",
-  "version": "0.0.2",
-  "schemaVersion": "draft-02",
+  "version": "2.0.0",
+  "schemaVersion": "2.0",
   "description": "Web automation markup language",
   "main": "index.js",
   "author": "Automate Website",
   "license": "MIT",
+  "homepage": "http://waml-schema.org",
+  "bugs": "https://github.com/automate-website/waml/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/automate-website/waml.git"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "test": "grunt validate",
     "build": "grunt && npm run build-html",
