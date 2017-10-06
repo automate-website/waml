@@ -1,0 +1,4 @@
+$schema: http://waml-schema.org/2.0/scenario-schema#
+name: Name of the scenario
+steps:
+  - open: www.example.com

@@ -1,5 +1,12 @@
 language: node_js
 node_js:
-  - v0.12
-before_install: npm install -g grunt-cli
+  - "8"
+
+cache:
+  directories:
+    - "node_modules"
+
 install: npm install
+
+script:
+  - npm run test

@@ -1,101 +1,119 @@
-var _ = require('lodash-node'),
+var _ = require('lodash'),
 	Ajv = require('ajv'),
 	yaml = require('js-yaml'),
 	fs = require('fs'),
 	glob = require('glob'),
-    path = require('path'),
+  path = require('path'),
 
-    templateHelpers = require('./lib/template-helpers'),
-
-	sources = './sources',
-	schemaSourcesPattern = sources
-		+ '/schema/**/*.yaml',
-	exampleSourcesPattern = sources
-		+ '/examples/**/*.yaml',
-	schemasOrder = [ 'base', 'scenario', 'step',
-		'commands', 'criteria' ],
-	distPattern = './dist/**/*',
-	templateSubschemaMdPath = sources + '/templates/md/subschema.md',
-	templateHeaderMdPath = sources + '/templates/md/header.md',
-	templateSubschemaHtmlPath = sources + '/templates/html/subschema.html',
-    templateHeaderHtmlPath = sources + '/templates/html/header.html',
-
-	title = 'Web Automation Markup Language',
-	shortTitle = 'WAML',
-	schemaOrder = ['/schema',
-	               'scenario-schema',
-	               '/step-schema',
-	               'step-schema',
-	               'criteria-schema',
-	               'expression-schema'];
+  templateHelpers = require('./lib/template-helpers');
 
 
 
 var ajv = new Ajv(), pkg = require('./package.json');
+ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
+
 
 module.exports = function(grunt) {
+  var version =  grunt.option('version') || '2.0',
+    sources = './sources/' + version,
+    schemaSourcesPattern = sources
+      + '/schema/**/*.yaml',
+    exampleSourcesPattern = sources
+      + '/examples/**/*.yaml',
+    schemasOrder = [ 'base', 'scenario', 'step',
+      'commands', 'criteria' ],
+    distPattern = './dist/**/*',
+    templateSubschemaMdPath = sources + '/templates/md/subschema.md',
+    templateHeaderMdPath = sources + '/templates/md/header.md',
+    templateSubschemaHtmlPath = sources + '/templates/html/subschema.html',
+    templateHeaderHtmlPath = sources + '/templates/html/header.html',
 
-    // Define global settings for interpolation
-    var templateSettings = {
-            interpolate: /{{([\s\S]+?)}}/g
-        };
+    title = 'Web Automation Markup Language',
+    shortTitle = 'WAML',
+    schemaOrder = ['/schema',
+      'scenario-schema',
+      '/step-schema',
+      'step-schema',
+      'criteria-schema',
+      'expression-schema'];
 
-    // Inject helpers/imports
-    templateHelpers(templateSettings);
+  let schemas = [];
 
-    _.templateSettings = templateSettings;
+
+  // Define global settings for interpolation
+  var templateSettings = {
+    interpolate: /{{([\s\S]+?)}}/g
+  };
+
+  // Inject helpers/imports
+  templateHelpers(templateSettings);
+
+  _.templateSettings = templateSettings;
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.initConfig({
 		pkg : pkg,
 
 		clean : [ distPattern ],
 
-		copy: {
-			main: {
-				files: [
-				        {
-				        	expand: true,
-				        	flatten: true,
-				        	src: ['sources/schema/**'],
-				        	dest: 'draft-02',
-				        	filter: 'isFile',
-				        	rename: function(dest, src) {
-						        return dest + '/' + src.replace('.yaml', '');
-						    }
-				        }
-				]
-
-			}
-		},
-
-        'process-md' : {
-            src: sources + '/*.md',
-            dest : './'
-        }
+    'process-md': {
+      src: sources + '/*.md',
+      dest: './'
+    }
 	});
 
-	grunt.registerTask('validate-schema', 'Validates waml json based schema.',
+	grunt.registerTask('load-schema', 'Loads WAML json based schema.',
 			function() {
-				var done = this.async();
+				let done = this.async();
 
 				return glob(schemaSourcesPattern, function(er, filePaths) {
 					_.each(filePaths, function(filePath) {
-						grunt.log.write('Validating', filePath, '... ');
-                        subSchema = requireYaml(filePath);
-                        try {
-							ajv.addSchema(subSchema);
-							grunt.log.ok();
-						} catch (e) {
-							grunt.log.error();
-							throw e;
-						}
+            let schema = requireYaml(filePath);
+            schemas.push(schema);
 					});
+
+          mergeProperties(schemas);
+          schemas.forEach(addSchema);
+
 					done();
 				});
 			});
+
+  /**
+   * WARNING: This is a hack because there is currently no proper way to extend the schema.
+   * @see http://json-schema.org/draft-06/json-schema-migration-faq.html#q-what-happened-to-all-the-discussions-around-re-using-schemas-with-additionalproperties
+   * @param schemas
+   */
+	function mergeProperties(schemas) {
+
+    schemas.forEach(schema => {
+      if (schema.$mergeProperties) {
+
+        if (!schema.properties) {
+          schema.properties = {};
+        }
+
+        schema.$mergeProperties.forEach(({$ref}) => {
+          let matchingSchema = _.find(schemas, {id: $ref});
+          _.extend(schema.properties, matchingSchema.properties);
+        });
+        delete schema.$mergeProperties;
+      }
+    });
+  }
+
+	function addSchema(schema) {
+    grunt.log.write('Adding', schema.id, '... ');
+
+    try {
+      ajv.addSchema(schema);
+      grunt.log.ok();
+    } catch (e) {
+      grunt.log.error();
+      throw e;
+    }
+  }
 
 	grunt.registerTask('validate-examples', 'Validates waml schema examples.',
 			function() {
@@ -139,20 +157,38 @@ module.exports = function(grunt) {
         return merge('md', saveMd, this.async());
     });
 
+  grunt.registerTask('save-schema', 'Merges schemas to md file.', function() {
+    if (!fs.existsSync(version)){
+      fs.mkdirSync(version);
+    }
+
+    schemas.forEach(schema => {
+      const outputFile = path.basename(schema.id).replace('#', '');
+      const filename = version + '/' + outputFile;
+      grunt.log.write('Writing', filename, '... ');
+
+      const content = yaml.safeDump(schema);
+      fs.writeFileSync(filename, content);
+
+      grunt.log.ok();
+    })
+  });
+
     grunt.registerTask('process-md', 'Process Markdown files', function() {
-        var taskConfig = grunt.config.get('process-md');
-        var src = taskConfig.src;
-        var dest = taskConfig.dest;
+      var taskConfig = grunt.config.get('process-md');
+      var src = taskConfig.src;
+      var dest = taskConfig.dest;
 
-        glob.sync(src).forEach( function(inputFilename) {
-            var content = readFile(inputFilename);
-            var template = _.template(content);
-            content = template();
+      glob.sync(src).forEach(function (inputFilename) {
+        var content = readFile(inputFilename);
+        var template = _.template(content);
+        content = template();
 
-            var outputFile = dest + path.basename(inputFilename);
-            fs.writeFileSync(outputFile, content);
-            grunt.log.write('Processed', inputFilename, 'to', outputFile);
-        });
+        var outputFile = dest + path.basename(inputFilename);
+        fs.writeFileSync(outputFile, content);
+        grunt.log.write('Processed', inputFilename, 'to', outputFile);
+      });
+
     });
 
   // Deprecated
@@ -163,9 +199,9 @@ module.exports = function(grunt) {
 	grunt.registerTask('merge', [ 'clean', 'validate',
 			'merge-yaml', 'merge-json', 'merge-md' ]);
 
-	grunt.registerTask('default', [ 'merge', 'process-md', 'copy' ]);
+	grunt.registerTask('default', [ 'merge', 'save-schema', 'process-md' ]);
 
-	grunt.registerTask('validate', [ 'validate-schema', 'validate-examples'] );
+	grunt.registerTask('validate', [ 'load-schema', 'validate-examples'] );
 
 	function merge(format, save, done){
 		var schemaDistFile = './dist/waml.' + format;

@@ -1,0 +1,13 @@
+id: http://waml-schema.org/2.0/store-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Store criteria
+description: Qualifier for values to store and a key-value store.
+type: object
+patternProperties:
+    "^([a-zA-Z0-9_.])+$":
+        description: Random key matching the given pattern with a value.
+        oneOf:
+          - $ref: http://waml-schema.org/2.0/expression-schema#
+          - type: boolean
+          - type: number
+additionalProperties: false

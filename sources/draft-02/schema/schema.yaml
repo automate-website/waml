@@ -1,0 +1,8 @@
+id: http://waml-schema.org/draft-02/schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Web Automation Markup Language
+description: A simple markup language for web automation.
+type: array
+items:
+    $ref: http://waml-schema.org/draft-02/scenario-schema#
+additionalProperties: false

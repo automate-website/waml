@@ -1,0 +1,9 @@
+$schema: http://waml-schema.org/2.0/scenario-schema#
+# Short notation
+name: Move demonstation scenario
+steps:
+  - open: www.example.com
+  - move: a.help
+  - ensure:
+      selector: .help-tooltip
+      text: 'Click here to get help.'

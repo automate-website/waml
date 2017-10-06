@@ -1,0 +1,35 @@
+id: http://waml-schema.org/2.0/scenario-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Scenario
+description: A scenario combines a collection of tasks that must be executed together in a certain order.
+type: object
+properties:
+    $schema:
+        type: string
+        description: Defines the scenario schema in a specific version.
+    name:
+        type: string
+        description: Unique name that is used to reference a certain scenario.
+    description:
+        type: string
+        description: Short summary of the overall scenario purpose.
+    fragment:
+        type: boolean
+        description: Defines if a scenario is a fragment or may be executed stand-alone.
+        default: false
+    precendence:
+        type: integer
+        description: Defines the particular priority of the scenario during execution of independent scenarios.
+        default: -1
+    steps:
+        description: Sequence of actions.
+        type: array
+        items:
+            $ref: http://waml-schema.org/2.0/step-schema#
+additionalProperties: false
+required:
+  - name
+  - steps
+$mergeProperties:
+  - $ref: http://waml-schema.org/2.0/conditional-decorator-schema#
+  - $ref: http://waml-schema.org/2.0/timeout-decorator-schema#

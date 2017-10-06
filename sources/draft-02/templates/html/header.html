@@ -1,0 +1,55 @@
+<style type="text/css">
+    .comment {
+        color: rgb(102, 196, 232);
+    }
+    .separator {
+        color:  #FF0000;
+    }
+    .schema-version {
+        color: #FFF;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    div.content {
+        margin-left: auto;
+	    margin-right: auto;
+	    max-width: 50em;
+	    border-color:  #E9EEF2;
+    }
+    
+    code {
+       white-space: pre;
+       padding-left: 1em;
+       display: block;
+       background-color: #FFF;
+    }
+    
+    h2 {
+       background-color: rgb(30, 33, 40);
+       color: #FFF;
+       padding: 1em 10px 0.5em 10px;
+       margin: 0;
+    }
+    
+    h1 {
+      color: rgb(102, 196, 232);
+      background-color: rgb(30, 33, 40);
+      margin-top: 0;
+      padding: 1em 10px 0.5em 10px;
+    }
+    
+    p {
+      margin: 0;
+      padding: 1em 10px 0 10px;
+    }
+    
+    section {
+      border: 1px solid rgb(30, 33, 40);
+      margin: 2em 0;
+    }
+    
+</style>
+<h1>{{ model.shortTitle }}<span class="separator">: </span><span class="schema-version">{{ model.pkg.schemaVersion }}</span></h1>

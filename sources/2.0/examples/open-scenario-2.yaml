@@ -1,0 +1,10 @@
+$schema: http://waml-schema.org/2.0/scenario-schema#
+# Full notation
+name: 'Open demonstration scenario 2'
+steps:
+  - unless: ${isMobile}
+    open:
+      url: www.example.com
+  - if: ${isMobile}
+    open:
+      url: m.example.com

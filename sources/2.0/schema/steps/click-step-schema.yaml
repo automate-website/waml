@@ -1,0 +1,16 @@
+id: http://waml-schema.org/2.0/click-step-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Click on the given element
+description: Clicks on the given visible element.
+properties:
+  click:
+    description: A CSS selector as value or a mapping of criteria.
+    oneOf:
+      - $ref: http://waml-schema.org/2.0/expression-schema#
+      - $ref: http://waml-schema.org/2.0/click-criteria-schema#
+required:
+  - click
+additionalProperties: false
+$mergeProperties:
+  - $ref: http://waml-schema.org/2.0/conditional-decorator-schema#
+  - $ref: http://waml-schema.org/2.0/timeout-decorator-schema#

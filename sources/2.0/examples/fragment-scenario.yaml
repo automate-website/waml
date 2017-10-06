@@ -1,0 +1,5 @@
+$schema: http://waml-schema.org/2.0/scenario-schema#
+name: fragment-scenario
+fragment: true
+steps:
+  - open: www.example.com

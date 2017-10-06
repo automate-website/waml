@@ -1,0 +1,16 @@
+id: http://waml-schema.org/2.0/open-step-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Open
+description: Navigates to a certain URL in the user agent.
+properties:
+  open:
+    description: The URL to which the navigation takes place as value or a complex open criteria.
+    oneOf:
+      - $ref: http://waml-schema.org/2.0/expression-schema#
+      - $ref: http://waml-schema.org/2.0/open-criteria-schema#
+required:
+  - open
+additionalProperties: false
+$mergeProperties:
+  - $ref: http://waml-schema.org/2.0/conditional-decorator-schema#
+  - $ref: http://waml-schema.org/2.0/timeout-decorator-schema#

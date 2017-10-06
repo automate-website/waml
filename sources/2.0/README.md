@@ -1,13 +1,14 @@
 <!--#
-title: 'Web Automation Markup Language (draft-0.2)'
+title: 'Web Automation Markup Language 2.0'
 description: 'Human-readable way to define action sequences to perform on a web resources.'
 #-->
 
-# WAML (draft-0.2)
+# WAML 2.0
 
-[![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) ![WAML 2.0](https://img.shields.io/badge/WAML-2.0-ee2a7b.svg)
 
 [![Example Scenario](img/scenario-register-at-automate-website-write-and-run.gif)](img/scenario-register-at-automate-website-write-and-run.gif)
+
 
 **Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.
 
@@ -46,17 +47,17 @@ WAML is based on [JSON Schema] that lives at [waml-schema.org]. WAML schema is a
 
 ## Scenario Schema
 
-{{ includeScenario('./sources/examples/scenario/simple-scenario.yaml') }}
+{{ includeScenario('./sources/2.0/examples/simple-scenario.yaml') }}
 
 A very basic scenario must contain a `name` and `steps` property. The list of actions may be empty, however, it is reasonable to have at least one action.
 
 ### Minimal Example
 
-{{ includeScenario('./sources/examples/scenario/full-featured-scenario.yaml') }}
+{{ includeScenario('./sources/2.0/examples/full-featured-scenario.yaml') }}
 
 This minimal example demonstrates the simplicity of WAML. The full list of supported metadata is depicted below.
 
-{{ schema2md('./sources/schema/scenario-schema.yaml') }}
+{{ schema2md('./2.0/scenario-schema') }}
 
 Using this properties, the following more comprehensive example can be created:
 
@@ -65,12 +66,12 @@ Using this properties, the following more comprehensive example can be created:
 
 The steps property must be represented as a sequence of actions. Every step represents the smallest identifiable user action.
 
-{{ schema2md('./sources/schema/step-schema.yaml') }}
+{{ schema2md('./sources/2.0/schema/step-schema.yaml') }}
 
 
 ## Fragment Scenarios
 
-{{ includeScenario('./sources/examples/scenario/fragment-scenario.yaml') }}
+{{ includeScenario('./sources/2.0/examples/fragment-scenario.yaml') }}
 
 Fragment scenarios can not be executed independently but can only be used in ```include``` actions of other scenarios or fragments.
 
@@ -78,24 +79,24 @@ Fragment scenarios can not be executed independently but can only be used in ```
 ## Actions and Criteria
 ### Open
 
-{{ includeScenario('./sources/examples/scenario/open-scenario-1.yaml') }}
-{{ includeScenario('./sources/examples/scenario/open-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/open-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/open-scenario-2.yaml') }}
 
 Like for a real user, `open` is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
 The `http://` scheme should be automatically added to the `url` if no scheme is specified.
 
 #### Open Step Schema
 
-{{ schema2md('./sources/schema/steps/open-step-schema.yaml') }}
+{{ schema2md('./2.0/open-step-schema') }}
 
 #### Open Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/open-criteria-schema.yaml') }}
+{{ schema2md('./2.0/open-criteria-schema') }}
 
 ### Ensure
 
-{{ includeScenario('./sources/examples/scenario/ensure-scenario-1.yaml') }}
-{{ includeScenario('./sources/examples/scenario/ensure-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/ensure-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/ensure-scenario-2.yaml') }}
 
 To verify the integrity of the page it may be reasonable to ensure the presence of a certain element. The action ```ensure``` verifies, whether the particular element is present on the page.
 
@@ -108,17 +109,17 @@ Using the additional criteria not only the presence of the element can be ensure
 
 #### Ensure Step Schema
 
-{{ schema2md('./sources/schema/steps/ensure-step-schema.yaml') }}
+{{ schema2md('./2.0/ensure-step-schema') }}
 
 #### Ensure Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/ensure-criteria-schema.yaml') }}
+{{ schema2md('./2.0/ensure-criteria-schema') }}
 
 ### Move
 
-{{ includeScenario('./sources/examples/scenario/move-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/move-scenario-1.yaml') }}
 
-{{ includeScenario('./sources/examples/scenario/move-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/move-scenario-2.yaml') }}
 
 For hidden elements which appear only after the user has hovered a certain element the (mouse) ```move``` action can be used.  
 
@@ -126,16 +127,16 @@ The examples depicts the usage of the ```move``` action.
 
 #### Move Step Schema
 
-{{ schema2md('./sources/schema/steps/move-step-schema.yaml') }}
+{{ schema2md('./2.0/move-step-schema') }}
 
 #### Move Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/move-criteria-schema.yaml') }}
+{{ schema2md('./2.0/move-criteria-schema') }}
 
 ### Click
 
-{{ includeScenario('./sources/examples/scenario/click-scenario-1.yaml') }}
-{{ includeScenario('./sources/examples/scenario/click-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/click-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/click-scenario-2.yaml') }}
 
 Every kind of clicks can be simulated with the ```click``` action.
 
@@ -144,98 +145,98 @@ Also the ```text``` criteria may be used to verify the wording of the target.
 
 #### Click Step Schema
 
-{{ schema2md('./sources/schema/steps/click-step-schema.yaml') }}
+{{ schema2md('./2.0/click-step-schema') }}
 
 #### Click Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/click-criteria-schema.yaml') }}
+{{ schema2md('./2.0/click-criteria-schema') }}
 
 
 ### Select
 
-{{ includeScenario('./sources/examples/scenario/select-scenario-1.yaml') }}
-{{ includeScenario('./sources/examples/scenario/select-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/select-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/select-scenario-2.yaml') }}
 
 Short notation example of ```select``` and a complex example.
 
 #### Select Step Schema
 
-{{ schema2md('./sources/schema/steps/select-step-schema.yaml') }}
+{{ schema2md('./2.0/select-step-schema') }}
 
 #### Select Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/select-criteria-schema.yaml') }}
+{{ schema2md('./2.0/select-criteria-schema') }}
 
 
 ### Enter
 
-{{ includeScenario('./sources/examples/scenario/enter-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/enter-scenario-1.yaml') }}
 
 #### Enter Step Schema
 
-{{ schema2md('./sources/schema/steps/enter-step-schema.yaml') }}
+{{ schema2md('./2.0/enter-step-schema') }}
 
 #### Enter Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/enter-criteria-schema.yaml') }}
+{{ schema2md('./2.0/enter-criteria-schema') }}
 
 ### Wait
 
-{{ includeScenario('./sources/examples/scenario/wait-scenario-1.yaml') }}
-{{ includeScenario('./sources/examples/scenario/wait-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/wait-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/wait-scenario-2.yaml') }}
 
 Short notation examples of ```wait```.
 
 #### Wait Step Schema
 
-{{ schema2md('./sources/schema/steps/wait-step-schema.yaml') }}
+{{ schema2md('./2.0/wait-step-schema') }}
 
 #### Wait Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/wait-criteria-schema.yaml') }}
+{{ schema2md('./2.0/wait-criteria-schema') }}
 
 
 ### Include
 
-{{ includeScenario('./sources/examples/scenario/include-scenario-1.yaml') }}
-{{ includeScenario('./sources/examples/scenario/include-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/include-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/include-scenario-2.yaml') }}
 
 Short notation example of ```include``` and a complex example.
 
 #### Include Step Schema
 
-{{ schema2md('./sources/schema/steps/include-step-schema.yaml') }}
+{{ schema2md('./2.0/include-step-schema') }}
 
 #### Include Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/include-criteria-schema.yaml') }}
+{{ schema2md('./2.0/include-criteria-schema') }}
 
 
 ### Store
 
-{{ includeScenario('./sources/examples/scenario/store-scenario-1.yaml') }}
-{{ includeScenario('./sources/examples/scenario/store-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/store-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/store-scenario-2.yaml') }}
 
 An example of simple usage of ```store``` as well as a more complex example.
 
 #### Store Step Schema
 
-{{ schema2md('./sources/schema/steps/store-step-schema.yaml') }}
+{{ schema2md('./2.0/store-step-schema') }}
 
 #### Store Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/store-criteria-schema.yaml') }}
+{{ schema2md('./2.0/store-criteria-schema') }}
 
 
 ## Expressions
 ### Expression Schema
 
-{{ schema2md('./sources/schema/expression-schema.yaml') }}
+{{ schema2md('./sources/2.0/schema/expression-schema.yaml') }}
 
 ## Shared Criteria
 ### Parent Criteria Schema
 
-{{ schema2md('./sources/schema/criteria/parent-criteria-schema.yaml') }}
+{{ schema2md('./2.0/parent-criteria-schema') }}
 
 
 ## Management of Multiple Scenarios

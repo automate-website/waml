@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-  <title>Web Automation Markup Language (draft-0.2)</title>
+  <title>Web Automation Markup Language 2.0</title>
   <meta name="description" content="Human-readable way to define action sequences to perform on a web resources." />
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
@@ -65,10 +65,10 @@
 
 <div class="main">
   <!--#
-title: 'Web Automation Markup Language (draft-0.2)'
+title: 'Web Automation Markup Language 2.0'
 description: 'Human-readable way to define action sequences to perform on a web resources.'
 #-->
-<h1 id="waml-draft-0-2-">WAML (draft-0.2)</h1>
+<h1 id="waml-2-0">WAML 2.0</h1>
 <p><a href="https://travis-ci.org/automate-website/waml"><img src="https://travis-ci.org/automate-website/waml.svg?branch=master" alt="Build Status"></a> <a href="https://gitter.im/automate-website/waml?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/automate-website/waml.svg" alt="Gitter"></a></p>
 <p><a href="img/scenario-register-at-automate-website-write-and-run.gif"><img src="img/scenario-register-at-automate-website-write-and-run.gif" alt="Example Scenario"></a></p>
 <p><strong>Notice</strong>: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.</p>
@@ -131,24 +131,24 @@ description: 'Human-readable way to define action sequences to perform on a web 
 <td>integer</td>
 </tr>
 <tr>
-<td>timeout</td>
-<td><em>(Optional)</em> Maximal time [s] to wait for conditions to be true. <strong>Default:</strong> 5</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> integer</td>
-</tr>
-<tr>
 <td>steps</td>
 <td>Sequence of actions.</td>
 <td><em>Sequence of:</em><br/><a href="#step-schema">step-schema</a></td>
 </tr>
 <tr>
 <td>if</td>
-<td><em>(Optional)</em> If set, the scenario is only executed if the value evaluates to true</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
 <td>unless</td>
-<td><em>(Optional)</em> If set, the scenario is only executed if the value evaluates to false</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
 </tr>
 </tbody>
       </table><p>Using this properties, the following more comprehensive example can be created:</p>
@@ -180,12 +180,12 @@ description: 'Human-readable way to define action sequences to perform on a web 
 <span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation</span>
 <span class="hljs-attr">name:</span> <span class="hljs-string">'Open demonstration scenario 2'</span>
 <span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span>
+<span class="hljs-attr">  - unless:</span> <span class="hljs-string">${isMobile}</span>
+<span class="hljs-attr">    open:</span>
 <span class="hljs-attr">      url:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">      unless:</span> <span class="hljs-string">${isMobile}</span>
-<span class="hljs-attr">  - open:</span>
-<span class="hljs-attr">      url:</span> <span class="hljs-string">m.example.com</span>
-<span class="hljs-attr">      if:</span> <span class="hljs-string">${isMobile}</span></code></pre><p>Like for a real user, <code>open</code> is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
+<span class="hljs-attr">  - if:</span> <span class="hljs-string">${isMobile}</span>
+<span class="hljs-attr">    open:</span>
+<span class="hljs-attr">      url:</span> <span class="hljs-string">m.example.com</span></code></pre><p>Like for a real user, <code>open</code> is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
 The <code>http://</code> scheme should be automatically added to the <code>url</code> if no scheme is specified.</p>
 <h4 id="open-step-schema">Open Step Schema</h4>
 <table class="table table-striped table-bordered">
@@ -199,6 +199,21 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td>open</td>
 <td>The URL to which the navigation takes place as value or a complex open criteria.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#open-criteria-schema">open-criteria-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
 </tr>
 </tbody>
       </table><h4 id="open-criteria-schema">Open Criteria Schema</h4>
@@ -214,16 +229,6 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td>The URL to which the navigation takes place.</td>
 <td><a href="#expression-schema">expression-schema</a></td>
 </tr>
-<tr>
-<td>if</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
 </tbody>
       </table><h3 id="ensure">Ensure</h3>
 <pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation of 'ensure'</span>
@@ -234,9 +239,9 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <span class="hljs-attr">name:</span> <span class="hljs-string">Ensure</span> <span class="hljs-string">scenario</span> <span class="hljs-string">with</span> <span class="hljs-string">additional</span> <span class="hljs-string">contstraints</span>
 <span class="hljs-attr">steps:</span>
 <span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - ensure:</span>
+<span class="hljs-attr">  - timeout:</span> <span class="hljs-number">4</span>
+<span class="hljs-attr">    ensure:</span>
 <span class="hljs-attr">      selector:</span> <span class="hljs-string">h1.greeting</span>
-<span class="hljs-attr">      timeout:</span> <span class="hljs-number">400</span>
 <span class="hljs-attr">      value:</span> <span class="hljs-string">'Welcome to example.com!'</span></code></pre><p>To verify the integrity of the page it may be reasonable to ensure the presence of a certain element. The action <code>ensure</code> verifies, whether the particular element is present on the page.</p>
 <p>The depicted simple scenario can be created using the shot-notation of <code>ensure</code> action:</p>
 <ol>
@@ -256,6 +261,21 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td>ensure</td>
 <td>A CSS selector as value or a hash of conditionals.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#ensure-criteria-schema">ensure-criteria-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
 </tr>
 </tbody>
       </table><h4 id="ensure-criteria-schema">Ensure Criteria Schema</h4>
@@ -277,11 +297,6 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 <tr>
-<td>timeout</td>
-<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
-<td><em>One of:</em><br/>number,<br/> <a href="#expression-schema">expression-schema</a></td>
-</tr>
-<tr>
 <td>value</td>
 <td><em>(Optional)</em> Verify value attribute against this value.</td>
 <td><em>One of:</em><br/>number,<br/> boolean,<br/> <a href="#expression-schema">expression-schema</a></td>
@@ -295,16 +310,6 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td>parent</td>
 <td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
-</tr>
-<tr>
-<td>if</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 </tbody>
       </table><h3 id="move">Move</h3>
@@ -339,6 +344,21 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td>A CSS selector as value or a complex move criteria.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#move-criteria-schema">move-criteria-schema</a></td>
 </tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
 </tbody>
       </table><h4 id="move-criteria-schema">Move Criteria Schema</h4>
 <table class="table table-striped table-bordered">
@@ -359,24 +379,9 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 <tr>
-<td>timeout</td>
-<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
-<td><em>One of:</em><br/>number,<br/> <a href="#expression-schema">expression-schema</a></td>
-</tr>
-<tr>
 <td>parent</td>
 <td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
-</tr>
-<tr>
-<td>if</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 </tbody>
       </table><h3 id="click">Click</h3>
@@ -386,14 +391,15 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <span class="hljs-attr">  - click:</span> <span class="hljs-string">a.sign-up</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Click</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span> <span class="hljs-number">2</span>
 <span class="hljs-attr">steps:</span>
 <span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - click:</span>
+<span class="hljs-attr">  - if:</span> <span class="hljs-string">${isDesktop}</span>
+<span class="hljs-attr">    click:</span>
 <span class="hljs-attr">      selector:</span> <span class="hljs-string">a.sign-up</span>
 <span class="hljs-attr">      text:</span> <span class="hljs-string">'Join now for free!'</span>
-<span class="hljs-attr">      if:</span> <span class="hljs-string">${isDesktop}</span>
-<span class="hljs-attr">  - click:</span>
+
+<span class="hljs-attr">  - if:</span> <span class="hljs-string">${isMobile}</span>
+<span class="hljs-attr">    click:</span>
 <span class="hljs-attr">      selector:</span> <span class="hljs-string">a.sign-up</span>
-<span class="hljs-attr">      text:</span> <span class="hljs-string">'Join now!'</span>
-<span class="hljs-attr">      if:</span> <span class="hljs-string">${isMobile}</span></code></pre><p>Every kind of clicks can be simulated with the <code>click</code> action.</p>
+<span class="hljs-attr">      text:</span> <span class="hljs-string">'Join now!'</span></code></pre><p>Every kind of clicks can be simulated with the <code>click</code> action.</p>
 <p>In the short notation example a click happens on an anchor element selected by CSS. 
 Also the <code>text</code> criteria may be used to verify the wording of the target.</p>
 <h4 id="click-step-schema">Click Step Schema</h4>
@@ -408,6 +414,21 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>click</td>
 <td>A CSS selector as value or a mapping of criteria.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#click-criteria-schema">click-criteria-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
 </tr>
 </tbody>
       </table><h4 id="click-criteria-schema">Click Criteria Schema</h4>
@@ -429,24 +450,9 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 <tr>
-<td>timeout</td>
-<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
-<td><em>One of:</em><br/>number,<br/> <a href="#expression-schema">expression-schema</a></td>
-</tr>
-<tr>
 <td>parent</td>
 <td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
-</tr>
-<tr>
-<td>if</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 </tbody>
       </table><h3 id="select">Select</h3>
@@ -477,6 +483,21 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>CSS selector of element to select or an object of select criteria.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#select-criteria-schema">select-criteria-schema</a></td>
 </tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
 </tbody>
       </table><h4 id="select-criteria-schema">Select Criteria Schema</h4>
 <table class="table table-striped table-bordered">
@@ -497,11 +518,6 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 <tr>
-<td>timeout</td>
-<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
-</tr>
-<tr>
 <td>parent</td>
 <td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
@@ -510,16 +526,6 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>value</td>
 <td><em>(Optional)</em> Value attribute will be checked against this value.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number,<br/> boolean</td>
-</tr>
-<tr>
-<td>if</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 </tbody>
       </table><h3 id="enter">Enter</h3>
@@ -550,6 +556,21 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>Send a sequence of key strokes to an element.</td>
 <td><em>One of:</em><br/><a href="#enter-criteria-schema">enter-criteria-schema</a></td>
 </tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
 </tbody>
       </table><h4 id="enter-criteria-schema">Enter Criteria Schema</h4>
 <table class="table table-striped table-bordered">
@@ -570,11 +591,6 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 <tr>
-<td>timeout</td>
-<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
-</tr>
-<tr>
 <td>parent</td>
 <td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
@@ -589,16 +605,6 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>Value to set.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number,<br/> boolean</td>
 </tr>
-<tr>
-<td>if</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
 </tbody>
       </table><h3 id="wait">Wait</h3>
 <pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation of 'wait'</span>
@@ -609,9 +615,9 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <span class="hljs-attr">name:</span> <span class="hljs-string">'Wait 5 seconds demonstration scenario 2'</span>
 <span class="hljs-attr">steps:</span>
 <span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - wait:</span>
-<span class="hljs-attr">      time:</span> <span class="hljs-number">5</span>
-<span class="hljs-attr">      if:</span> <span class="hljs-string">${slowConnection}</span></code></pre><p>Short notation examples of <code>wait</code>.</p>
+<span class="hljs-attr">  - if:</span> <span class="hljs-string">${slowConnection}</span>
+<span class="hljs-attr">    wait:</span>
+<span class="hljs-attr">      time:</span> <span class="hljs-number">5</span></code></pre><p>Short notation examples of <code>wait</code>.</p>
 <h4 id="wait-step-schema">Wait Step Schema</h4>
 <table class="table table-striped table-bordered">
       <thead><tr>
@@ -624,6 +630,16 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>wait</td>
 <td>Time to wait in [s] or an object of wait criteria.</td>
 <td><em>One of:</em><br/><a href="#wait-criteria-schema">wait-criteria-schema</a>,<br/> <a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 </tbody>
       </table><h4 id="wait-criteria-schema">Wait Criteria Schema</h4>
@@ -639,25 +655,15 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>Time to wait in [s].</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
 </tr>
-<tr>
-<td>if</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
 </tbody>
       </table><h3 id="include">Include</h3>
 <pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Include</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
 <span class="hljs-attr">steps:</span>
 <span class="hljs-attr">  - include:</span> <span class="hljs-string">'Click demonstration scenario'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Include</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
 <span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - include:</span>
-<span class="hljs-attr">      scenario:</span> <span class="hljs-string">'Click demonstration scenario'</span>
-<span class="hljs-attr">      if:</span> <span class="hljs-string">${isDesktop}</span></code></pre><p>Short notation example of <code>include</code> and a complex example.</p>
+<span class="hljs-attr">  - if:</span> <span class="hljs-string">${isDesktop}</span>
+<span class="hljs-attr">    include:</span>
+<span class="hljs-attr">      scenario:</span> <span class="hljs-string">'Click demonstration scenario'</span></code></pre><p>Short notation example of <code>include</code> and a complex example.</p>
 <h4 id="include-step-schema">Include Step Schema</h4>
 <table class="table table-striped table-bordered">
       <thead><tr>
@@ -670,6 +676,21 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>include</td>
 <td>Scenario name to include or include criteria.</td>
 <td><em>One of:</em><br/><a href="#include-criteria-schema">include-criteria-schema</a>,<br/> <a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
 </tr>
 </tbody>
       </table><h4 id="include-criteria-schema">Include Criteria Schema</h4>
@@ -685,16 +706,6 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>The name of the scenario to include.</td>
 <td><a href="#expression-schema">expression-schema</a></td>
 </tr>
-<tr>
-<td>if</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
 </tbody>
       </table><h3 id="store">Store</h3>
 <pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Store</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
@@ -702,12 +713,12 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <span class="hljs-attr">  - store:</span>
 <span class="hljs-attr">      language:</span> <span class="hljs-string">'en'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Store</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span> <span class="hljs-number">2</span>
 <span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - store:</span>
+<span class="hljs-attr">  - if:</span> <span class="hljs-string">${isOldComputer}</span>
+<span class="hljs-attr">    store:</span>
 <span class="hljs-attr">      display_resolution:</span> <span class="hljs-string">'1024x768'</span>
 <span class="hljs-attr">      isDesktop:</span> <span class="hljs-literal">true</span>
       <span class="hljs-number">1080</span><span class="hljs-attr">p:</span> <span class="hljs-literal">false</span>
-<span class="hljs-attr">      width:</span> <span class="hljs-number">1024</span>
-<span class="hljs-attr">      if:</span> <span class="hljs-string">${isOldComputer}</span></code></pre><p>An example of simple usage of <code>store</code> as well as a more complex example.</p>
+<span class="hljs-attr">      width:</span> <span class="hljs-number">1024</span></code></pre><p>An example of simple usage of <code>store</code> as well as a more complex example.</p>
 <h4 id="store-step-schema">Store Step Schema</h4>
 <table class="table table-striped table-bordered">
       <thead><tr>
@@ -721,6 +732,16 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>A mapping of variables to be defined in the execution context.</td>
 <td>object</td>
 </tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
 </tbody>
       </table><h4 id="store-criteria-schema">Store Criteria Schema</h4>
 <table class="table table-striped table-bordered">
@@ -731,16 +752,6 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 </thead>
       <tbody><tr>
-<td>if</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
 <td>^([a-zA-Z0-9_.])+$</td>
 <td><em>(Optional)</em> Random key matching the given pattern with a value.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean,<br/> number</td>

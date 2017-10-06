@@ -1,0 +1,6 @@
+$schema: http://waml-schema.org/2.0/scenario-schema#
+# Short notation
+name: Select demonstration scenario
+steps:
+  - open: www.example.com
+  - select: '.actions option:first-child'
