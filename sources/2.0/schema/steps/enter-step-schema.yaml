@@ -3,6 +3,8 @@ $schema: http://json-schema.org/draft-04/schema#
 title: Enter key sequence
 description: Send a sequence of key strokes to an element.
 properties:
+  $schema:
+    type: string
   enter:
     description: Send a sequence of key strokes to an element.
     oneOf:

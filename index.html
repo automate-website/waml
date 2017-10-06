@@ -69,32 +69,149 @@ title: 'Web Automation Markup Language 2.0'
 description: 'Human-readable way to define action sequences to perform on a web resources.'
 #-->
 <h1 id="waml-2-0">WAML 2.0</h1>
-<p><a href="https://travis-ci.org/automate-website/waml"><img src="https://travis-ci.org/automate-website/waml.svg?branch=master" alt="Build Status"></a> <a href="https://gitter.im/automate-website/waml?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/automate-website/waml.svg" alt="Gitter"></a> <img src="https://img.shields.io/badge/WAML-2.0-ee2a7b.svg" alt="WAML 2.0"></p>
+<p><a href="https://travis-ci.org/automate-website/waml"><img src="https://travis-ci.org/automate-website/waml.svg?branch=master" alt="Build Status"></a> <a href="https://gitter.im/automate-website/waml?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/automate-website/waml.svg" alt="Gitter"></a> <a href="https://www.ietf.org/rfc/rfc2119.txt"><img src="https://img.shields.io/badge/RFC-2119-blue.svg" alt="RFC 2119"></a> <img src="https://img.shields.io/badge/WAML-2.0-ee2a7b.svg" alt="WAML 2.0"></p>
 <p><a href="img/scenario-register-at-automate-website-write-and-run.gif"><img src="img/scenario-register-at-automate-website-write-and-run.gif" alt="Example Scenario"></a></p>
-<p><strong>Notice</strong>: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.</p>
+<p><strong>Notice</strong>: WAML 2.0 is currently under development. Feel free to create a pull request in case of useful suggestions.</p>
 <p>Refer to the <a href="CHANGELOG.md">changelog</a> for recent notable changes and modifications.</p>
 <h2 id="abstract">Abstract</h2>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Example of login process automation</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Sign</span> <span class="hljs-string">in</span>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Order</span> <span class="hljs-string">Pizza</span>
 <span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">'https://example.com/login'</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.mypizza.com/login</span>
 <span class="hljs-attr">  - enter:</span>
 <span class="hljs-attr">      selector:</span> <span class="hljs-string">input[name=email]</span>
-<span class="hljs-attr">      input:</span> <span class="hljs-string">username@example.com</span>
+<span class="hljs-attr">      input:</span> <span class="hljs-string">alessandro@volta.it</span>
 <span class="hljs-attr">  - enter:</span>
 <span class="hljs-attr">      selector:</span> <span class="hljs-string">input[name=password]</span>
-<span class="hljs-attr">      input:</span> <span class="hljs-string">s3cr3t</span>
-<span class="hljs-attr">  - click:</span> <span class="hljs-string">button[type=submit]</span></code></pre><p>Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of <a href="http://yaml.org/spec/1.2/spec.html">YAML 1.2</a> which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.</p>
-<h2 id="terminology">Terminology</h2>
-<p>The underlying format for WAML is YAML so that it inherits all its benefits such as hosting of multiple document within one stream. A WAML stream may contain multiple <em>scenarios</em>. Every <em>scenario</em> must be represented by a set of <em>metadata</em> as well as sequence of <em>actions</em> to execute. Every <em>action</em> must have at least one <em>criteria</em> which is represented as <em>scalar</em> (string, integer, etc.) value or a <em>mapping</em>.</p>
-<p>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.</p>
+<span class="hljs-attr">      input:</span> <span class="hljs-string">el3ctric</span>
+<span class="hljs-attr">  - click:</span> <span class="hljs-string">button[type=submit]</span>
+<span class="hljs-attr">  - select:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">'#pizza-margarita.count'</span>
+<span class="hljs-attr">      value:</span> <span class="hljs-string">'2'</span>
+<span class="hljs-attr">  - click:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">a</span>
+<span class="hljs-attr">      text:</span> <span class="hljs-string">'Order now!'</span>
+<span class="hljs-attr">  - ensure:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">h1.confirm</span>
+<span class="hljs-attr">      text:</span> <span class="hljs-string">Thanks,</span> <span class="hljs-string">your</span> <span class="hljs-string">pizza</span> <span class="hljs-string">will</span> <span class="hljs-string">be</span> <span class="hljs-string">there</span> <span class="hljs-string">soon!</span></code></pre><p>Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of <a href="http://yaml.org/spec/1.2/spec.html">YAML 1.2</a> which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.</p>
+<h2 id="overview">Overview</h2>
+<h3 id="syntax">Syntax</h3>
+<p>The underlying format for WAML is YAML so that it inherits all its benefits such as hosting of multiple document within 
+one stream. </p>
+<p>The structure of WAML is limited to 4-tier hierarchy:</p>
+<ul>
+<li>Scenario<ul>
+<li>Metadata</li>
+<li>Step<ul>
+<li>Action<ul>
+<li>Criterion</li>
+</ul>
+</li>
+<li>Decorator</li>
+</ul>
+</li>
+<li>Decorator</li>
+</ul>
+</li>
+</ul>
+<h4 id="scenario">Scenario</h4>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Play</span> <span class="hljs-string">Radio</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">radio.com'</span>
+<span class="hljs-attr">  - click:</span> <span class="hljs-string">button#play</span></code></pre><p>A scenario is a (reusable) set of actions performed by a user, executed in the predefined order, and resulting in a 
+particular state.</p>
+<p>A WAML stream may contain multiple scenarios (separated by <code>---</code>, as specified in <a href="http://yaml.org/spec/1.2/spec.html">YAML 1.2</a>). Every scenario must be 
+represented by a set of metadata as well as sequence of steps to execute.</p>
+<h4 id="metadata">Metadata</h4>
+<p>Metadata is a part of a scenario which describes scenario-wide settings (such as global <code>timeout</code>) and explains the
+purpose of the scenario (e.g. <code>name</code> or <code>description</code>). </p>
+<h4 id="step">Step</h4>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Partial!</span>
+<span class="hljs-attr">open:</span> <span class="hljs-string">www.vacation-planer.me</span></code></pre><p>A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
+elements based on underlying criteria text place. Further, certain actions may modify the web context.</p>
+<h4 id="action">Action</h4>
+<p>The action is a part of a step which performs operation on the web context. The actions can be classified as following:</p>
+<ul>
+<li>State validation actions<ul>
+<li><a href="#ensure">Ensure</a></li>
+</ul>
+</li>
+<li>State mutation actions<ul>
+<li><a href="#open">Open</a></li>
+<li><a href="#click">Click</a></li>
+<li><a href="#enter">Enter</a></li>
+<li><a href="#select">Select</a></li>
+<li><a href="#move">Move</a></li>
+<li><a href="#define">Define</a></li>
+</ul>
+</li>
+<li>Support actions<ul>
+<li><a href="#wait">Wait</a></li>
+<li><a href="#debug">Debug</a></li>
+<li><a href="#include">Include</a></li>
+<li><a href="#alert">Alert</a></li>
+<li><a href="#execute">Execute</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="criterion">Criterion</h4>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Partial!</span>
+<span class="hljs-attr">enter:</span>
+<span class="hljs-attr">  selector:</span> <span class="hljs-string">input[name=email]</span>
+<span class="hljs-attr">  input:</span> <span class="hljs-string">alessandro@volta.it</span></code></pre><p>A criterion is a part of the action which describes a constraint applied on the web elements. Further, criteria of 
+modifying actions perform may manipulations on the web context. </p>
+<p>Every step must have at least one criteria which is represented as scalar (string, integer, etc.) value or a mapping.</p>
+<p>The criteria can be classified as following:</p>
+<ul>
+<li>Element filter criteria<ul>
+<li>Text</li>
+<li>Selector</li>
+<li>Value</li>
+<li>Parent</li>
+<li>Element</li>
+</ul>
+</li>
+<li>State mutation criteria<ul>
+<li>Input</li>
+<li>Url</li>
+</ul>
+</li>
+</ul>
+<h4 id="decorator">Decorator</h4>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Partial: Slow loading page</span>
+<span class="hljs-attr">open:</span> <span class="hljs-string">www.vacation-planer.me</span>
+<span class="hljs-attr">timeout:</span> <span class="hljs-number">10</span></code></pre><p>A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action&#39;s internal logic.</p>
+<p>The decorators can be classified as following:</p>
+<ul>
+<li>Conditional decorators<ul>
+<li>When</li>
+<li>Unless</li>
+</ul>
+</li>
+<li>Logical decorators<ul>
+<li>Invert</li>
+</ul>
+</li>
+<li>State decorators<ul>
+<li>Register</li>
+<li>Timeout</li>
+</ul>
+</li>
+</ul>
+<h3 id="expression">Expression</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Open</span> <span class="hljs-string">non-responsive</span> <span class="hljs-string">page</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - store:</span>
+<span class="hljs-attr">      regularUrl:</span> <span class="hljs-string">www.vacation-planer.me</span>
+<span class="hljs-attr">      mobileUrl:</span> <span class="hljs-string">mobile.vacation-planer.me</span>
+<span class="hljs-attr">  - unless:</span> <span class="hljs-string">${isMobule}</span>
+<span class="hljs-attr">    open:</span> <span class="hljs-string">${regularUrl}</span>
+<span class="hljs-attr">  - if:</span> <span class="hljs-string">${isMobile}</span>
+<span class="hljs-attr">    open:</span> <span class="hljs-string">${mobileUrl}</span></code></pre><p>Expressions apply to metadata, criterion, and decorator values. Their aim is to promote reusability and allow to 
+utilize the result of arbitrary operations on context values.</p>
+<p>Expression parser must support variable substitution. It also may support other features (e.g. filters). </p>
 <h2 id="schema">Schema</h2>
 <p>WAML is based on <a href="http://json-schema.org/">JSON Schema</a> that lives at <a href="http://waml-schema.org">waml-schema.org</a>. WAML schema is available in <a href="dist/waml.yaml">YAML</a> and <a href="dist/waml.json">JSON</a> formats. A scenario within a WAML stream may define the preferred schema version by defining <code>$schema</code> property, otherwise a default parser schema is used.</p>
 <h2 id="scenario-schema">Scenario Schema</h2>
-<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Name</span> <span class="hljs-string">of</span> <span class="hljs-string">the</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><p>A very basic scenario must contain a <code>name</code> and <code>steps</code> property. The list of actions may be empty, however, it is reasonable to have at least one action.</p>
-<h3 id="minimal-example">Minimal Example</h3>
 <pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">full-featured-scenario</span>
 <span class="hljs-attr">description:</span> <span class="hljs-string">A</span> <span class="hljs-string">full</span> <span class="hljs-string">featured</span> <span class="hljs-string">scenario</span>
 <span class="hljs-attr">fragment:</span> <span class="hljs-literal">false</span>
@@ -164,14 +281,17 @@ description: 'Human-readable way to define action sequences to perform on a web 
       <tbody><tr>
 <td>&ndash;</td>
 <td>A step represents the smallest identifiable user action.</td>
-<td><em>One of:</em><br/><a href="#open-step-schema">open-step-schema</a>,<br/> <a href="#include-step-schema">include-step-schema</a>,<br/> <a href="#store-step-schema">store-step-schema</a>,<br/> <a href="#ensure-step-schema">ensure-step-schema</a>,<br/> <a href="#click-step-schema">click-step-schema</a>,<br/> <a href="#select-step-schema">select-step-schema</a>,<br/> <a href="#enter-step-schema">enter-step-schema</a>,<br/> <a href="#move-step-schema">move-step-schema</a>,<br/> <a href="#wait-step-schema">wait-step-schema</a></td>
+<td><em>One of:</em><br/><a href="#ensure-step-schema">ensure-step-schema</a>,<br/> <a href="#open-step-schema">open-step-schema</a>,<br/> <a href="#click-step-schema">click-step-schema</a>,<br/> <a href="#enter-step-schema">enter-step-schema</a>,<br/> <a href="#select-step-schema">select-step-schema</a>,<br/> <a href="#move-step-schema">move-step-schema</a>,<br/> <a href="#store-step-schema">store-step-schema</a>,<br/> <a href="#wait-step-schema">wait-step-schema</a>,<br/> <a href="#debug-step-schema">debug-step-schema</a>,<br/> <a href="#include-step-schema">include-step-schema</a></td>
 </tr>
 </tbody>
       </table><h2 id="fragment-scenarios">Fragment Scenarios</h2>
-<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">fragment-scenario</span>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Fragment</span> <span class="hljs-string">scenario</span>
 <span class="hljs-attr">fragment:</span> <span class="hljs-literal">true</span>
 <span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><p>Fragment scenarios can not be executed independently but can only be used in <code>include</code> actions of other scenarios or fragments.</p>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Fragment</span> <span class="hljs-string">consumer</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - include:</span> <span class="hljs-string">'Fragment scenario'</span></code></pre><p>Fragment scenarios can not be executed independently and thus can be only be used in <code>include</code> actions of other 
+scenarios or fragments. Fragments promote reusability and enable complex project structure.</p>
 <h2 id="actions-and-criteria">Actions and Criteria</h2>
 <h3 id="open">Open</h3>
 <pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation</span>
@@ -525,7 +645,7 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <tr>
 <td>value</td>
 <td><em>(Optional)</em> Value attribute will be checked against this value.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number,<br/> boolean</td>
+<td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 </tbody>
       </table><h3 id="enter">Enter</h3>
@@ -729,8 +849,8 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </thead>
       <tbody><tr>
 <td>store</td>
-<td>A mapping of variables to be defined in the execution context.</td>
-<td>object</td>
+<td></td>
+<td><a href="#store-criteria-schema">store-criteria-schema</a></td>
 </tr>
 <tr>
 <td>if</td>
@@ -794,6 +914,12 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tbody>
       </table><h2 id="management-of-multiple-scenarios">Management of Multiple Scenarios</h2>
 <p>A single WAML file may contain multiple scenarios. Therefore, the capability of YAML to store multiple documents by splitting them with <code>---</code> is used.</p>
+<h2 id="conclusion">Conclusion</h2>
+<h1 id="feedback">Feedback</h1>
+<p>You are always welcome to ask questions, provide <a href="https://github.com/automate-wevsite/waml/issues">feedback</a>, or 
+contribute to WAML.</p>
+<h1 id="license">License</h1>
+<p>MIT</p>
 
 </div>
 </div>

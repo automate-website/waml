@@ -1,0 +1,4 @@
+$schema: http://waml-schema.org/2.0/open-step-schema#
+# Partial: Slow loading page
+open: www.vacation-planer.me
+timeout: 10

@@ -1,0 +1,10 @@
+$schema: http://waml-schema.org/2.0/scenario-schema#
+name: Open non-responsive page
+steps:
+  - store:
+      regularUrl: www.vacation-planer.me
+      mobileUrl: mobile.vacation-planer.me
+  - unless: ${isMobule}
+    open: ${regularUrl}
+  - if: ${isMobile}
+    open: ${mobileUrl}

@@ -5,39 +5,125 @@ description: 'Human-readable way to define action sequences to perform on a web 
 
 # WAML 2.0
 
-[![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) ![WAML 2.0](https://img.shields.io/badge/WAML-2.0-ee2a7b.svg)
+[![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![RFC 2119](https://img.shields.io/badge/RFC-2119-blue.svg)](https://www.ietf.org/rfc/rfc2119.txt) ![WAML 2.0](https://img.shields.io/badge/WAML-2.0-ee2a7b.svg)
 
 [![Example Scenario](img/scenario-register-at-automate-website-write-and-run.gif)](img/scenario-register-at-automate-website-write-and-run.gif)
 
 
-**Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.
+**Notice**: WAML 2.0 is currently under development. Feel free to create a pull request in case of useful suggestions.
 
 Refer to the [changelog] for recent notable changes and modifications.
 
-
 ## Abstract
-```yaml
-# Example of login process automation
-name: Sign in
-steps:
-  - open: 'https://example.com/login'
-  - enter:
-      selector: input[name=email]
-      input: username@example.com
-  - enter:
-      selector: input[name=password]
-      input: s3cr3t
-  - click: button[type=submit]
-```
+{{ includeScenario('./sources/2.0/examples/partials/order-pizza.yaml') }}
 
 Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of [YAML 1.2] which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.
 
+## Overview
+### Syntax
 
-## Terminology
+The underlying format for WAML is YAML so that it inherits all its benefits such as hosting of multiple document within 
+one stream. 
 
-The underlying format for WAML is YAML so that it inherits all its benefits such as hosting of multiple document within one stream. A WAML stream may contain multiple _scenarios_. Every _scenario_ must be represented by a set of _metadata_ as well as sequence of _actions_ to execute. Every _action_ must have at least one _criteria_ which is represented as _scalar_ (string, integer, etc.) value or a _mapping_.
+The structure of WAML is limited to 4-tier hierarchy:
+- Scenario
+  - Metadata
+  - Step
+    - Action
+      - Criterion
+    - Decorator
+  - Decorator
+  
+#### Scenario
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119].
+{{ includeScenario('./sources/2.0/examples/partials/scenario-1.yaml') }}
+
+A scenario is a (reusable) set of actions performed by a user, executed in the predefined order, and resulting in a 
+particular state.
+
+A WAML stream may contain multiple scenarios (separated by `---`, as specified in [YAML 1.2]). Every scenario must be 
+represented by a set of metadata as well as sequence of steps to execute.
+
+
+#### Metadata
+
+Metadata is a part of a scenario which describes scenario-wide settings (such as global `timeout`) and explains the
+purpose of the scenario (e.g. `name` or `description`). 
+
+
+#### Step
+
+{{ includeScenario('./sources/2.0/examples/partials/step-1.yaml') }}
+
+A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
+elements based on underlying criteria text place. Further, certain actions may modify the web context.
+
+
+#### Action
+
+The action is a part of a step which performs operation on the web context. The actions can be classified as following:
+- State validation actions
+  - [Ensure](#ensure)
+- State mutation actions
+  - [Open](#open)
+  - [Click](#click)
+  - [Enter](#enter)
+  - [Select](#select)
+  - [Move](#move)
+  - [Define](#define)
+- Support actions
+  - [Wait](#wait)
+  - [Debug](#debug)
+  - [Include](#include)
+  - [Alert](#alert)
+  - [Execute](#execute)
+
+
+#### Criterion
+
+{{ includeScenario('./sources/2.0/examples/partials/criterion-1.yaml') }}
+
+A criterion is a part of the action which describes a constraint applied on the web elements. Further, criteria of 
+modifying actions perform may manipulations on the web context. 
+
+Every step must have at least one criteria which is represented as scalar (string, integer, etc.) value or a mapping.
+
+The criteria can be classified as following:
+- Element filter criteria
+  - Text
+  - Selector
+  - Value
+  - Parent
+  - Element
+- State mutation criteria
+  - Input
+  - Url
+
+
+#### Decorator
+
+{{ includeScenario('./sources/2.0/examples/partials/decorator-1.yaml') }}
+
+A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action's internal logic.
+
+The decorators can be classified as following:
+- Conditional decorators
+  - When
+  - Unless
+- Logical decorators
+  - Invert
+- State decorators
+  - Register
+  - Timeout
+
+### Expression
+
+{{ includeScenario('./sources/2.0/examples/partials/expression-1.yaml') }}
+
+Expressions apply to metadata, criterion, and decorator values. Their aim is to promote reusability and allow to 
+utilize the result of arbitrary operations on context values.
+
+Expression parser must support variable substitution. It also may support other features (e.g. filters). 
 
 
 ## Schema
@@ -46,12 +132,6 @@ WAML is based on [JSON Schema] that lives at [waml-schema.org]. WAML schema is a
 
 
 ## Scenario Schema
-
-{{ includeScenario('./sources/2.0/examples/simple-scenario.yaml') }}
-
-A very basic scenario must contain a `name` and `steps` property. The list of actions may be empty, however, it is reasonable to have at least one action.
-
-### Minimal Example
 
 {{ includeScenario('./sources/2.0/examples/full-featured-scenario.yaml') }}
 
@@ -71,9 +151,11 @@ The steps property must be represented as a sequence of actions. Every step repr
 
 ## Fragment Scenarios
 
-{{ includeScenario('./sources/2.0/examples/fragment-scenario.yaml') }}
+{{ includeScenario('./sources/2.0/examples/fragment-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/fragment-scenario-2.yaml') }}
 
-Fragment scenarios can not be executed independently but can only be used in ```include``` actions of other scenarios or fragments.
+Fragment scenarios can not be executed independently and thus can be only be used in `include` actions of other 
+scenarios or fragments. Fragments promote reusability and enable complex project structure.
 
 
 ## Actions and Criteria
@@ -243,9 +325,20 @@ An example of simple usage of ```store``` as well as a more complex example.
 
 A single WAML file may contain multiple scenarios. Therefore, the capability of YAML to store multiple documents by splitting them with ```---``` is used.
 
+## Conclusion
+
+
+# Feedback
+
+You are always welcome to ask questions, provide [feedback](https://github.com/automate-wevsite/waml/issues), or 
+contribute to WAML.
+
+# License
+
+MIT
+
 
 [YAML 1.2]: http://yaml.org/spec/1.2/spec.html
-[RFC 2119]: https://www.ietf.org/rfc/rfc2119.txt
 
 [JSON Schema]: http://json-schema.org/
 [changelog]: CHANGELOG.md
