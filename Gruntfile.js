@@ -127,8 +127,12 @@ module.exports = function(grunt) {
 						example = requireYaml(filePath);
 						grunt.log.write('Validating', filePath, '... ');
 						try {
-							var valid = ajv.validate(example['$schema'],
-									example);
+							let valid = ajv.validate(example['$schema'], example);
+
+							if (shouldFail(filePath)) {
+							  valid = !valid;
+              }
+
 							if (!valid) {
 								hasErrors = true;
 								grunt.log.error();
@@ -145,6 +149,10 @@ module.exports = function(grunt) {
 					done(!hasErrors);
 				});
 			});
+
+  function shouldFail(filePath) {
+    return path.basename(filePath).startsWith('!');
+  }
 
 	grunt.registerTask('merge-json', 'Merges schemas to json file.', function() {
 		return merge('json', saveJson, this.async());
