@@ -3,11 +3,11 @@ $schema: http://json-schema.org/draft-04/schema#
 title: Moves to the given element
 description: Moves to the given visible element.
 properties:
-    move:
-        description: A CSS selector as value or a complex move criteria.
-        oneOf:
-            - $ref: http://waml-schema.org/2.0/expression-schema#
-            - $ref: http://waml-schema.org/2.0/move-criteria-schema#
+  move:
+    description: A CSS selector as value or a complex move criteria.
+    oneOf:
+      - $ref: http://waml-schema.org/2.0/expression-schema#
+      - $ref: http://waml-schema.org/2.0/move-criteria-schema#
 required:
   - move
 additionalProperties: false

@@ -17,10 +17,7 @@ properties:
             - $ref: http://waml-schema.org/2.0/parent-criteria-schema#
     value:
         description: Value attribute will be checked against this value.
-        oneOf:
-          - $ref: http://waml-schema.org/2.0/expression-schema#
-          - type: number
-          - type: boolean
+        $ref: http://waml-schema.org/2.0/expression-schema#
 additionalProperties: false
 required:
     - selector

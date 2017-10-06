@@ -3,11 +3,11 @@ $schema: http://json-schema.org/draft-04/schema#
 title: Select from dropdown
 description: Selects from dropdown by the given criteria.
 properties:
-    select:
-        description: CSS selector of element to select or an object of select criteria.
-        oneOf:
-            - $ref: http://waml-schema.org/2.0/expression-schema#
-            - $ref: http://waml-schema.org/2.0/select-criteria-schema#
+  select:
+    description: CSS selector of element to select or an object of select criteria.
+    oneOf:
+      - $ref: http://waml-schema.org/2.0/expression-schema#
+      - $ref: http://waml-schema.org/2.0/select-criteria-schema#
 required:
   - select
 additionalProperties: false

@@ -3,10 +3,10 @@ $schema: http://json-schema.org/draft-04/schema#
 title: Store variable
 description: Stores a certain value to a context varable.
 properties:
-    store:
-        $ref: http://waml-schema.org/2.0/store-criteria-schema#
+  store:
+    $ref: http://waml-schema.org/2.0/store-criteria-schema#
 required:
-    - store
+  - store
 additionalProperties: false
 $mergeProperties:
   - $ref: http://waml-schema.org/2.0/conditional-decorator-schema#
