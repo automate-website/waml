@@ -4,9 +4,6 @@ title: Store variable
 description: Stores a certain value to a context varable.
 properties:
     store:
-        type: object
-        description: A mapping of variables to be defined in the execution context.
-        minProperties: 1
         $ref: http://waml-schema.org/2.0/store-criteria-schema#
 required:
     - store
