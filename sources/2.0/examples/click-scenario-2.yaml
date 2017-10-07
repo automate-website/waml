@@ -2,12 +2,12 @@ $schema: http://waml-schema.org/2.0/scenario-schema#
 name: Click demonstration scenario 2
 steps:
   - open: www.example.com
-  - if: ${isDesktop}
+  - when: ${isDesktop}
     click:
       selector: a.sign-up
       text: 'Join now for free!'
 
-  - if: ${isMobile}
+  - when: ${isMobile}
     click:
       selector: a.sign-up
       text: 'Join now!'

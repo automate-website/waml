@@ -1,7 +1,7 @@
 $schema: http://waml-schema.org/2.0/scenario-schema#
 name: Include demonstation scenario
 steps:
-  - if: ${isDesktop}
+  - when: ${isDesktop}
     include:
       scenario: 'Click demonstration scenario'
 

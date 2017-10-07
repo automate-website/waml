@@ -3,7 +3,7 @@ $schema: http://json-schema.org/draft-04/schema#
 title: Conditional Decorator
 type: object
 properties:
-  if:
+  when:
     description: If set, the step is only executed if the value evaluates to true.
     oneOf:
       - $ref: http://waml-schema.org/2.0/expression-schema#

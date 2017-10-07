@@ -3,6 +3,6 @@ $schema: http://waml-schema.org/2.0/scenario-schema#
 name: 'Wait 5 seconds demonstration scenario 2'
 steps:
   - open: www.example.com
-  - if: ${slowConnection}
+  - when: ${slowConnection}
     wait:
       time: 5

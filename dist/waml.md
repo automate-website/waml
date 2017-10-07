@@ -22,7 +22,7 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Conditional Decorator
 type: object
 properties:
-  if:
+  when:
     description: 'If set, the step is only executed if the value evaluates to true.'
     oneOf:
       - $ref: 'http://waml-schema.org/2.0/expression-schema#'
@@ -85,15 +85,16 @@ title: Step
 type: object
 description: A step represents the smallest identifiable user action.
 oneOf:
-  - $ref: 'http://waml-schema.org/2.0/open-step-schema#'
-  - $ref: 'http://waml-schema.org/2.0/include-step-schema#'
-  - $ref: 'http://waml-schema.org/2.0/store-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/ensure-step-schema#'
+  - $ref: 'http://waml-schema.org/2.0/open-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/click-step-schema#'
-  - $ref: 'http://waml-schema.org/2.0/select-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/enter-step-schema#'
+  - $ref: 'http://waml-schema.org/2.0/select-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/move-step-schema#'
+  - $ref: 'http://waml-schema.org/2.0/store-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/wait-step-schema#'
+  - $ref: 'http://waml-schema.org/2.0/debug-step-schema#'
+  - $ref: 'http://waml-schema.org/2.0/include-step-schema#'
 
 ```
 ## schema: step: ensure: 
@@ -138,6 +139,24 @@ $mergeProperties:
   - $ref: 'http://waml-schema.org/2.0/timeout-decorator-schema#'
 
 ```
+## schema: step: debug: 
+```
+id: 'http://waml-schema.org/2.0/debug-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Debug
+description: Debug
+properties:
+  debug:
+    description: A message which should be interpolated
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+required:
+  - debug
+additionalProperties: false
+$mergeProperties:
+  - $ref: 'http://waml-schema.org/2.0/conditional-decorator-schema#'
+
+```
 ## schema: step: wait: 
 ```
 id: 'http://waml-schema.org/2.0/wait-step-schema#'
@@ -165,6 +184,8 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Enter key sequence
 description: Send a sequence of key strokes to an element.
 properties:
+  $schema:
+    type: string
   enter:
     description: Send a sequence of key strokes to an element.
     oneOf:
@@ -224,6 +245,8 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Open
 description: Navigates to a certain URL in the user agent.
 properties:
+  $schema:
+    type: string
   open:
     description: >-
       The URL to which the navigation takes place as value or a complex open
@@ -267,31 +290,12 @@ title: Store variable
 description: Stores a certain value to a context varable.
 properties:
   store:
-    type: object
-    description: A mapping of variables to be defined in the execution context.
-    minProperties: 1
     $ref: 'http://waml-schema.org/2.0/store-criteria-schema#'
 required:
   - store
 additionalProperties: false
 $mergeProperties:
   - $ref: 'http://waml-schema.org/2.0/conditional-decorator-schema#'
-
-```
-## schema: criteria: include: 
-```
-id: 'http://waml-schema.org/2.0/include-criteria-schema#'
-$schema: 'http://json-schema.org/draft-04/schema#'
-title: Include criteria
-description: Qualifier for an element value change.
-type: object
-properties:
-  scenario:
-    description: The name of the scenario to include.
-    $ref: 'http://waml-schema.org/2.0/expression-schema#'
-additionalProperties: false
-required:
-  - scenario
 
 ```
 ## schema: criteria: move: 
@@ -373,10 +377,7 @@ properties:
       - $ref: 'http://waml-schema.org/2.0/parent-criteria-schema#'
   value:
     description: Value attribute will be checked against this value.
-    oneOf:
-      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
-      - type: number
-      - type: boolean
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
 additionalProperties: false
 required:
   - selector
@@ -389,6 +390,7 @@ $schema: 'http://json-schema.org/draft-04/schema#'
 title: Store criteria
 description: Qualifier for values to store and a key-value store.
 type: object
+minProperties: 1
 patternProperties:
   '^([a-zA-Z0-9_.])+$':
     description: Random key matching the given pattern with a value.
@@ -512,6 +514,22 @@ properties:
 additionalProperties: false
 required:
   - selector
+
+```
+## schema: criteria: include: 
+```
+id: 'http://waml-schema.org/2.0/include-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Include criteria
+description: Qualifier for an element value change.
+type: object
+properties:
+  scenario:
+    description: The name of the scenario to include.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
+additionalProperties: false
+required:
+  - scenario
 
 ```
 ## schema: expression: 

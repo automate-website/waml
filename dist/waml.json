@@ -25,7 +25,7 @@
         "title": "Conditional Decorator",
         "type": "object",
         "properties": {
-            "if": {
+            "when": {
                 "description": "If set, the step is only executed if the value evaluates to true.",
                 "oneOf": [
                     {
@@ -108,31 +108,34 @@
         "description": "A step represents the smallest identifiable user action.",
         "oneOf": [
             {
-                "$ref": "http://waml-schema.org/2.0/open-step-schema#"
-            },
-            {
-                "$ref": "http://waml-schema.org/2.0/include-step-schema#"
-            },
-            {
-                "$ref": "http://waml-schema.org/2.0/store-step-schema#"
-            },
-            {
                 "$ref": "http://waml-schema.org/2.0/ensure-step-schema#"
+            },
+            {
+                "$ref": "http://waml-schema.org/2.0/open-step-schema#"
             },
             {
                 "$ref": "http://waml-schema.org/2.0/click-step-schema#"
             },
             {
-                "$ref": "http://waml-schema.org/2.0/select-step-schema#"
+                "$ref": "http://waml-schema.org/2.0/enter-step-schema#"
             },
             {
-                "$ref": "http://waml-schema.org/2.0/enter-step-schema#"
+                "$ref": "http://waml-schema.org/2.0/select-step-schema#"
             },
             {
                 "$ref": "http://waml-schema.org/2.0/move-step-schema#"
             },
             {
+                "$ref": "http://waml-schema.org/2.0/store-step-schema#"
+            },
+            {
                 "$ref": "http://waml-schema.org/2.0/wait-step-schema#"
+            },
+            {
+                "$ref": "http://waml-schema.org/2.0/debug-step-schema#"
+            },
+            {
+                "$ref": "http://waml-schema.org/2.0/include-step-schema#"
             }
         ]
     },
@@ -202,6 +205,31 @@
         ]
     },
     {
+        "id": "http://waml-schema.org/2.0/debug-step-schema#",
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Debug",
+        "description": "Debug",
+        "properties": {
+            "debug": {
+                "description": "A message which should be interpolated",
+                "oneOf": [
+                    {
+                        "$ref": "http://waml-schema.org/2.0/expression-schema#"
+                    }
+                ]
+            }
+        },
+        "required": [
+            "debug"
+        ],
+        "additionalProperties": false,
+        "$mergeProperties": [
+            {
+                "$ref": "http://waml-schema.org/2.0/conditional-decorator-schema#"
+            }
+        ]
+    },
+    {
         "id": "http://waml-schema.org/2.0/wait-step-schema#",
         "$schema": "http://json-schema.org/draft-04/schema#",
         "title": "Wait",
@@ -238,6 +266,9 @@
         "title": "Enter key sequence",
         "description": "Send a sequence of key strokes to an element.",
         "properties": {
+            "$schema": {
+                "type": "string"
+            },
             "enter": {
                 "description": "Send a sequence of key strokes to an element.",
                 "oneOf": [
@@ -328,6 +359,9 @@
         "title": "Open",
         "description": "Navigates to a certain URL in the user agent.",
         "properties": {
+            "$schema": {
+                "type": "string"
+            },
             "open": {
                 "description": "The URL to which the navigation takes place as value or a complex open criteria.",
                 "oneOf": [
@@ -391,9 +425,6 @@
         "description": "Stores a certain value to a context varable.",
         "properties": {
             "store": {
-                "type": "object",
-                "description": "A mapping of variables to be defined in the execution context.",
-                "minProperties": 1,
                 "$ref": "http://waml-schema.org/2.0/store-criteria-schema#"
             }
         },
@@ -405,23 +436,6 @@
             {
                 "$ref": "http://waml-schema.org/2.0/conditional-decorator-schema#"
             }
-        ]
-    },
-    {
-        "id": "http://waml-schema.org/2.0/include-criteria-schema#",
-        "$schema": "http://json-schema.org/draft-04/schema#",
-        "title": "Include criteria",
-        "description": "Qualifier for an element value change.",
-        "type": "object",
-        "properties": {
-            "scenario": {
-                "description": "The name of the scenario to include.",
-                "$ref": "http://waml-schema.org/2.0/expression-schema#"
-            }
-        },
-        "additionalProperties": false,
-        "required": [
-            "scenario"
         ]
     },
     {
@@ -521,17 +535,7 @@
             },
             "value": {
                 "description": "Value attribute will be checked against this value.",
-                "oneOf": [
-                    {
-                        "$ref": "http://waml-schema.org/2.0/expression-schema#"
-                    },
-                    {
-                        "type": "number"
-                    },
-                    {
-                        "type": "boolean"
-                    }
-                ]
+                "$ref": "http://waml-schema.org/2.0/expression-schema#"
             }
         },
         "additionalProperties": false,
@@ -545,6 +549,7 @@
         "title": "Store criteria",
         "description": "Qualifier for values to store and a key-value store.",
         "type": "object",
+        "minProperties": 1,
         "patternProperties": {
             "^([a-zA-Z0-9_.])+$": {
                 "description": "Random key matching the given pattern with a value.",
@@ -729,6 +734,23 @@
         "additionalProperties": false,
         "required": [
             "selector"
+        ]
+    },
+    {
+        "id": "http://waml-schema.org/2.0/include-criteria-schema#",
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Include criteria",
+        "description": "Qualifier for an element value change.",
+        "type": "object",
+        "properties": {
+            "scenario": {
+                "description": "The name of the scenario to include.",
+                "$ref": "http://waml-schema.org/2.0/expression-schema#"
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "scenario"
         ]
     },
     {

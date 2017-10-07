@@ -5,6 +5,6 @@ steps:
   - unless: ${isMobile}
     open:
       url: www.example.com
-  - if: ${isMobile}
+  - when: ${isMobile}
     open:
       url: m.example.com
