@@ -1,6 +1,6 @@
 id: http://waml-schema.org/2.0/with-items-decorator-schema#
 $schema: http://json-schema.org/draft-04/schema#
-title: Conditional Decorator
+title: With Items (Loop) Decorator
 type: object
 properties:
   with_items:

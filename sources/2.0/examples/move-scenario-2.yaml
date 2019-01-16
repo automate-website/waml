@@ -1,9 +1,10 @@
 # WAML 2
 # Move demonstration scenario
 - open: www.example.com
+- ensure: .help-container
+  register: help_container_element
 - move:
     selector: a.help
     text: 'Need help?'
-    parent:
-      selector: .help-container
+    parent: help_container_element.value
 - ensure: .help-tooltip

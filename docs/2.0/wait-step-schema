@@ -19,6 +19,11 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/2.0/expression-schema#'
       - type: boolean
+  failed_when:
+    description: Mark step as failed if condition is evaluated to true.
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
 required:
   - wait
 additionalProperties: false

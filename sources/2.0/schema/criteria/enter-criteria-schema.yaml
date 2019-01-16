@@ -11,10 +11,8 @@ properties:
         description: Select element which text represenation contains the given value.
         $ref: http://waml-schema.org/2.0/expression-schema#
     parent:
-        description: Presence of the parent element according given creteria.
-        oneOf:
-            - $ref: http://waml-schema.org/2.0/expression-schema#
-            - $ref: http://waml-schema.org/2.0/parent-criteria-schema#
+        description: Reference to an element which has to be a parent of the given one. This must be areference saved with `register` before.
+        type: string
     value:
         description: Value of element to select.
         oneOf:

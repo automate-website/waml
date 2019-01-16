@@ -143,14 +143,16 @@ The criteria can be classified as following:
 A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action's internal logic.
 
 The decorators can be classified as following:
-- Conditional decorators
+- [Conditional decorators](#conditional-decorators)
   - When
   - Unless
-- Logical decorators
-  - Invert
+  - Failed when
 - State decorators
-  - Register
-  - Timeout
+  - [Register](#register)
+  - [Timeout](#timeout)
+- Loop decorator
+  - [With items](#with-items)
+
 
 ### Expression
 
@@ -252,6 +254,7 @@ The `http://` scheme should be automatically added to the `url` if no scheme is 
 | open |The URL to which the navigation takes place as value or a complex open criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [open-criteria-schema](#open-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
@@ -298,9 +301,11 @@ Using the additional criteria not only the presence of the element can be ensure
 | ensure |A CSS selector as value or a hash of conditionals. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [ensure-criteria-schema](#ensure-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
+| register |_(Optional)_ Save output to a variable. |[expression-schema](#expression-schema) |
 
 
 #### Ensure Criteria Schema
@@ -311,7 +316,7 @@ Using the additional criteria not only the presence of the element can be ensure
 | text |_(Optional)_ Select element which text represenation contains the given value. |[expression-schema](#expression-schema) |
 | value |_(Optional)_ Verify value attribute against this value. |_One of:_<br/>number,<br/> boolean,<br/> [expression-schema](#expression-schema) |
 | absent |_(Optional)_ If set to true, the element matching remaining criteria is expected to be absent. __Default:__ false |boolean |
-| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| parent |_(Optional)_ Reference to an element which has to be a parent of the given one. This must be areference saved with `register` before. |string |
 
 
 ### Move
@@ -330,11 +335,12 @@ Using the additional criteria not only the presence of the element can be ensure
 # WAML 2
 # Move demonstration scenario
 - open: www.example.com
+- ensure: .help-container
+  register: help_container_element
 - move:
     selector: a.help
     text: 'Need help?'
-    parent:
-      selector: .help-container
+    parent: help_container_element.value
 - ensure: .help-tooltip
 ```
 
@@ -349,9 +355,11 @@ The examples depicts the usage of the ```move``` action.
 | move |A CSS selector as value or a complex move criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [move-criteria-schema](#move-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
+| register |_(Optional)_ Save output to a variable. |[expression-schema](#expression-schema) |
 
 
 #### Move Criteria Schema
@@ -360,7 +368,7 @@ The examples depicts the usage of the ```move``` action.
 |---|---|---|
 | selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which text represenation contains the given value. |[expression-schema](#expression-schema) |
-| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| parent |_(Optional)_ Reference to an element which has to be a parent of the given one. This must be areference saved with `register` before. |string |
 
 
 ### Click
@@ -398,9 +406,11 @@ Also the ```text``` criteria may be used to verify the wording of the target.
 | click |A CSS selector as value or a mapping of criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [click-criteria-schema](#click-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
+| register |_(Optional)_ Save output to a variable. |[expression-schema](#expression-schema) |
 
 
 #### Click Criteria Schema
@@ -409,7 +419,7 @@ Also the ```text``` criteria may be used to verify the wording of the target.
 |---|---|---|
 | selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which text represenation contains the given value. |[expression-schema](#expression-schema) |
-| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| parent |_(Optional)_ Reference to an element which has to be a parent of the given one. This must be areference saved with `register` before. |string |
 
 
 
@@ -442,9 +452,11 @@ Short notation example of ```select``` and a complex example.
 | select |CSS selector of element to select or an object of select criteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [select-criteria-schema](#select-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
+| register |_(Optional)_ Save output to a variable. |[expression-schema](#expression-schema) |
 
 
 #### Select Criteria Schema
@@ -453,7 +465,7 @@ Short notation example of ```select``` and a complex example.
 |---|---|---|
 | selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which text represenation contains the given value. |[expression-schema](#expression-schema) |
-| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| parent |_(Optional)_ Reference to an element which has to be a parent of the given one. This must be areference saved with `register` before. |string |
 | value |_(Optional)_ Value attribute will be checked against this value. |[expression-schema](#expression-schema) |
 
 
@@ -484,9 +496,11 @@ Short notation example of ```select``` and a complex example.
 | enter |Send a sequence of key strokes to an element. |_One of:_<br/>[enter-criteria-schema](#enter-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
+| register |_(Optional)_ Save output to a variable. |[expression-schema](#expression-schema) |
 
 
 #### Enter Criteria Schema
@@ -495,7 +509,7 @@ Short notation example of ```select``` and a complex example.
 |---|---|---|
 | selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
 | text |_(Optional)_ Select element which text represenation contains the given value. |[expression-schema](#expression-schema) |
-| parent |_(Optional)_ Presence of the parent element according given creteria. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [parent-criteria-schema](#parent-criteria-schema) |
+| parent |_(Optional)_ Reference to an element which has to be a parent of the given one. This must be areference saved with `register` before. |string |
 | value |_(Optional)_ Value of element to select. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
 | input |Value to set. |_One of:_<br/>[expression-schema](#expression-schema),<br/> number,<br/> boolean |
 
@@ -526,6 +540,7 @@ Short notation examples of ```wait```.
 | wait |Time to wait in [s] or an object of wait criteria. |_One of:_<br/>[wait-criteria-schema](#wait-criteria-schema),<br/> [expression-schema](#expression-schema),<br/> number |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 #### Wait Criteria Schema
@@ -560,6 +575,7 @@ Short notation example of ```include``` and a complex example.
 | include |Scenario name to include or include criteria. |_One of:_<br/>[include-criteria-schema](#include-criteria-schema),<br/> [expression-schema](#expression-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
@@ -633,9 +649,11 @@ is perf
 | execute |JavaScript code to execute in the browser context. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [execute-criteria-schema](#execute-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
+| register |_(Optional)_ Save output to a variable. |[expression-schema](#expression-schema) |
 
 
 #### Execute Criteria Schema
@@ -675,6 +693,7 @@ An example of simple usage of ```define``` as well as a more complex example.
 | define | |[define-criteria-schema](#define-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
@@ -714,6 +733,7 @@ An example of simple usage of ```debug``` as well as a more complex example.
 | debug |A message which should be interpolated. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [debug-criteria-schema](#debug-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
@@ -761,9 +781,11 @@ An example of simple usage of ```uri``` as well as a more complex example.
 | uri |URL of the resource. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [uri-criteria-schema](#uri-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
 | with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
  |_Sequence of:_<br/>[expression-schema](#expression-schema) |
+| register |_(Optional)_ Save output to a variable. |[expression-schema](#expression-schema) |
 
 
 #### Uri Criteria Schema
@@ -790,13 +812,54 @@ An example of simple usage of ```uri``` as well as a more complex example.
 |  &ndash;  |An expression is a evaluable statement that can be utilized on certain properties. |string |
 
 
-## Shared Criteria
-### Parent Criteria Schema
+## Decorators
+
+### Conditional Decorators
 
 | Property | Description | Type |
 |---|---|---|
-| selector |CSS selector of element to select. |[expression-schema](#expression-schema) |
-| text |_(Optional)_ Select element which text represenation contains the given value. |[expression-schema](#expression-schema) |
+| when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| failed_when |_(Optional)_ Mark step as failed if condition is evaluated to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+
+
+### Register Decorator
+
+| Property | Description | Type |
+|---|---|---|
+| register |_(Optional)_ Save output to a variable. |[expression-schema](#expression-schema) |
+
+
+### Timeout Decorator
+
+| Property | Description | Type |
+|---|---|---|
+| timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+
+
+
+### With Items
+
+```yaml
+# WAML 2
+- open: www.example.com/newsletter
+- enter:
+    selector: 'input[type=email]'
+    input: 'foo@example.com'
+- click: ${item}
+  with_items:
+    - '#accept-terms'
+    - '#accept-marketing-emails'
+    - '#sign-up'
+```
+
+`with_items` is a loop decorator which can be used to iterate over a list of elements.
+
+| Property | Description | Type |
+|---|---|---|
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
+
 
 
 

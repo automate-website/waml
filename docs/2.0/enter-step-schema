@@ -19,6 +19,11 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/2.0/expression-schema#'
       - type: boolean
+  failed_when:
+    description: Mark step as failed if condition is evaluated to true.
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
   timeout:
     description: 'Maximal time [s] to wait for the element which meets the given criteria.'
     default: 5
@@ -32,6 +37,9 @@ properties:
     type: array
     items:
       $ref: 'http://waml-schema.org/2.0/expression-schema#'
+  register:
+    description: Save output to a variable.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
 required:
   - enter
 additionalProperties: false

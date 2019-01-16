@@ -1,0 +1,8 @@
+id: 'http://waml-schema.org/2.0/register-decorator-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Variable Registration Decorator
+type: object
+properties:
+  register:
+    description: Save output to a variable.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'

@@ -184,18 +184,19 @@ modifying actions perform may manipulations on the web context. </p>
 <span class="hljs-attr">  timeout:</span> <span class="hljs-number">10</span></code></pre><p>A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action&#39;s internal logic.</p>
 <p>The decorators can be classified as following:</p>
 <ul>
-<li>Conditional decorators<ul>
+<li><a href="#conditional-decorators">Conditional decorators</a><ul>
 <li>When</li>
 <li>Unless</li>
-</ul>
-</li>
-<li>Logical decorators<ul>
-<li>Invert</li>
+<li>Failed when</li>
 </ul>
 </li>
 <li>State decorators<ul>
-<li>Register</li>
-<li>Timeout</li>
+<li><a href="#register">Register</a></li>
+<li><a href="#timeout">Timeout</a></li>
+</ul>
+</li>
+<li>Loop decorator<ul>
+<li><a href="#with-items">With items</a></li>
 </ul>
 </li>
 </ul>
@@ -291,6 +292,11 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
 <td>timeout</td>
 <td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
@@ -358,6 +364,11 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
 <td>timeout</td>
 <td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
@@ -368,6 +379,11 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 </tr>
 <tr>
 <td><em>Sequence of:</em><br/><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>register</td>
+<td><em>(Optional)</em> Save output to a variable.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 </tbody>
       </table><h4 id="ensure-criteria-schema">Ensure Criteria Schema</h4>
@@ -400,8 +416,8 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 </tr>
 <tr>
 <td>parent</td>
-<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+<td><em>(Optional)</em> Reference to an element which has to be a parent of the given one. This must be areference saved with <code>register</code> before.</td>
+<td>string</td>
 </tr>
 </tbody>
       </table><h3 id="move">Move</h3>
@@ -414,11 +430,12 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <span class="hljs-attr">    text:</span> <span class="hljs-string">'Click here to get help.'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
 <span class="hljs-comment"># Move demonstration scenario</span>
 <span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- ensure:</span> <span class="hljs-string">.help-container</span>
+<span class="hljs-attr">  register:</span> <span class="hljs-string">help_container_element</span>
 <span class="hljs-attr">- move:</span>
 <span class="hljs-attr">    selector:</span> <span class="hljs-string">a.help</span>
 <span class="hljs-attr">    text:</span> <span class="hljs-string">'Need help?'</span>
-<span class="hljs-attr">    parent:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">.help-container</span>
+<span class="hljs-attr">    parent:</span> <span class="hljs-string">help_container_element.value</span>
 <span class="hljs-attr">- ensure:</span> <span class="hljs-string">.help-tooltip</span></code></pre><p>For hidden elements which appear only after the user has hovered a certain element the (mouse) <code>move</code> action can be used.  </p>
 <p>The examples depicts the usage of the <code>move</code> action. </p>
 <h4 id="move-step-schema">Move Step Schema</h4>
@@ -445,6 +462,11 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
 <td>timeout</td>
 <td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
@@ -455,6 +477,11 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 </tr>
 <tr>
 <td><em>Sequence of:</em><br/><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>register</td>
+<td><em>(Optional)</em> Save output to a variable.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 </tbody>
       </table><h4 id="move-criteria-schema">Move Criteria Schema</h4>
@@ -477,8 +504,8 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 </tr>
 <tr>
 <td>parent</td>
-<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+<td><em>(Optional)</em> Reference to an element which has to be a parent of the given one. This must be areference saved with <code>register</code> before.</td>
+<td>string</td>
 </tr>
 </tbody>
       </table><h3 id="click">Click</h3>
@@ -523,6 +550,11 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
 <td>timeout</td>
 <td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
@@ -533,6 +565,11 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 <tr>
 <td><em>Sequence of:</em><br/><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>register</td>
+<td><em>(Optional)</em> Save output to a variable.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 </tbody>
       </table><h4 id="click-criteria-schema">Click Criteria Schema</h4>
@@ -555,8 +592,8 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 <tr>
 <td>parent</td>
-<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+<td><em>(Optional)</em> Reference to an element which has to be a parent of the given one. This must be areference saved with <code>register</code> before.</td>
+<td>string</td>
 </tr>
 </tbody>
       </table><h3 id="select">Select</h3>
@@ -596,6 +633,11 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
 <td>timeout</td>
 <td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
@@ -606,6 +648,11 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 <tr>
 <td><em>Sequence of:</em><br/><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>register</td>
+<td><em>(Optional)</em> Save output to a variable.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 </tbody>
       </table><h4 id="select-criteria-schema">Select Criteria Schema</h4>
@@ -628,8 +675,8 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 <tr>
 <td>parent</td>
-<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+<td><em>(Optional)</em> Reference to an element which has to be a parent of the given one. This must be areference saved with <code>register</code> before.</td>
+<td>string</td>
 </tr>
 <tr>
 <td>value</td>
@@ -675,6 +722,11 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
 <td>timeout</td>
 <td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
@@ -685,6 +737,11 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 <tr>
 <td><em>Sequence of:</em><br/><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>register</td>
+<td><em>(Optional)</em> Save output to a variable.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 </tbody>
       </table><h4 id="enter-criteria-schema">Enter Criteria Schema</h4>
@@ -707,8 +764,8 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 <tr>
 <td>parent</td>
-<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+<td><em>(Optional)</em> Reference to an element which has to be a parent of the given one. This must be areference saved with <code>register</code> before.</td>
+<td>string</td>
 </tr>
 <tr>
 <td>value</td>
@@ -752,6 +809,11 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <tr>
 <td>unless</td>
 <td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 </tbody>
@@ -798,6 +860,11 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <tr>
 <td>unless</td>
 <td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
@@ -889,6 +956,11 @@ is perf</p>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
 <td>timeout</td>
 <td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
@@ -899,6 +971,11 @@ is perf</p>
 </tr>
 <tr>
 <td><em>Sequence of:</em><br/><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>register</td>
+<td><em>(Optional)</em> Save output to a variable.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 </tbody>
       </table><h4 id="execute-criteria-schema">Execute Criteria Schema</h4>
@@ -956,6 +1033,11 @@ is perf</p>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
 <td>with_items</td>
 <td><em>(Optional)</em> Items over which the step iteration (loop) takes place. The iterator is available within the step as <code>item</code>.</td>
 </tr>
@@ -1009,6 +1091,11 @@ is perf</p>
 <tr>
 <td>unless</td>
 <td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
@@ -1084,6 +1171,11 @@ is perf</p>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
 <td>timeout</td>
 <td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
@@ -1094,6 +1186,11 @@ is perf</p>
 </tr>
 <tr>
 <td><em>Sequence of:</em><br/><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>register</td>
+<td><em>(Optional)</em> Save output to a variable.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
 </tr>
 </tbody>
       </table><h4 id="uri-criteria-schema">Uri Criteria Schema</h4>
@@ -1170,8 +1267,8 @@ is perf</p>
 <td>string</td>
 </tr>
 </tbody>
-      </table><h2 id="shared-criteria">Shared Criteria</h2>
-<h3 id="parent-criteria-schema">Parent Criteria Schema</h3>
+      </table><h2 id="decorators">Decorators</h2>
+<h3 id="conditional-decorators">Conditional Decorators</h3>
 <table class="table table-striped table-bordered">
       <thead><tr>
 <th>Property</th>
@@ -1180,14 +1277,73 @@ is perf</p>
 </tr>
 </thead>
       <tbody><tr>
-<td>selector</td>
-<td>CSS selector of element to select.</td>
-<td><a href="#expression-schema">expression-schema</a></td>
+<td>when</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 <tr>
-<td>text</td>
-<td><em>(Optional)</em> Select element which text represenation contains the given value.</td>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>failed_when</td>
+<td><em>(Optional)</em> Mark step as failed if condition is evaluated to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h3 id="register-decorator">Register Decorator</h3>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>register</td>
+<td><em>(Optional)</em> Save output to a variable.</td>
 <td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+</tbody>
+      </table><h3 id="timeout-decorator">Timeout Decorator</h3>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+</tbody>
+      </table><h3 id="with-items">With Items</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com/newsletter</span>
+<span class="hljs-attr">- enter:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">'input[type=email]'</span>
+<span class="hljs-attr">    input:</span> <span class="hljs-string">'foo@example.com'</span>
+<span class="hljs-attr">- click:</span> <span class="hljs-string">${item}</span>
+<span class="hljs-attr">  with_items:</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">'#accept-terms'</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">'#accept-marketing-emails'</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">'#sign-up'</span></code></pre><p><code>with_items</code> is a loop decorator which can be used to iterate over a list of elements.</p>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>with_items</td>
+<td><em>(Optional)</em> Items over which the step iteration (loop) takes place. The iterator is available within the step as <code>item</code>.</td>
+</tr>
+<tr>
+<td><em>Sequence of:</em><br/><a href="#expression-schema">expression-schema</a></td>
 </tr>
 </tbody>
       </table><h2 id="management-of-multiple-scenarios">Management of Multiple Scenarios</h2>

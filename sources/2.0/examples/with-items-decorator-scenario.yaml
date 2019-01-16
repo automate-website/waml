@@ -1,0 +1,10 @@
+# WAML 2
+- open: www.example.com/newsletter
+- enter:
+    selector: 'input[type=email]'
+    input: 'foo@example.com'
+- click: ${item}
+  with_items:
+    - '#accept-terms'
+    - '#accept-marketing-emails'
+    - '#sign-up'

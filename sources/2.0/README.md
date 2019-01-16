@@ -103,14 +103,16 @@ The criteria can be classified as following:
 A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action's internal logic.
 
 The decorators can be classified as following:
-- Conditional decorators
+- [Conditional decorators](#conditional-decorators)
   - When
   - Unless
-- Logical decorators
-  - Invert
+  - Failed when
 - State decorators
-  - Register
-  - Timeout
+  - [Register](#register)
+  - [Timeout](#timeout)
+- Loop decorator
+  - [With items](#with-items)
+
 
 ### Expression
 
@@ -378,10 +380,29 @@ An example of simple usage of ```uri``` as well as a more complex example.
 
 {{ schema2md('./sources/2.0/schema/expression-schema.yaml') }}
 
-## Shared Criteria
-### Parent Criteria Schema
+## Decorators
 
-{{ schema2md('./docs/2.0/parent-criteria-schema') }}
+### Conditional Decorators
+
+{{ schema2md('./docs/2.0/conditional-decorator-schema') }}
+
+### Register Decorator
+
+{{ schema2md('./docs/2.0/register-decorator-schema') }}
+
+### Timeout Decorator
+
+{{ schema2md('./docs/2.0/timeout-decorator-schema') }}
+
+
+### With Items
+
+{{ includeScenario('./sources/2.0/examples/with-items-decorator-scenario.yaml') }}
+
+`with_items` is a loop decorator which can be used to iterate over a list of elements.
+
+{{ schema2md('./docs/2.0/with-items-decorator-schema') }}
+
 
 
 ## Management of Multiple Scenarios
