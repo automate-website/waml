@@ -11,6 +11,7 @@ oneOf:
   - $ref: http://waml-schema.org/2.0/open-step-schema#
   - $ref: http://waml-schema.org/2.0/click-step-schema#
   - $ref: http://waml-schema.org/2.0/enter-step-schema#
+  - $ref: http://waml-schema.org/2.0/execute-step-schema#
   - $ref: http://waml-schema.org/2.0/select-step-schema#
   - $ref: http://waml-schema.org/2.0/move-step-schema#
   - $ref: http://waml-schema.org/2.0/store-step-schema#

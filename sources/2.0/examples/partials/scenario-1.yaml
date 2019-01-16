@@ -1,5 +1,5 @@
 $schema: http://waml-schema.org/2.0/scenario-schema#
 name: Play Radio
 steps:
-  - open: radio.com'
+  - open: radio.com
   - click: button#play

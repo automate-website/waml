@@ -116,7 +116,7 @@ one stream. </p>
 <h4 id="scenario">Scenario</h4>
 <pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Play</span> <span class="hljs-string">Radio</span>
 <span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">radio.com'</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">radio.com</span>
 <span class="hljs-attr">  - click:</span> <span class="hljs-string">button#play</span></code></pre><p>A scenario is a (reusable) set of actions performed by a user, executed in the predefined order, and resulting in a 
 particular state.</p>
 <p>A WAML stream may contain multiple scenarios (separated by <code>---</code>, as specified in <a href="http://yaml.org/spec/1.2/spec.html">YAML 1.2</a>). Every scenario must be 
@@ -126,7 +126,7 @@ represented by a set of metadata as well as sequence of steps to execute.</p>
 purpose of the scenario (e.g. <code>name</code> or <code>description</code>). </p>
 <h4 id="step">Step</h4>
 <pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Partial!</span>
-<span class="hljs-attr">open:</span> <span class="hljs-string">www.vacation-planer.me</span></code></pre><p>A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
+<span class="hljs-attr">open:</span> <span class="hljs-string">www.vacation-planner.me</span></code></pre><p>A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
 elements based on underlying criteria text place. Further, certain actions may modify the web context.</p>
 <h4 id="action">Action</h4>
 <p>The action is a part of a step which performs operation on the web context. The actions can be classified as following:</p>
@@ -178,7 +178,7 @@ modifying actions perform may manipulations on the web context. </p>
 </ul>
 <h4 id="decorator">Decorator</h4>
 <pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Partial: Slow loading page</span>
-<span class="hljs-attr">open:</span> <span class="hljs-string">www.vacation-planer.me</span>
+<span class="hljs-attr">open:</span> <span class="hljs-string">www.vacation-planner.me</span>
 <span class="hljs-attr">timeout:</span> <span class="hljs-number">10</span></code></pre><p>A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action&#39;s internal logic.</p>
 <p>The decorators can be classified as following:</p>
 <ul>
@@ -201,8 +201,8 @@ modifying actions perform may manipulations on the web context. </p>
 <pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Open</span> <span class="hljs-string">non-responsive</span> <span class="hljs-string">page</span>
 <span class="hljs-attr">steps:</span>
 <span class="hljs-attr">  - store:</span>
-<span class="hljs-attr">      regularUrl:</span> <span class="hljs-string">www.vacation-planer.me</span>
-<span class="hljs-attr">      mobileUrl:</span> <span class="hljs-string">mobile.vacation-planer.me</span>
+<span class="hljs-attr">      regularUrl:</span> <span class="hljs-string">www.vacation-planner.com</span>
+<span class="hljs-attr">      mobileUrl:</span> <span class="hljs-string">mobile.vacation-planner.com</span>
 <span class="hljs-attr">  - unless:</span> <span class="hljs-string">${isMobule}</span>
 <span class="hljs-attr">    open:</span> <span class="hljs-string">${regularUrl}</span>
 <span class="hljs-attr">  - when:</span> <span class="hljs-string">${isMobile}</span>
@@ -281,7 +281,7 @@ utilize the result of arbitrary operations on context values.</p>
       <tbody><tr>
 <td>&ndash;</td>
 <td>A step represents the smallest identifiable user action.</td>
-<td><em>One of:</em><br/><a href="#ensure-step-schema">ensure-step-schema</a>,<br/> <a href="#open-step-schema">open-step-schema</a>,<br/> <a href="#click-step-schema">click-step-schema</a>,<br/> <a href="#enter-step-schema">enter-step-schema</a>,<br/> <a href="#select-step-schema">select-step-schema</a>,<br/> <a href="#move-step-schema">move-step-schema</a>,<br/> <a href="#store-step-schema">store-step-schema</a>,<br/> <a href="#wait-step-schema">wait-step-schema</a>,<br/> <a href="#debug-step-schema">debug-step-schema</a>,<br/> <a href="#include-step-schema">include-step-schema</a></td>
+<td><em>One of:</em><br/><a href="#ensure-step-schema">ensure-step-schema</a>,<br/> <a href="#open-step-schema">open-step-schema</a>,<br/> <a href="#click-step-schema">click-step-schema</a>,<br/> <a href="#enter-step-schema">enter-step-schema</a>,<br/> <a href="#execute-step-schema">execute-step-schema</a>,<br/> <a href="#select-step-schema">select-step-schema</a>,<br/> <a href="#move-step-schema">move-step-schema</a>,<br/> <a href="#store-step-schema">store-step-schema</a>,<br/> <a href="#wait-step-schema">wait-step-schema</a>,<br/> <a href="#debug-step-schema">debug-step-schema</a>,<br/> <a href="#include-step-schema">include-step-schema</a></td>
 </tr>
 </tbody>
       </table><h2 id="fragment-scenarios">Fragment Scenarios</h2>
@@ -825,6 +825,94 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 <td>scenario</td>
 <td>The name of the scenario to include.</td>
 <td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+</tbody>
+      </table><h3 id="execute">Execute</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation of 'execute'</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Enter</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - execute:</span> <span class="hljs-string">&gt;
+      document.body.backgroundColor = 'red';</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation of 'execute'</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Enter</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - when:</span> <span class="hljs-string">${</span> <span class="hljs-literal">true</span> <span class="hljs-string">}</span>
+<span class="hljs-attr">    execute:</span>
+<span class="hljs-attr">      script:</span> <span class="hljs-string">|
+        var context = arguments[0];
+        var callback = arguments[1];
+        fetch('https://example.com/weather.json?city=' + context.city)
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (data) {
+            callback(data.rainProbability);
+          })
+          .catch(function (ex) {
+            callback()
+          });
+</span><span class="hljs-attr">      async:</span> <span class="hljs-literal">true</span></code></pre><p>The <code>execute</code> action is used for client-side (browser) execution of a JavaScript code. This is useful for cases where you
+need deeper intervention into your page which cannot be performed by other WAML commands. </p>
+<p>The injected code is
+executed synchronously which is sufficient for most cases. However, in particular situations you may want to 
+perform an asynchronous call to fetch additional data using XHR or to make some injections. In this case you can
+trigger the execution of the injected script in asynchonous mode by setting <code>async</code> criterion to <code>true</code>. </p>
+<p>In the asynchronous mode it is expected that the JavaScript snippet provided in the <code>script</code> criterion is a 
+function which accepts three parameters: <code>resolve</code>, <code>reject</code>, and <code>context</code>. During the execution the</p>
+<p>of the time </p>
+<p>Please consider that your <em>must</em> execute 
+either <code>resolve()</code> for success cases or <code>reject()</code> for error cases if the snippet execution is done, otherwise the </p>
+<p>Please consider that asynchronous calls are wrapped in a function.
+The first argument of the function is the <em>context</em> containing all variables/objects containing in the current WAML
+scenario execution context. The second parameter is the <em>callback</em> function which must be called after the execution 
+is perf</p>
+<h4 id="execute-step-schema">Execute Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>execute</td>
+<td>JavaScript code to execute in the browser context.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#execute-criteria-schema">execute-criteria-schema</a></td>
+</tr>
+<tr>
+<td>when</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+</tbody>
+      </table><h4 id="execute-criteria-schema">Execute Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>script</td>
+<td>JavaScript code to execute in the browser context.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>async</td>
+<td><em>(Optional)</em> Define whether the script should be executed in async mode <strong>Default:</strong> false</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 </tbody>
       </table><h3 id="store">Store</h3>

@@ -89,6 +89,7 @@ oneOf:
   - $ref: 'http://waml-schema.org/2.0/open-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/click-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/enter-step-schema#'
+  - $ref: 'http://waml-schema.org/2.0/execute-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/select-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/move-step-schema#'
   - $ref: 'http://waml-schema.org/2.0/store-step-schema#'
@@ -198,6 +199,26 @@ $mergeProperties:
   - $ref: 'http://waml-schema.org/2.0/timeout-decorator-schema#'
 
 ```
+## schema: step: execute: 
+```
+id: 'http://waml-schema.org/2.0/execute-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Execute step
+description: Execute a JavaScript snippet in the context of the browser
+properties:
+  execute:
+    description: JavaScript code to execute in the browser context.
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - $ref: 'http://waml-schema.org/2.0/execute-criteria-schema#'
+required:
+  - execute
+additionalProperties: false
+$mergeProperties:
+  - $ref: 'http://waml-schema.org/2.0/conditional-decorator-schema#'
+  - $ref: 'http://waml-schema.org/2.0/timeout-decorator-schema#'
+
+```
 ## schema: step: include: 
 ```
 id: 'http://waml-schema.org/2.0/include-step-schema#'
@@ -296,6 +317,22 @@ required:
 additionalProperties: false
 $mergeProperties:
   - $ref: 'http://waml-schema.org/2.0/conditional-decorator-schema#'
+
+```
+## schema: criteria: include: 
+```
+id: 'http://waml-schema.org/2.0/include-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Include criteria
+description: Qualifier for an element value change.
+type: object
+properties:
+  scenario:
+    description: The name of the scenario to include.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
+additionalProperties: false
+required:
+  - scenario
 
 ```
 ## schema: criteria: move: 
@@ -516,20 +553,26 @@ required:
   - selector
 
 ```
-## schema: criteria: include: 
+## schema: criteria: execute: 
 ```
-id: 'http://waml-schema.org/2.0/include-criteria-schema#'
+id: 'http://waml-schema.org/2.0/execute-criteria-schema#'
 $schema: 'http://json-schema.org/draft-04/schema#'
-title: Include criteria
-description: Qualifier for an element value change.
+title: Execute criteria
+description: Qualifier for execute
 type: object
 properties:
-  scenario:
-    description: The name of the scenario to include.
+  script:
+    description: JavaScript code to execute in the browser context.
     $ref: 'http://waml-schema.org/2.0/expression-schema#'
+  async:
+    description: Define whether the script should be executed in async mode
+    default: false
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
 additionalProperties: false
 required:
-  - scenario
+  - script
 
 ```
 ## schema: expression: 

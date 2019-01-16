@@ -59,7 +59,7 @@ The structure of WAML is limited to 4-tier hierarchy:
 ```yaml
 name: Play Radio
 steps:
-  - open: radio.com'
+  - open: radio.com
   - click: button#play
 ```
 
@@ -80,7 +80,7 @@ purpose of the scenario (e.g. `name` or `description`).
 
 ```yaml
 # Partial!
-open: www.vacation-planer.me
+open: www.vacation-planner.me
 ```
 
 A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
@@ -137,7 +137,7 @@ The criteria can be classified as following:
 
 ```yaml
 # Partial: Slow loading page
-open: www.vacation-planer.me
+open: www.vacation-planner.me
 timeout: 10
 ```
 
@@ -159,8 +159,8 @@ The decorators can be classified as following:
 name: Open non-responsive page
 steps:
   - store:
-      regularUrl: www.vacation-planer.me
-      mobileUrl: mobile.vacation-planer.me
+      regularUrl: www.vacation-planner.com
+      mobileUrl: mobile.vacation-planner.com
   - unless: ${isMobule}
     open: ${regularUrl}
   - when: ${isMobile}
@@ -214,7 +214,7 @@ The steps property must be represented as a sequence of actions. Every step repr
 
 | Property | Description | Type |
 |---|---|---|
-|  &ndash;  |A step represents the smallest identifiable user action. |_One of:_<br/>[ensure-step-schema](#ensure-step-schema),<br/> [open-step-schema](#open-step-schema),<br/> [click-step-schema](#click-step-schema),<br/> [enter-step-schema](#enter-step-schema),<br/> [select-step-schema](#select-step-schema),<br/> [move-step-schema](#move-step-schema),<br/> [store-step-schema](#store-step-schema),<br/> [wait-step-schema](#wait-step-schema),<br/> [debug-step-schema](#debug-step-schema),<br/> [include-step-schema](#include-step-schema) |
+|  &ndash;  |A step represents the smallest identifiable user action. |_One of:_<br/>[ensure-step-schema](#ensure-step-schema),<br/> [open-step-schema](#open-step-schema),<br/> [click-step-schema](#click-step-schema),<br/> [enter-step-schema](#enter-step-schema),<br/> [execute-step-schema](#execute-step-schema),<br/> [select-step-schema](#select-step-schema),<br/> [move-step-schema](#move-step-schema),<br/> [store-step-schema](#store-step-schema),<br/> [wait-step-schema](#wait-step-schema),<br/> [debug-step-schema](#debug-step-schema),<br/> [include-step-schema](#include-step-schema) |
 
 
 
@@ -580,6 +580,80 @@ Short notation example of ```include``` and a complex example.
 | Property | Description | Type |
 |---|---|---|
 | scenario |The name of the scenario to include. |[expression-schema](#expression-schema) |
+
+
+
+### Execute
+
+```yaml
+# Short notation of 'execute'
+name: Enter demonstration scenario
+steps:
+  - open: www.example.com
+  - execute: >
+      document.body.backgroundColor = 'red';
+```
+```yaml
+# Full notation of 'execute'
+name: Enter demonstration scenario
+steps:
+  - open: www.example.com
+  - when: ${ true }
+    execute:
+      script: |
+        var context = arguments[0];
+        var callback = arguments[1];
+        fetch('https://example.com/weather.json?city=' + context.city)
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (data) {
+            callback(data.rainProbability);
+          })
+          .catch(function (ex) {
+            callback()
+          });
+      async: true
+```
+
+The `execute` action is used for client-side (browser) execution of a JavaScript code. This is useful for cases where you
+need deeper intervention into your page which cannot be performed by other WAML commands. 
+
+The injected code is
+executed synchronously which is sufficient for most cases. However, in particular situations you may want to 
+perform an asynchronous call to fetch additional data using XHR or to make some injections. In this case you can
+trigger the execution of the injected script in asynchonous mode by setting `async` criterion to `true`. 
+
+In the asynchronous mode it is expected that the JavaScript snippet provided in the `script` criterion is a 
+function which accepts three parameters: `resolve`, `reject`, and `context`. During the execution the
+
+of the time 
+
+Please consider that your _must_ execute 
+either `resolve()` for success cases or `reject()` for error cases if the snippet execution is done, otherwise the 
+
+
+Please consider that asynchronous calls are wrapped in a function.
+The first argument of the function is the _context_ containing all variables/objects containing in the current WAML
+scenario execution context. The second parameter is the _callback_ function which must be called after the execution 
+is perf
+
+#### Execute Step Schema
+
+| Property | Description | Type |
+|---|---|---|
+| execute |JavaScript code to execute in the browser context. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [execute-criteria-schema](#execute-criteria-schema) |
+| when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+
+
+#### Execute Criteria Schema
+
+| Property | Description | Type |
+|---|---|---|
+| script |JavaScript code to execute in the browser context. |[expression-schema](#expression-schema) |
+| async |_(Optional)_ Define whether the script should be executed in async mode __Default:__ false |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 
 
 

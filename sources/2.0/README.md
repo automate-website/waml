@@ -294,6 +294,42 @@ Short notation example of ```include``` and a complex example.
 {{ schema2md('./2.0/include-criteria-schema') }}
 
 
+### Execute
+
+{{ includeScenario('./sources/2.0/examples/execute-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/execute-scenario-2.yaml') }}
+
+The `execute` action is used for client-side (browser) execution of a JavaScript code. This is useful for cases where you
+need deeper intervention into your page which cannot be performed by other WAML commands. 
+
+The injected code is
+executed synchronously which is sufficient for most cases. However, in particular situations you may want to 
+perform an asynchronous call to fetch additional data using XHR or to make some injections. In this case you can
+trigger the execution of the injected script in asynchonous mode by setting `async` criterion to `true`. 
+
+In the asynchronous mode it is expected that the JavaScript snippet provided in the `script` criterion is a 
+function which accepts three parameters: `resolve`, `reject`, and `context`. During the execution the
+
+of the time 
+
+Please consider that your _must_ execute 
+either `resolve()` for success cases or `reject()` for error cases if the snippet execution is done, otherwise the 
+
+
+Please consider that asynchronous calls are wrapped in a function.
+The first argument of the function is the _context_ containing all variables/objects containing in the current WAML
+scenario execution context. The second parameter is the _callback_ function which must be called after the execution 
+is perf
+
+#### Execute Step Schema
+
+{{ schema2md('./2.0/execute-step-schema') }}
+
+#### Execute Criteria Schema
+
+{{ schema2md('./2.0/execute-criteria-schema') }}
+
+
 ### Store
 
 {{ includeScenario('./sources/2.0/examples/store-scenario-1.yaml') }}

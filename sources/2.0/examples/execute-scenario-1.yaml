@@ -1,0 +1,7 @@
+$schema: http://waml-schema.org/2.0/scenario-schema#
+# Short notation of 'execute'
+name: Enter demonstration scenario
+steps:
+  - open: www.example.com
+  - execute: >
+      document.body.backgroundColor = 'red';
