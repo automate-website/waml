@@ -18,6 +18,13 @@ properties:
     oneOf:
       - $ref: 'http://waml-schema.org/2.0/expression-schema#'
       - type: boolean
+  with_items:
+    description: >
+      Items over which the step iteration (loop) takes place. The iterator is
+      available within the step as `item`.
+    type: array
+    items:
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
 required:
   - debug
 additionalProperties: false

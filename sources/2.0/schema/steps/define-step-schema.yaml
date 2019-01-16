@@ -10,3 +10,4 @@ required:
 additionalProperties: false
 $mergeProperties:
   - $ref: http://waml-schema.org/2.0/conditional-decorator-schema#
+  - $ref: http://waml-schema.org/2.0/with-items-decorator-schema#

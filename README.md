@@ -28,8 +28,12 @@ Refer to the [changelog] for recent notable changes and modifications.
     input: el3ctric
 - click: button[type=submit]
 - select:
-    selector: '#pizza-margarita.count'
+    selector: '${item}'
     value: '2'
+  with_items:
+    - '#pizza-margarita.count'
+    - '#pizza-quattro-formaggi.count'
+    - '#pizza-broccoli.count'
 - click:
     selector: a
     text: 'Order now!'
@@ -249,6 +253,8 @@ The `http://` scheme should be automatically added to the `url` if no scheme is 
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Open Criteria Schema
@@ -293,6 +299,8 @@ Using the additional criteria not only the presence of the element can be ensure
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Ensure Criteria Schema
@@ -342,6 +350,8 @@ The examples depicts the usage of the ```move``` action.
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Move Criteria Schema
@@ -389,6 +399,8 @@ Also the ```text``` criteria may be used to verify the wording of the target.
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Click Criteria Schema
@@ -431,6 +443,8 @@ Short notation example of ```select``` and a complex example.
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Select Criteria Schema
@@ -471,6 +485,8 @@ Short notation example of ```select``` and a complex example.
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Enter Criteria Schema
@@ -545,6 +561,8 @@ Short notation example of ```include``` and a complex example.
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Include Criteria Schema
@@ -616,6 +634,8 @@ is perf
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Execute Criteria Schema
@@ -655,6 +675,8 @@ An example of simple usage of ```define``` as well as a more complex example.
 | define | |[define-criteria-schema](#define-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Define Criteria Schema
@@ -692,6 +714,8 @@ An example of simple usage of ```debug``` as well as a more complex example.
 | debug |A message which should be interpolated. |_One of:_<br/>[expression-schema](#expression-schema),<br/> [debug-criteria-schema](#debug-criteria-schema) |
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Debug Criteria Schema
@@ -738,6 +762,8 @@ An example of simple usage of ```uri``` as well as a more complex example.
 | when |_(Optional)_ If set, the step is only executed if the value evaluates to true. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | unless |_(Optional)_ If set, the step is only executed if the value evaluates to false. |_One of:_<br/>[expression-schema](#expression-schema),<br/> boolean |
 | timeout |_(Optional)_ Maximal time [s] to wait for the element which meets the given criteria. __Default:__ 5 |_One of:_<br/>[expression-schema](#expression-schema),<br/> number |
+| with_items |_(Optional)_ Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+ |_Sequence of:_<br/>[expression-schema](#expression-schema) |
 
 
 #### Uri Criteria Schema

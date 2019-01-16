@@ -1,0 +1,12 @@
+id: http://waml-schema.org/2.0/with-items-decorator-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Conditional Decorator
+type: object
+properties:
+  with_items:
+    description: |
+      Items over which the step iteration (loop) takes place. The iterator is available within the step as `item`.
+    type: array
+    items:
+      $ref: http://waml-schema.org/2.0/expression-schema#
+

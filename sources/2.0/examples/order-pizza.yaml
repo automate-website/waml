@@ -9,8 +9,12 @@
     input: el3ctric
 - click: button[type=submit]
 - select:
-    selector: '#pizza-margarita.count'
+    selector: '${item}'
     value: '2'
+  with_items:
+    - '#pizza-margarita.count'
+    - '#pizza-quattro-formaggi.count'
+    - '#pizza-broccoli.count'
 - click:
     selector: a
     text: 'Order now!'
