@@ -121,8 +121,8 @@ particular state.</p>
 <p>A WAML stream may contain multiple scenarios (separated by <code>---</code>, as specified in <a href="http://yaml.org/spec/1.2/spec.html">YAML 1.2</a>). Every scenario must be 
 represented by a set of metadata as well as sequence of steps to execute.</p>
 <h4 id="step">Step</h4>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Partial!</span>
-<span class="hljs-attr">open:</span> <span class="hljs-string">www.vacation-planner.me</span></code></pre><p>A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.vacation-planner.me</span></code></pre><p>A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
 elements based on underlying criteria text place. Further, certain actions may modify the web context.</p>
 <h4 id="action">Action</h4>
 <p>The action is a part of a step which performs operation on the web context. The actions can be classified as following:</p>
@@ -152,10 +152,10 @@ elements based on underlying criteria text place. Further, certain actions may m
 </li>
 </ul>
 <h4 id="criterion">Criterion</h4>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Partial!</span>
-<span class="hljs-attr">enter:</span>
-<span class="hljs-attr">  selector:</span> <span class="hljs-string">input[name=email]</span>
-<span class="hljs-attr">  input:</span> <span class="hljs-string">alessandro@volta.it</span></code></pre><p>A criterion is a part of the action which describes a constraint applied on the web elements. Further, criteria of 
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-attr">- enter:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">input[name=email]</span>
+<span class="hljs-attr">    input:</span> <span class="hljs-string">alessandro@volta.it</span></code></pre><p>A criterion is a part of the action which describes a constraint applied on the web elements. Further, criteria of 
 modifying actions perform may manipulations on the web context. </p>
 <p>Every step must have at least one criteria which is represented as scalar (string, integer, etc.) value or a mapping.</p>
 <p>The criteria can be classified as following:</p>
@@ -175,9 +175,9 @@ modifying actions perform may manipulations on the web context. </p>
 </li>
 </ul>
 <h4 id="decorator">Decorator</h4>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Partial: Slow loading page</span>
-<span class="hljs-attr">open:</span> <span class="hljs-string">www.vacation-planner.me</span>
-<span class="hljs-attr">timeout:</span> <span class="hljs-number">10</span></code></pre><p>A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action&#39;s internal logic.</p>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.vacation-planner.me</span>
+<span class="hljs-attr">  timeout:</span> <span class="hljs-number">10</span></code></pre><p>A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action&#39;s internal logic.</p>
 <p>The decorators can be classified as following:</p>
 <ul>
 <li>Conditional decorators<ul>
