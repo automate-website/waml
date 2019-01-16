@@ -72,8 +72,8 @@ represented by a set of metadata as well as sequence of steps to execute.
 #### Step
 
 ```yaml
-# Partial!
-open: www.vacation-planner.me
+# WAML 2
+- open: www.vacation-planner.me
 ```
 
 A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
@@ -105,10 +105,10 @@ The action is a part of a step which performs operation on the web context. The 
 #### Criterion
 
 ```yaml
-# Partial!
-enter:
-  selector: input[name=email]
-  input: alessandro@volta.it
+# WAML 2
+- enter:
+    selector: input[name=email]
+    input: alessandro@volta.it
 ```
 
 A criterion is a part of the action which describes a constraint applied on the web elements. Further, criteria of 
@@ -131,9 +131,9 @@ The criteria can be classified as following:
 #### Decorator
 
 ```yaml
-# Partial: Slow loading page
-open: www.vacation-planner.me
-timeout: 10
+# WAML 2
+- open: www.vacation-planner.me
+  timeout: 10
 ```
 
 A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action's internal logic.

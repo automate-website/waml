@@ -16,7 +16,7 @@ Documentation for the versions:
 Refer to the [changelog] for recent notable changes and modifications.
 
 ## Abstract
-{{ includeScenario('./sources/2.0/examples/partials/order-pizza.yaml') }}
+{{ includeScenario('./sources/2.0/examples/order-pizza.yaml') }}
 
 Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of [YAML 1.2] which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.
 
@@ -36,7 +36,7 @@ A set of steps is called _Scenario_.
 
 #### Scenario
 
-{{ includeScenario('./sources/2.0/examples/partials/scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/scenario-1.yaml') }}
 
 A scenario is a (reusable) set of actions performed by a user, executed in the predefined order, and resulting in a 
 particular state.
@@ -47,7 +47,7 @@ represented by a set of metadata as well as sequence of steps to execute.
 
 #### Step
 
-{{ includeScenario('./sources/2.0/examples/partials/step-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/step-1.yaml') }}
 
 A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
 elements based on underlying criteria text place. Further, certain actions may modify the web context.
@@ -77,7 +77,7 @@ The action is a part of a step which performs operation on the web context. The 
 
 #### Criterion
 
-{{ includeScenario('./sources/2.0/examples/partials/criterion-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/criterion-1.yaml') }}
 
 A criterion is a part of the action which describes a constraint applied on the web elements. Further, criteria of 
 modifying actions perform may manipulations on the web context. 
@@ -98,7 +98,7 @@ The criteria can be classified as following:
 
 #### Decorator
 
-{{ includeScenario('./sources/2.0/examples/partials/decorator-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/decorator-1.yaml') }}
 
 A decorator adds an additional behavior on the top of a scenario or action. It does not affect the action's internal logic.
 
@@ -114,7 +114,7 @@ The decorators can be classified as following:
 
 ### Expression
 
-{{ includeScenario('./sources/2.0/examples/partials/expression-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/expression-1.yaml') }}
 
 Expressions apply to metadata, criterion, and decorator values. Their aim is to promote reusability and allow to 
 utilize the result of arbitrary operations on context values.

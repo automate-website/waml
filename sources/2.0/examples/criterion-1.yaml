@@ -1,0 +1,4 @@
+# WAML 2
+- enter:
+    selector: input[name=email]
+    input: alessandro@volta.it
