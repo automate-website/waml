@@ -14,7 +14,8 @@ oneOf:
   - $ref: http://waml-schema.org/2.0/execute-step-schema#
   - $ref: http://waml-schema.org/2.0/select-step-schema#
   - $ref: http://waml-schema.org/2.0/move-step-schema#
-  - $ref: http://waml-schema.org/2.0/store-step-schema#
+  - $ref: http://waml-schema.org/2.0/define-step-schema#
+  - $ref: http://waml-schema.org/2.0/uri-step-schema#
 
 # Support Steps
   - $ref: http://waml-schema.org/2.0/wait-step-schema#

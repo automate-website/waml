@@ -1,16 +1,14 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
+# WAML 2
 # Full notation of 'enter'
-name: Enter demonstration scenario
-steps:
-  - open: www.example.com
-  - enter:
-      selector: input.email
-      input: 'me@example.com'
-  - enter:
-      selector: input.password
-      input: 'secret'
-  - enter:
-      selector: input.easy-captcha
-      value: 1234
-      input: 3421
-  - click: button[type=submit]
+- open: www.example.com
+- enter:
+    selector: input.email
+    input: 'me@example.com'
+- enter:
+    selector: input.password
+    input: 'secret'
+- enter:
+    selector: input.easy-captcha
+    value: 1234
+    input: 3421
+- click: button[type=submit]

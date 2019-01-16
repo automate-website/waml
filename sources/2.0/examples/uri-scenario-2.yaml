@@ -1,0 +1,14 @@
+# WAML 2
+# Uri scenario
+- uri:
+    url: "http://example.com/resources.zip"
+    body: foo
+    dest: /tmp/bar.zip
+    headers:
+      X-Debug: foo-bar
+    method: POST
+    password: secret
+    user: user
+    src: /tmp/foo.txt
+    body_format: raw
+    status_code: 200

@@ -1,9 +1,3 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-name: full-featured-scenario
-description: A full featured scenario
-fragment: false
-precendence: 100
-timeout: 5
-when: ${ true }
-steps:
-  - open: www.example.com
+# WAML 2
+# A full featured scenario
+- open: www.example.com

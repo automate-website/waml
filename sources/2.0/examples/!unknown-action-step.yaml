@@ -1,4 +1,2 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-name: Should fail with unknown action in step
-steps:
-  - sing: www.example.com
+# Should fail with unknown action in step
+- sing: www.example.com

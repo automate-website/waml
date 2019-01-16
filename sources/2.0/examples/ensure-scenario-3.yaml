@@ -1,9 +1,8 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-name: Ensure demonstation scenario with explicit defined absent constraint
-steps:
-  - open: www.example.com
-  - timeout: 4
-    ensure:
-      selector: h1.greeting
-      value: 'Welcome to example.com!'
-      absent: true
+# WAML 2
+# Ensure demonstration scenario with explicit defined absent constraint
+- open: www.example.com
+- timeout: 4
+  ensure:
+    selector: h1.greeting
+    value: 'Welcome to example.com!'
+    absent: true

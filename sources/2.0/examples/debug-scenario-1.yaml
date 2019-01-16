@@ -1,5 +1,4 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-name: Debug scenarion
-steps:
-  - open: www.example.com
-  - debug: "hi ${there}"
+# WAML 2
+# Debug scenario
+- open: www.example.com
+- debug: "hi ${there}"

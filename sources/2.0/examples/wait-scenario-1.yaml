@@ -1,6 +1,4 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-# Short notation of 'wait'
-name: Wait 2.5 seconds demonstration scenario
-steps:
-  - open: www.example.com
-  - wait: 2.5
+# WAML 2
+# Wait 2.5 seconds demonstration scenario
+- open: www.example.com
+- wait: 2.5

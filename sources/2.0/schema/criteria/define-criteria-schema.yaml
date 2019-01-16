@@ -1,7 +1,7 @@
-id: http://waml-schema.org/2.0/store-criteria-schema#
+id: http://waml-schema.org/2.0/define-criteria-schema#
 $schema: http://json-schema.org/draft-04/schema#
-title: Store criteria
-description: Qualifier for values to store and a key-value store.
+title: Define criteria
+description: Qualifier for values to define and a key-value store.
 type: object
 minProperties: 1
 patternProperties:

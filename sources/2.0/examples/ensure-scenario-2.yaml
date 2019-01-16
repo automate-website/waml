@@ -1,9 +1,7 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-# Full notation
-name: Ensure scenario with additional contstraints
-steps:
-  - open: www.example.com
-  - timeout: 4
-    ensure:
-      selector: h1.greeting
-      value: 'Welcome to example.com!'
+# WAML 2
+# Ensure scenario with additional constraints
+- open: www.example.com
+- timeout: 4
+  ensure:
+    selector: h1.greeting
+    value: 'Welcome to example.com!'

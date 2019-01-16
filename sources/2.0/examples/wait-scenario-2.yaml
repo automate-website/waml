@@ -1,8 +1,6 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-# Full notation of 'wait'
-name: 'Wait 5 seconds demonstration scenario 2'
-steps:
-  - open: www.example.com
-  - when: ${slowConnection}
-    wait:
-      time: 5
+# WAML 2
+# Wait 5 seconds demonstration scenario 2
+- open: www.example.com
+- when: ${slowConnection}
+  wait:
+    time: 5

@@ -1,0 +1,8 @@
+# WAML 2
+# Define demonstration scenario 2
+- when: ${isOldComputer}
+  define:
+    display_resolution: '1024x768'
+    isDesktop: true
+    1080p: false
+    width: 1024

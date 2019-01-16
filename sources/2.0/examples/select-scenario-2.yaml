@@ -1,12 +1,9 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-# Full notation of 'select'
-name: 'Select demonstration scenario 2'
-steps:
-  - open: www.example.com
-  - select:
-      selector: .title
-      text: 'PROF DR'
-  - select:
-      selector: .country
-      value: 'CH'
-
+# WAML 2
+# Select demonstration scenario 2
+- open: www.example.com
+- select:
+    selector: .title
+    text: 'PROF DR'
+- select:
+    selector: .country
+    value: 'CH'

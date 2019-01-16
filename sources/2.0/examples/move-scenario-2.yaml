@@ -1,11 +1,9 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-# Full notation
-name: Move demonstation scenario
-steps:
-  - open: www.example.com
-  - move:
-      selector: a.help
-      text: 'Need help?'
-      parent:
-        selector: .help-container
-  - ensure: .help-tooltip
+# WAML 2
+# Move demonstration scenario
+- open: www.example.com
+- move:
+    selector: a.help
+    text: 'Need help?'
+    parent:
+      selector: .help-container
+- ensure: .help-tooltip

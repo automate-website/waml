@@ -1,6 +1,4 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-# Short notation of 'ensure'
-name: Ensure demonstation scenario
-steps:
-  - open: www.example.com
-  - ensure: h1.greeting
+# WAML 2
+# Ensure short notation
+- open: www.example.com
+- ensure: h1.greeting

@@ -1,5 +1,4 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-name: Click demonstration scenario
-steps:
-  - open: www.example.com
-  - click: a.sign-up
+# WAML 2
+# Click demonstration scenario
+- open: www.example.com
+- click: a.sign-up

@@ -28,41 +28,11 @@
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Scenario
   description: >-
-    A scenario combines a collection of tasks that must be executed together in
-    a certain order.
-  type: object
-  properties:
-    $schema:
-      type: string
-      description: Defines the scenario schema in a specific version.
-    name:
-      type: string
-      description: Unique name that is used to reference a certain scenario.
-    description:
-      type: string
-      description: Short summary of the overall scenario purpose.
-    fragment:
-      type: boolean
-      description: Defines if a scenario is a fragment or may be executed stand-alone.
-      default: false
-    precendence:
-      type: integer
-      description: >-
-        Defines the particular priority of the scenario during execution of
-        independent scenarios.
-      default: -1
-    steps:
-      description: Sequence of actions.
-      type: array
-      items:
-        $ref: 'http://waml-schema.org/2.0/step-schema#'
-  additionalProperties: false
-  required:
-    - name
-    - steps
-  $mergeProperties:
-    - $ref: 'http://waml-schema.org/2.0/conditional-decorator-schema#'
-    - $ref: 'http://waml-schema.org/2.0/timeout-decorator-schema#'
+    A scenario combines a sequence of tasks that must be executed together in a
+    certain order.
+  type: array
+  items:
+    $ref: 'http://waml-schema.org/2.0/step-schema#'
 - id: 'http://waml-schema.org/2.0/step-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Step
@@ -76,7 +46,8 @@
     - $ref: 'http://waml-schema.org/2.0/execute-step-schema#'
     - $ref: 'http://waml-schema.org/2.0/select-step-schema#'
     - $ref: 'http://waml-schema.org/2.0/move-step-schema#'
-    - $ref: 'http://waml-schema.org/2.0/store-step-schema#'
+    - $ref: 'http://waml-schema.org/2.0/define-step-schema#'
+    - $ref: 'http://waml-schema.org/2.0/uri-step-schema#'
     - $ref: 'http://waml-schema.org/2.0/wait-step-schema#'
     - $ref: 'http://waml-schema.org/2.0/debug-step-schema#'
     - $ref: 'http://waml-schema.org/2.0/include-step-schema#'
@@ -117,14 +88,27 @@
 - id: 'http://waml-schema.org/2.0/debug-step-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Debug
-  description: Debug
+  description: Debug step
   properties:
     debug:
-      description: A message which should be interpolated
+      description: A message which should be interpolated.
       oneOf:
         - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+        - $ref: 'http://waml-schema.org/2.0/debug-criteria-schema#'
   required:
     - debug
+  additionalProperties: false
+  $mergeProperties:
+    - $ref: 'http://waml-schema.org/2.0/conditional-decorator-schema#'
+- id: 'http://waml-schema.org/2.0/define-step-schema#'
+  $schema: 'http://json-schema.org/draft-04/schema#'
+  title: Define variables
+  description: Defines certain variables.
+  properties:
+    define:
+      $ref: 'http://waml-schema.org/2.0/define-criteria-schema#'
+  required:
+    - define
   additionalProperties: false
   $mergeProperties:
     - $ref: 'http://waml-schema.org/2.0/conditional-decorator-schema#'
@@ -245,18 +229,105 @@
   $mergeProperties:
     - $ref: 'http://waml-schema.org/2.0/conditional-decorator-schema#'
     - $ref: 'http://waml-schema.org/2.0/timeout-decorator-schema#'
-- id: 'http://waml-schema.org/2.0/store-step-schema#'
+- id: 'http://waml-schema.org/2.0/uri-step-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
-  title: Store variable
-  description: Stores a certain value to a context varable.
+  title: Uri
+  description: Uri step
   properties:
-    store:
-      $ref: 'http://waml-schema.org/2.0/store-criteria-schema#'
+    uri:
+      description: URL of the resource.
+      oneOf:
+        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+        - $ref: 'http://waml-schema.org/2.0/uri-criteria-schema#'
   required:
-    - store
+    - uri
   additionalProperties: false
   $mergeProperties:
     - $ref: 'http://waml-schema.org/2.0/conditional-decorator-schema#'
+    - $ref: 'http://waml-schema.org/2.0/timeout-decorator-schema#'
+- id: 'http://waml-schema.org/2.0/ensure-criteria-schema#'
+  $schema: 'http://json-schema.org/draft-04/schema#'
+  title: Ensure criteria
+  description: Qualifier for an element state validation.
+  type: object
+  properties:
+    selector:
+      description: CSS selector of element to select.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    text:
+      description: Select element which text represenation contains the given value.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    value:
+      description: Verify value attribute against this value.
+      oneOf:
+        - type: number
+        - type: boolean
+        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    absent:
+      description: >-
+        If set to true, the element matching remaining criteria is expected to
+        be absent.
+      type: boolean
+      default: false
+    parent:
+      description: Presence of the parent element according given creteria.
+      oneOf:
+        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+        - $ref: 'http://waml-schema.org/2.0/parent-criteria-schema#'
+  additionalProperties: false
+  required:
+    - selector
+- id: 'http://waml-schema.org/2.0/enter-criteria-schema#'
+  $schema: 'http://json-schema.org/draft-04/schema#'
+  title: Enter criteria
+  description: Qualifier for an element value change.
+  type: object
+  properties:
+    selector:
+      description: CSS selector of element to select.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    text:
+      description: Select element which text represenation contains the given value.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    parent:
+      description: Presence of the parent element according given creteria.
+      oneOf:
+        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+        - $ref: 'http://waml-schema.org/2.0/parent-criteria-schema#'
+    value:
+      description: Value of element to select.
+      oneOf:
+        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+        - type: number
+        - type: boolean
+    input:
+      description: Value to set.
+      oneOf:
+        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+        - type: number
+        - type: boolean
+  additionalProperties: false
+  required:
+    - input
+    - selector
+- id: 'http://waml-schema.org/2.0/execute-criteria-schema#'
+  $schema: 'http://json-schema.org/draft-04/schema#'
+  title: Execute criteria
+  description: Qualifier for execute
+  type: object
+  properties:
+    script:
+      description: JavaScript code to execute in the browser context.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    async:
+      description: Define whether the script should be executed in async mode
+      default: false
+      oneOf:
+        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+        - type: boolean
+  additionalProperties: false
+  required:
+    - script
 - id: 'http://waml-schema.org/2.0/include-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Include criteria
@@ -338,20 +409,54 @@
   additionalProperties: false
   required:
     - selector
-- id: 'http://waml-schema.org/2.0/store-criteria-schema#'
+- id: 'http://waml-schema.org/2.0/uri-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
-  title: Store criteria
-  description: Qualifier for values to store and a key-value store.
+  title: Uri criteria
+  description: Qualifier for the uri action.
   type: object
-  minProperties: 1
-  patternProperties:
-    '^([a-zA-Z0-9_.])+$':
-      description: Random key matching the given pattern with a value.
+  properties:
+    url:
+      description: URL of the resource.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    method:
+      description: Method to execute (e.g. GET).
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    body:
+      description: Content to sent alongside with the requiest.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    dest:
+      description: Path where to save the response.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    user:
+      description: User for the basic authentication.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    password:
+      description: Password for the basic authentication.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    src:
+      description: File to upload.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    body_format:
+      description: Format in which the source should be transmitted (e.g. "raw").
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    status_code:
+      description: Expected status code.
       oneOf:
         - $ref: 'http://waml-schema.org/2.0/expression-schema#'
-        - type: boolean
         - type: number
+    headers:
+      description: Headers to be sent alongside with the request.
+      type: object
+      patternProperties:
+        '^([a-zA-Z0-9_.])+$':
+          description: Header name with a value.
+          oneOf:
+            - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+            - type: boolean
+            - type: number
   additionalProperties: false
+  required:
+    - url
 - id: 'http://waml-schema.org/2.0/wait-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Wait criteria
@@ -386,89 +491,40 @@
   additionalProperties: false
   required:
     - selector
-- id: 'http://waml-schema.org/2.0/enter-criteria-schema#'
+- id: 'http://waml-schema.org/2.0/define-criteria-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
-  title: Enter criteria
-  description: Qualifier for an element value change.
+  title: Define criteria
+  description: Qualifier for values to define and a key-value store.
   type: object
-  properties:
-    selector:
-      description: CSS selector of element to select.
-      $ref: 'http://waml-schema.org/2.0/expression-schema#'
-    text:
-      description: Select element which text represenation contains the given value.
-      $ref: 'http://waml-schema.org/2.0/expression-schema#'
-    parent:
-      description: Presence of the parent element according given creteria.
+  minProperties: 1
+  patternProperties:
+    '^([a-zA-Z0-9_.])+$':
+      description: Random key matching the given pattern with a value.
       oneOf:
         - $ref: 'http://waml-schema.org/2.0/expression-schema#'
-        - $ref: 'http://waml-schema.org/2.0/parent-criteria-schema#'
-    value:
-      description: Value of element to select.
+        - type: boolean
+        - type: number
+  additionalProperties: false
+- id: 'http://waml-schema.org/2.0/debug-criteria-schema#'
+  $schema: 'http://json-schema.org/draft-04/schema#'
+  title: Debug criteria
+  description: Qualifier for the debug action.
+  type: object
+  properties:
+    msg:
+      description: A message which should be interpolated.
+      $ref: 'http://waml-schema.org/2.0/expression-schema#'
+    pause:
+      description: Make a pause until keypress when running in a CLI mode.
+      oneOf:
+        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+        - type: boolean
+    verbosity:
+      description: Level of verbosity.
       oneOf:
         - $ref: 'http://waml-schema.org/2.0/expression-schema#'
         - type: number
-        - type: boolean
-    input:
-      description: Value to set.
-      oneOf:
-        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
-        - type: number
-        - type: boolean
   additionalProperties: false
-  required:
-    - input
-    - selector
-- id: 'http://waml-schema.org/2.0/ensure-criteria-schema#'
-  $schema: 'http://json-schema.org/draft-04/schema#'
-  title: Ensure criteria
-  description: Qualifier for an element state validation.
-  type: object
-  properties:
-    selector:
-      description: CSS selector of element to select.
-      $ref: 'http://waml-schema.org/2.0/expression-schema#'
-    text:
-      description: Select element which text represenation contains the given value.
-      $ref: 'http://waml-schema.org/2.0/expression-schema#'
-    value:
-      description: Verify value attribute against this value.
-      oneOf:
-        - type: number
-        - type: boolean
-        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
-    absent:
-      description: >-
-        If set to true, the element matching remaining criteria is expected to
-        be absent.
-      type: boolean
-      default: false
-    parent:
-      description: Presence of the parent element according given creteria.
-      oneOf:
-        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
-        - $ref: 'http://waml-schema.org/2.0/parent-criteria-schema#'
-  additionalProperties: false
-  required:
-    - selector
-- id: 'http://waml-schema.org/2.0/execute-criteria-schema#'
-  $schema: 'http://json-schema.org/draft-04/schema#'
-  title: Execute criteria
-  description: Qualifier for execute
-  type: object
-  properties:
-    script:
-      description: JavaScript code to execute in the browser context.
-      $ref: 'http://waml-schema.org/2.0/expression-schema#'
-    async:
-      description: Define whether the script should be executed in async mode
-      default: false
-      oneOf:
-        - $ref: 'http://waml-schema.org/2.0/expression-schema#'
-        - type: boolean
-  additionalProperties: false
-  required:
-    - script
 - id: 'http://waml-schema.org/2.0/expression-schema#'
   $schema: 'http://json-schema.org/draft-04/schema#'
   title: Expression

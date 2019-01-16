@@ -127,17 +127,23 @@ module.exports = function(grunt) {
 						example = requireYaml(filePath);
 						grunt.log.write('Validating', filePath, '... ');
 						try {
-							let valid = ajv.validate(example['$schema'], example);
+							let valid = ajv.validate((example ? example['$schema'] : undefined) || 'http://waml-schema.org/2.0/scenario-schema', example);
 
 							if (shouldFail(filePath)) {
 							  valid = !valid;
+              } else if (mayFail(filePath)) {
+							  valid = undefined;
               }
 
 							if (!valid) {
-								hasErrors = true;
-								grunt.log.error();
-								grunt.log.writeln('Validation failed due to: ',
-										ajv.errors);
+               if (mayFail(filePath)) {
+                 grunt.log.warn();
+               } else {
+                 hasErrors = true;
+                 grunt.log.error();
+                 grunt.log.writeln('Validation failed due to: ',
+                   ajv.errors);
+               }
 							} else {
 								grunt.log.ok();
 							}
@@ -152,6 +158,10 @@ module.exports = function(grunt) {
 
   function shouldFail(filePath) {
     return path.basename(filePath).startsWith('!');
+  }
+
+  function mayFail(filePath) {
+    return path.basename(filePath).startsWith('~');
   }
 
 	grunt.registerTask('merge-json', 'Merges schemas to json file.', function() {

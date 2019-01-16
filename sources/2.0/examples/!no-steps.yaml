@@ -1,2 +1,2 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-name: Should fail without steps
+# WAML 2
+# Should fail without steps

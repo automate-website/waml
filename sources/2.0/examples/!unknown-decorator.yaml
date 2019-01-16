@@ -1,6 +1,5 @@
-$schema: http://waml-schema.org/2.0/scenario-schema#
-name: Should fail with unknown decorator
-steps:
-  - open: www.example.com
-    foo: bar
-  - click: a.sign-up
+# WAML 2
+# Should fail with unknown decorator
+- open: www.example.com
+  foo: bar
+- click: a.sign-up

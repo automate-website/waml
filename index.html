@@ -70,60 +70,51 @@ description: 'Human-readable way to define action sequences to perform on a web 
 #-->
 <h1 id="waml-2-0">WAML 2.0</h1>
 <p><a href="https://travis-ci.org/automate-website/waml"><img src="https://travis-ci.org/automate-website/waml.svg?branch=master" alt="Build Status"></a> <a href="https://gitter.im/automate-website/waml?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/automate-website/waml.svg" alt="Gitter"></a> <a href="https://www.ietf.org/rfc/rfc2119.txt"><img src="https://img.shields.io/badge/RFC-2119-blue.svg" alt="RFC 2119"></a> <img src="https://img.shields.io/badge/WAML-2.0-ee2a7b.svg" alt="WAML 2.0"></p>
-<p><a href="img/scenario-register-at-automate-website-write-and-run.gif"><img src="img/scenario-register-at-automate-website-write-and-run.gif" alt="Example Scenario"></a></p>
 <p><strong>Notice</strong>: WAML 2.0 is currently under development. Feel free to create a pull request in case of useful suggestions.</p>
 <p>Refer to the <a href="CHANGELOG.md">changelog</a> for recent notable changes and modifications.</p>
 <h2 id="abstract">Abstract</h2>
-<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Order</span> <span class="hljs-string">Pizza</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.mypizza.com/login</span>
-<span class="hljs-attr">  - enter:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">input[name=email]</span>
-<span class="hljs-attr">      input:</span> <span class="hljs-string">alessandro@volta.it</span>
-<span class="hljs-attr">  - enter:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">input[name=password]</span>
-<span class="hljs-attr">      input:</span> <span class="hljs-string">el3ctric</span>
-<span class="hljs-attr">  - click:</span> <span class="hljs-string">button[type=submit]</span>
-<span class="hljs-attr">  - select:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">'#pizza-margarita.count'</span>
-<span class="hljs-attr">      value:</span> <span class="hljs-string">'2'</span>
-<span class="hljs-attr">  - click:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">a</span>
-<span class="hljs-attr">      text:</span> <span class="hljs-string">'Order now!'</span>
-<span class="hljs-attr">  - ensure:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">h1.confirm</span>
-<span class="hljs-attr">      text:</span> <span class="hljs-string">Thanks,</span> <span class="hljs-string">your</span> <span class="hljs-string">pizza</span> <span class="hljs-string">will</span> <span class="hljs-string">be</span> <span class="hljs-string">there</span> <span class="hljs-string">soon!</span></code></pre><p>Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of <a href="http://yaml.org/spec/1.2/spec.html">YAML 1.2</a> which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.</p>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Order Pizza</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.mypizza.com/login</span>
+<span class="hljs-attr">- enter:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">input[name=email]</span>
+<span class="hljs-attr">    input:</span> <span class="hljs-string">alessandro@volta.it</span>
+<span class="hljs-attr">- enter:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">input[name=password]</span>
+<span class="hljs-attr">    input:</span> <span class="hljs-string">el3ctric</span>
+<span class="hljs-attr">- click:</span> <span class="hljs-string">button[type=submit]</span>
+<span class="hljs-attr">- select:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">'#pizza-margarita.count'</span>
+<span class="hljs-attr">    value:</span> <span class="hljs-string">'2'</span>
+<span class="hljs-attr">- click:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">a</span>
+<span class="hljs-attr">    text:</span> <span class="hljs-string">'Order now!'</span>
+<span class="hljs-attr">- ensure:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">h1.confirm</span>
+<span class="hljs-attr">    text:</span> <span class="hljs-string">Thanks,</span> <span class="hljs-string">your</span> <span class="hljs-string">pizza</span> <span class="hljs-string">will</span> <span class="hljs-string">be</span> <span class="hljs-string">there</span> <span class="hljs-string">soon!</span></code></pre><p>Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of <a href="http://yaml.org/spec/1.2/spec.html">YAML 1.2</a> which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.</p>
 <h2 id="overview">Overview</h2>
 <h3 id="syntax">Syntax</h3>
 <p>The underlying format for WAML is YAML so that it inherits all its benefits such as hosting of multiple document within 
 one stream. </p>
-<p>The structure of WAML is limited to 4-tier hierarchy:</p>
+<p>The structure of WAML is limited to 3-tier hierarchy:</p>
 <ul>
-<li>Scenario<ul>
-<li>Metadata</li>
 <li>Step<ul>
-<li>Action<ul>
-<li>Criterion</li>
-</ul>
-</li>
-<li>Decorator</li>
-</ul>
-</li>
-<li>Decorator</li>
+<li><em>Decorator</em></li>
+<li><em>Action</em><ul>
+<li><em>Criterion</em></li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+<p>A set of steps is called <em>Scenario</em>.</p>
 <h4 id="scenario">Scenario</h4>
-<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Play</span> <span class="hljs-string">Radio</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">radio.com</span>
-<span class="hljs-attr">  - click:</span> <span class="hljs-string">button#play</span></code></pre><p>A scenario is a (reusable) set of actions performed by a user, executed in the predefined order, and resulting in a 
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">radio.com</span>
+<span class="hljs-attr">- click:</span> <span class="hljs-string">button#play</span></code></pre><p>A scenario is a (reusable) set of actions performed by a user, executed in the predefined order, and resulting in a 
 particular state.</p>
 <p>A WAML stream may contain multiple scenarios (separated by <code>---</code>, as specified in <a href="http://yaml.org/spec/1.2/spec.html">YAML 1.2</a>). Every scenario must be 
 represented by a set of metadata as well as sequence of steps to execute.</p>
-<h4 id="metadata">Metadata</h4>
-<p>Metadata is a part of a scenario which describes scenario-wide settings (such as global <code>timeout</code>) and explains the
-purpose of the scenario (e.g. <code>name</code> or <code>description</code>). </p>
 <h4 id="step">Step</h4>
 <pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Partial!</span>
 <span class="hljs-attr">open:</span> <span class="hljs-string">www.vacation-planner.me</span></code></pre><p>A step must contain exactly ona action and may contain multiple decorators. Within the step the interacting with web 
@@ -142,6 +133,7 @@ elements based on underlying criteria text place. Further, certain actions may m
 <li><a href="#select">Select</a></li>
 <li><a href="#move">Move</a></li>
 <li><a href="#define">Define</a></li>
+<li><a href="#Uri">Uri</a></li>
 </ul>
 </li>
 <li>Support actions<ul>
@@ -150,6 +142,7 @@ elements based on underlying criteria text place. Further, certain actions may m
 <li><a href="#include">Include</a></li>
 <li><a href="#alert">Alert</a></li>
 <li><a href="#execute">Execute</a></li>
+<li><a href="#export">Export</a></li>
 </ul>
 </li>
 </ul>
@@ -198,28 +191,23 @@ modifying actions perform may manipulations on the web context. </p>
 </li>
 </ul>
 <h3 id="expression">Expression</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Open</span> <span class="hljs-string">non-responsive</span> <span class="hljs-string">page</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - store:</span>
-<span class="hljs-attr">      regularUrl:</span> <span class="hljs-string">www.vacation-planner.com</span>
-<span class="hljs-attr">      mobileUrl:</span> <span class="hljs-string">mobile.vacation-planner.com</span>
-<span class="hljs-attr">  - unless:</span> <span class="hljs-string">${isMobule}</span>
-<span class="hljs-attr">    open:</span> <span class="hljs-string">${regularUrl}</span>
-<span class="hljs-attr">  - when:</span> <span class="hljs-string">${isMobile}</span>
-<span class="hljs-attr">    open:</span> <span class="hljs-string">${mobileUrl}</span></code></pre><p>Expressions apply to metadata, criterion, and decorator values. Their aim is to promote reusability and allow to 
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Open non-responsive page</span>
+<span class="hljs-attr">- define:</span>
+<span class="hljs-attr">    regularUrl:</span> <span class="hljs-string">www.vacation-planner.com</span>
+<span class="hljs-attr">    mobileUrl:</span> <span class="hljs-string">mobile.vacation-planner.com</span>
+<span class="hljs-attr">- unless:</span> <span class="hljs-string">${isMobule}</span>
+<span class="hljs-attr">  open:</span> <span class="hljs-string">${regularUrl}</span>
+<span class="hljs-attr">- when:</span> <span class="hljs-string">${isMobile}</span>
+<span class="hljs-attr">  open:</span> <span class="hljs-string">${mobileUrl}</span></code></pre><p>Expressions apply to metadata, criterion, and decorator values. Their aim is to promote reusability and allow to 
 utilize the result of arbitrary operations on context values.</p>
 <p>Expression parser must support variable substitution. It also may support other features (e.g. filters). </p>
 <h2 id="schema">Schema</h2>
 <p>WAML is based on <a href="http://json-schema.org/">JSON Schema</a> that lives at <a href="http://waml-schema.org">waml-schema.org</a>. WAML schema is available in <a href="dist/waml.yaml">YAML</a> and <a href="dist/waml.json">JSON</a> formats. A scenario within a WAML stream may define the preferred schema version by defining <code>$schema</code> property, otherwise a default parser schema is used.</p>
 <h2 id="scenario-schema">Scenario Schema</h2>
-<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">full-featured-scenario</span>
-<span class="hljs-attr">description:</span> <span class="hljs-string">A</span> <span class="hljs-string">full</span> <span class="hljs-string">featured</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">fragment:</span> <span class="hljs-literal">false</span>
-<span class="hljs-attr">precendence:</span> <span class="hljs-number">100</span>
-<span class="hljs-attr">timeout:</span> <span class="hljs-number">5</span>
-<span class="hljs-attr">when:</span> <span class="hljs-string">${</span> <span class="hljs-literal">true</span> <span class="hljs-string">}</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><p>This minimal example demonstrates the simplicity of WAML. The full list of supported metadata is depicted below.</p>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># A full featured scenario</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span></code></pre><p>This minimal example demonstrates the simplicity of WAML. The full list of supported metadata is depicted below.</p>
 <table class="table table-striped table-bordered">
       <thead><tr>
 <th>Property</th>
@@ -228,44 +216,9 @@ utilize the result of arbitrary operations on context values.</p>
 </tr>
 </thead>
       <tbody><tr>
-<td>name</td>
-<td>Unique name that is used to reference a certain scenario.</td>
-<td>string</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>(Optional)</em> Short summary of the overall scenario purpose.</td>
-<td>string</td>
-</tr>
-<tr>
-<td>fragment</td>
-<td><em>(Optional)</em> Defines if a scenario is a fragment or may be executed stand-alone. <strong>Default:</strong> false</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td>precendence</td>
-<td><em>(Optional)</em> Defines the particular priority of the scenario during execution of independent scenarios. <strong>Default:</strong> -1</td>
-<td>integer</td>
-</tr>
-<tr>
-<td>steps</td>
-<td>Sequence of actions.</td>
-<td><em>Sequence of:</em><br/><a href="#step-schema">step-schema</a></td>
-</tr>
-<tr>
-<td>when</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>unless</td>
-<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
-</tr>
-<tr>
-<td>timeout</td>
-<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
-<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+<td>&ndash;</td>
+<td>A scenario combines a sequence of tasks that must be executed together in a certain order.</td>
+<td>array</td>
 </tr>
 </tbody>
       </table><p>Using this properties, the following more comprehensive example can be created:</p>
@@ -281,10 +234,10 @@ utilize the result of arbitrary operations on context values.</p>
       <tbody><tr>
 <td>&ndash;</td>
 <td>A step represents the smallest identifiable user action.</td>
-<td><em>One of:</em><br/><a href="#ensure-step-schema">ensure-step-schema</a>,<br/> <a href="#open-step-schema">open-step-schema</a>,<br/> <a href="#click-step-schema">click-step-schema</a>,<br/> <a href="#enter-step-schema">enter-step-schema</a>,<br/> <a href="#execute-step-schema">execute-step-schema</a>,<br/> <a href="#select-step-schema">select-step-schema</a>,<br/> <a href="#move-step-schema">move-step-schema</a>,<br/> <a href="#store-step-schema">store-step-schema</a>,<br/> <a href="#wait-step-schema">wait-step-schema</a>,<br/> <a href="#debug-step-schema">debug-step-schema</a>,<br/> <a href="#include-step-schema">include-step-schema</a></td>
+<td><em>One of:</em><br/><a href="#ensure-step-schema">ensure-step-schema</a>,<br/> <a href="#open-step-schema">open-step-schema</a>,<br/> <a href="#click-step-schema">click-step-schema</a>,<br/> <a href="#enter-step-schema">enter-step-schema</a>,<br/> <a href="#execute-step-schema">execute-step-schema</a>,<br/> <a href="#select-step-schema">select-step-schema</a>,<br/> <a href="#move-step-schema">move-step-schema</a>,<br/> <a href="#define-step-schema">define-step-schema</a>,<br/> <a href="#uri-step-schema">uri-step-schema</a>,<br/> <a href="#wait-step-schema">wait-step-schema</a>,<br/> <a href="#debug-step-schema">debug-step-schema</a>,<br/> <a href="#include-step-schema">include-step-schema</a></td>
 </tr>
 </tbody>
-      </table><h2 id="fragment-scenarios">Fragment Scenarios</h2>
+      </table><h2 id="fragment-scenarios-tbd-">Fragment Scenarios (TBD)</h2>
 <pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Fragment</span> <span class="hljs-string">scenario</span>
 <span class="hljs-attr">fragment:</span> <span class="hljs-literal">true</span>
 <span class="hljs-attr">steps:</span>
@@ -294,18 +247,16 @@ utilize the result of arbitrary operations on context values.</p>
 scenarios or fragments. Fragments promote reusability and enable complex project structure.</p>
 <h2 id="actions-and-criteria">Actions and Criteria</h2>
 <h3 id="open">Open</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Open</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">'Open demonstration scenario 2'</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - unless:</span> <span class="hljs-string">${isMobile}</span>
-<span class="hljs-attr">    open:</span>
-<span class="hljs-attr">      url:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - when:</span> <span class="hljs-string">${isMobile}</span>
-<span class="hljs-attr">    open:</span>
-<span class="hljs-attr">      url:</span> <span class="hljs-string">m.example.com</span></code></pre><p>Like for a real user, <code>open</code> is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Open demonstration scenario</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Open demonstration scenario 2</span>
+<span class="hljs-attr">- unless:</span> <span class="hljs-string">${isMobile}</span>
+<span class="hljs-attr">  open:</span>
+<span class="hljs-attr">    url:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- when:</span> <span class="hljs-string">${isMobile}</span>
+<span class="hljs-attr">  open:</span>
+<span class="hljs-attr">    url:</span> <span class="hljs-string">m.example.com</span></code></pre><p>Like for a real user, <code>open</code> is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
 The <code>http://</code> scheme should be automatically added to the <code>url</code> if no scheme is specified.</p>
 <h4 id="open-step-schema">Open Step Schema</h4>
 <table class="table table-striped table-bordered">
@@ -351,18 +302,16 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 </tr>
 </tbody>
       </table><h3 id="ensure">Ensure</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation of 'ensure'</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Ensure</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - ensure:</span> <span class="hljs-string">h1.greeting</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Ensure</span> <span class="hljs-string">scenario</span> <span class="hljs-string">with</span> <span class="hljs-string">additional</span> <span class="hljs-string">contstraints</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - timeout:</span> <span class="hljs-number">4</span>
-<span class="hljs-attr">    ensure:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">h1.greeting</span>
-<span class="hljs-attr">      value:</span> <span class="hljs-string">'Welcome to example.com!'</span></code></pre><p>To verify the integrity of the page it may be reasonable to ensure the presence of a certain element. The action <code>ensure</code> verifies, whether the particular element is present on the page.</p>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Ensure short notation</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- ensure:</span> <span class="hljs-string">h1.greeting</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Ensure scenario with additional constraints</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- timeout:</span> <span class="hljs-number">4</span>
+<span class="hljs-attr">  ensure:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">h1.greeting</span>
+<span class="hljs-attr">    value:</span> <span class="hljs-string">'Welcome to example.com!'</span></code></pre><p>To verify the integrity of the page it may be reasonable to ensure the presence of a certain element. The action <code>ensure</code> verifies, whether the particular element is present on the page.</p>
 <p>The depicted simple scenario can be created using the shot-notation of <code>ensure</code> action:</p>
 <ol>
 <li>Open a web page.</li>
@@ -433,23 +382,21 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 </tr>
 </tbody>
       </table><h3 id="move">Move</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Move</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - move:</span> <span class="hljs-string">a.help</span>
-<span class="hljs-attr">  - ensure:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">.help-tooltip</span>
-<span class="hljs-attr">      text:</span> <span class="hljs-string">'Click here to get help.'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Move</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - move:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">a.help</span>
-<span class="hljs-attr">      text:</span> <span class="hljs-string">'Need help?'</span>
-<span class="hljs-attr">      parent:</span>
-<span class="hljs-attr">        selector:</span> <span class="hljs-string">.help-container</span>
-<span class="hljs-attr">  - ensure:</span> <span class="hljs-string">.help-tooltip</span></code></pre><p>For hidden elements which appear only after the user has hovered a certain element the (mouse) <code>move</code> action can be used.  </p>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Move demonstration scenario</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- move:</span> <span class="hljs-string">a.help</span>
+<span class="hljs-attr">- ensure:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">.help-tooltip</span>
+<span class="hljs-attr">    text:</span> <span class="hljs-string">'Click here to get help.'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Move demonstration scenario</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- move:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">a.help</span>
+<span class="hljs-attr">    text:</span> <span class="hljs-string">'Need help?'</span>
+<span class="hljs-attr">    parent:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">.help-container</span>
+<span class="hljs-attr">- ensure:</span> <span class="hljs-string">.help-tooltip</span></code></pre><p>For hidden elements which appear only after the user has hovered a certain element the (mouse) <code>move</code> action can be used.  </p>
 <p>The examples depicts the usage of the <code>move</code> action. </p>
 <h4 id="move-step-schema">Move Step Schema</h4>
 <table class="table table-striped table-bordered">
@@ -505,21 +452,21 @@ The <code>http://</code> scheme should be automatically added to the <code>url</
 </tr>
 </tbody>
       </table><h3 id="click">Click</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Click</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - click:</span> <span class="hljs-string">a.sign-up</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Click</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span> <span class="hljs-number">2</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - when:</span> <span class="hljs-string">${isDesktop}</span>
-<span class="hljs-attr">    click:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">a.sign-up</span>
-<span class="hljs-attr">      text:</span> <span class="hljs-string">'Join now for free!'</span>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Click demonstration scenario</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- click:</span> <span class="hljs-string">a.sign-up</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Click demonstration scenario 2</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- when:</span> <span class="hljs-string">${isDesktop}</span>
+<span class="hljs-attr">  click:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">a.sign-up</span>
+<span class="hljs-attr">    text:</span> <span class="hljs-string">'Join now for free!'</span>
 
-<span class="hljs-attr">  - when:</span> <span class="hljs-string">${isMobile}</span>
-<span class="hljs-attr">    click:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">a.sign-up</span>
-<span class="hljs-attr">      text:</span> <span class="hljs-string">'Join now!'</span></code></pre><p>Every kind of clicks can be simulated with the <code>click</code> action.</p>
+<span class="hljs-attr">- when:</span> <span class="hljs-string">${isMobile}</span>
+<span class="hljs-attr">  click:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">a.sign-up</span>
+<span class="hljs-attr">    text:</span> <span class="hljs-string">'Join now!'</span></code></pre><p>Every kind of clicks can be simulated with the <code>click</code> action.</p>
 <p>In the short notation example a click happens on an anchor element selected by CSS. 
 Also the <code>text</code> criteria may be used to verify the wording of the target.</p>
 <h4 id="click-step-schema">Click Step Schema</h4>
@@ -576,20 +523,18 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 </tbody>
       </table><h3 id="select">Select</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Select</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - select:</span> <span class="hljs-string">'.actions option:first-child'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation of 'select'</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">'Select demonstration scenario 2'</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - select:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">.title</span>
-<span class="hljs-attr">      text:</span> <span class="hljs-string">'PROF DR'</span>
-<span class="hljs-attr">  - select:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">.country</span>
-<span class="hljs-attr">      value:</span> <span class="hljs-string">'CH'</span></code></pre><p>Short notation example of <code>select</code> and a complex example.</p>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Select demonstration scenario</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- select:</span> <span class="hljs-string">'.actions option:first-child'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Select demonstration scenario 2</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- select:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">.title</span>
+<span class="hljs-attr">    text:</span> <span class="hljs-string">'PROF DR'</span>
+<span class="hljs-attr">- select:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">.country</span>
+<span class="hljs-attr">    value:</span> <span class="hljs-string">'CH'</span></code></pre><p>Short notation example of <code>select</code> and a complex example.</p>
 <h4 id="select-step-schema">Select Step Schema</h4>
 <table class="table table-striped table-bordered">
       <thead><tr>
@@ -649,21 +594,20 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 </tbody>
       </table><h3 id="enter">Enter</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation of 'enter'</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Enter</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - enter:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">input.email</span>
-<span class="hljs-attr">      input:</span> <span class="hljs-string">'me@example.com'</span>
-<span class="hljs-attr">  - enter:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">input.password</span>
-<span class="hljs-attr">      input:</span> <span class="hljs-string">'secret'</span>
-<span class="hljs-attr">  - enter:</span>
-<span class="hljs-attr">      selector:</span> <span class="hljs-string">input.easy-captcha</span>
-<span class="hljs-attr">      value:</span> <span class="hljs-number">1234</span>
-<span class="hljs-attr">      input:</span> <span class="hljs-number">3421</span>
-<span class="hljs-attr">  - click:</span> <span class="hljs-string">button[type=submit]</span></code></pre><h4 id="enter-step-schema">Enter Step Schema</h4>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Full notation of 'enter'</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- enter:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">input.email</span>
+<span class="hljs-attr">    input:</span> <span class="hljs-string">'me@example.com'</span>
+<span class="hljs-attr">- enter:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">input.password</span>
+<span class="hljs-attr">    input:</span> <span class="hljs-string">'secret'</span>
+<span class="hljs-attr">- enter:</span>
+<span class="hljs-attr">    selector:</span> <span class="hljs-string">input.easy-captcha</span>
+<span class="hljs-attr">    value:</span> <span class="hljs-number">1234</span>
+<span class="hljs-attr">    input:</span> <span class="hljs-number">3421</span>
+<span class="hljs-attr">- click:</span> <span class="hljs-string">button[type=submit]</span></code></pre><h4 id="enter-step-schema">Enter Step Schema</h4>
 <table class="table table-striped table-bordered">
       <thead><tr>
 <th>Property</th>
@@ -727,17 +671,15 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 </tbody>
       </table><h3 id="wait">Wait</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation of 'wait'</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Wait</span> <span class="hljs-number">2.5</span> <span class="hljs-string">seconds</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - wait:</span> <span class="hljs-number">2.5</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation of 'wait'</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">'Wait 5 seconds demonstration scenario 2'</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - when:</span> <span class="hljs-string">${slowConnection}</span>
-<span class="hljs-attr">    wait:</span>
-<span class="hljs-attr">      time:</span> <span class="hljs-number">5</span></code></pre><p>Short notation examples of <code>wait</code>.</p>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Wait 2.5 seconds demonstration scenario</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- wait:</span> <span class="hljs-number">2.5</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Wait 5 seconds demonstration scenario 2</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- when:</span> <span class="hljs-string">${slowConnection}</span>
+<span class="hljs-attr">  wait:</span>
+<span class="hljs-attr">    time:</span> <span class="hljs-number">5</span></code></pre><p>Short notation examples of <code>wait</code>.</p>
 <h4 id="wait-step-schema">Wait Step Schema</h4>
 <table class="table table-striped table-bordered">
       <thead><tr>
@@ -777,13 +719,13 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 </tbody>
       </table><h3 id="include">Include</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Include</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - include:</span> <span class="hljs-string">'Click demonstration scenario'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Include</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - when:</span> <span class="hljs-string">${isDesktop}</span>
-<span class="hljs-attr">    include:</span>
-<span class="hljs-attr">      scenario:</span> <span class="hljs-string">'Click demonstration scenario'</span></code></pre><p>Short notation example of <code>include</code> and a complex example.</p>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Include demonstration scenario</span>
+<span class="hljs-attr">- include:</span> <span class="hljs-string">'Click demonstration scenario'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Include demonstration scenario</span>
+<span class="hljs-attr">- when:</span> <span class="hljs-string">${isDesktop}</span>
+<span class="hljs-attr">  include:</span>
+<span class="hljs-attr">    scenario:</span> <span class="hljs-string">'Click demonstration scenario'</span></code></pre><p>Short notation example of <code>include</code> and a complex example.</p>
 <h4 id="include-step-schema">Include Step Schema</h4>
 <table class="table table-striped table-bordered">
       <thead><tr>
@@ -828,31 +770,29 @@ Also the <code>text</code> criteria may be used to verify the wording of the tar
 </tr>
 </tbody>
       </table><h3 id="execute">Execute</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation of 'execute'</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Enter</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - execute:</span> <span class="hljs-string">&gt;
-      document.body.backgroundColor = 'red';</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation of 'execute'</span>
-<span class="hljs-attr">name:</span> <span class="hljs-string">Enter</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
-<span class="hljs-attr">  - when:</span> <span class="hljs-string">${</span> <span class="hljs-literal">true</span> <span class="hljs-string">}</span>
-<span class="hljs-attr">    execute:</span>
-<span class="hljs-attr">      script:</span> <span class="hljs-string">|
-        var context = arguments[0];
-        var callback = arguments[1];
-        fetch('https://example.com/weather.json?city=' + context.city)
-          .then(function (response) {
-            return response.json()
-          })
-          .then(function (data) {
-            callback(data.rainProbability);
-          })
-          .catch(function (ex) {
-            callback()
-          });
-</span><span class="hljs-attr">      async:</span> <span class="hljs-literal">true</span></code></pre><p>The <code>execute</code> action is used for client-side (browser) execution of a JavaScript code. This is useful for cases where you
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Short notation of 'execute'</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- execute:</span> <span class="hljs-string">|
+    document.body.backgroundColor = 'red';</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Full notation of 'execute'</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- when:</span> <span class="hljs-string">${</span> <span class="hljs-literal">true</span> <span class="hljs-string">}</span>
+<span class="hljs-attr">  execute:</span>
+<span class="hljs-attr">    async:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">    script:</span> <span class="hljs-string">|
+      var context = arguments[0];
+      var callback = arguments[1];
+      fetch('https://example.com/weather.json?city=' + context.city)
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (data) {
+          callback(data.rainProbability);
+        })
+        .catch(function (ex) {
+          callback()
+        });</span></code></pre><p>The <code>execute</code> action is used for client-side (browser) execution of a JavaScript code. This is useful for cases where you
 need deeper intervention into your page which cannot be performed by other WAML commands. </p>
 <p>The injected code is
 executed synchronously which is sufficient for most cases. However, in particular situations you may want to 
@@ -915,19 +855,19 @@ is perf</p>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 </tbody>
-      </table><h3 id="store">Store</h3>
-<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Store</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - store:</span>
-<span class="hljs-attr">      language:</span> <span class="hljs-string">'en'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Store</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span> <span class="hljs-number">2</span>
-<span class="hljs-attr">steps:</span>
-<span class="hljs-attr">  - when:</span> <span class="hljs-string">${isOldComputer}</span>
-<span class="hljs-attr">    store:</span>
-<span class="hljs-attr">      display_resolution:</span> <span class="hljs-string">'1024x768'</span>
-<span class="hljs-attr">      isDesktop:</span> <span class="hljs-literal">true</span>
-      <span class="hljs-number">1080</span><span class="hljs-attr">p:</span> <span class="hljs-literal">false</span>
-<span class="hljs-attr">      width:</span> <span class="hljs-number">1024</span></code></pre><p>An example of simple usage of <code>store</code> as well as a more complex example.</p>
-<h4 id="store-step-schema">Store Step Schema</h4>
+      </table><h3 id="define">Define</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Define demonstration scenario</span>
+<span class="hljs-attr">- define:</span>
+<span class="hljs-attr">    language:</span> <span class="hljs-string">'en'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Define demonstration scenario 2</span>
+<span class="hljs-attr">- when:</span> <span class="hljs-string">${isOldComputer}</span>
+<span class="hljs-attr">  define:</span>
+<span class="hljs-attr">    display_resolution:</span> <span class="hljs-string">'1024x768'</span>
+<span class="hljs-attr">    isDesktop:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-number">1080</span><span class="hljs-attr">p:</span> <span class="hljs-literal">false</span>
+<span class="hljs-attr">    width:</span> <span class="hljs-number">1024</span></code></pre><p>An example of simple usage of <code>define</code> as well as a more complex example.</p>
+<h4 id="define-step-schema">Define Step Schema</h4>
 <table class="table table-striped table-bordered">
       <thead><tr>
 <th>Property</th>
@@ -936,9 +876,9 @@ is perf</p>
 </tr>
 </thead>
       <tbody><tr>
-<td>store</td>
+<td>define</td>
 <td></td>
-<td><a href="#store-criteria-schema">store-criteria-schema</a></td>
+<td><a href="#define-criteria-schema">define-criteria-schema</a></td>
 </tr>
 <tr>
 <td>when</td>
@@ -951,7 +891,7 @@ is perf</p>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
 </tr>
 </tbody>
-      </table><h4 id="store-criteria-schema">Store Criteria Schema</h4>
+      </table><h4 id="define-criteria-schema">Define Criteria Schema</h4>
 <table class="table table-striped table-bordered">
       <thead><tr>
 <th>Property</th>
@@ -963,6 +903,170 @@ is perf</p>
 <td>^([a-zA-Z0-9_.])+$</td>
 <td><em>(Optional)</em> Random key matching the given pattern with a value.</td>
 <td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean,<br/> number</td>
+</tr>
+</tbody>
+      </table><h3 id="debug">Debug</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Debug scenario</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- debug:</span> <span class="hljs-string">"hi ${there}"</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Debug scenario</span>
+<span class="hljs-attr">- open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">- debug:</span>
+<span class="hljs-attr">    msg:</span> <span class="hljs-string">"hi ${there}"</span>
+<span class="hljs-comment">#    pause: true</span>
+<span class="hljs-comment">#    verbosity: ${level}</span></code></pre><p>An example of simple usage of <code>debug</code> as well as a more complex example.</p>
+<h4 id="debug-step-schema">Debug Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>debug</td>
+<td>A message which should be interpolated.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#debug-criteria-schema">debug-criteria-schema</a></td>
+</tr>
+<tr>
+<td>when</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h4 id="debug-criteria-schema">Debug Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>msg</td>
+<td><em>(Optional)</em> A message which should be interpolated.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>pause</td>
+<td><em>(Optional)</em> Make a pause until keypress when running in a CLI mode.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>verbosity</td>
+<td><em>(Optional)</em> Level of verbosity.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+</tbody>
+      </table><h3 id="uri">Uri</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Uri scenario</span>
+<span class="hljs-attr">- uri:</span> <span class="hljs-string">"http://example.com/resources.zip"</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># WAML 2</span>
+<span class="hljs-comment"># Uri scenario</span>
+<span class="hljs-attr">- uri:</span>
+<span class="hljs-attr">    url:</span> <span class="hljs-string">"http://example.com/resources.zip"</span>
+<span class="hljs-attr">    body:</span> <span class="hljs-string">foo</span>
+<span class="hljs-attr">    dest:</span> <span class="hljs-string">/tmp/bar.zip</span>
+<span class="hljs-attr">    headers:</span>
+<span class="hljs-attr">      X-Debug:</span> <span class="hljs-string">foo-bar</span>
+<span class="hljs-attr">    method:</span> <span class="hljs-string">POST</span>
+<span class="hljs-attr">    password:</span> <span class="hljs-string">secret</span>
+<span class="hljs-attr">    user:</span> <span class="hljs-string">user</span>
+<span class="hljs-attr">    src:</span> <span class="hljs-string">/tmp/foo.txt</span>
+<span class="hljs-attr">    body_format:</span> <span class="hljs-string">raw</span>
+<span class="hljs-attr">    status_code:</span> <span class="hljs-number">200</span></code></pre><p>An example of simple usage of <code>uri</code> as well as a more complex example.</p>
+<h4 id="uri-step-schema">Uri Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>uri</td>
+<td>URL of the resource.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#uri-criteria-schema">uri-criteria-schema</a></td>
+</tr>
+<tr>
+<td>when</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+</tbody>
+      </table><h4 id="uri-criteria-schema">Uri Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>url</td>
+<td>URL of the resource.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>method</td>
+<td><em>(Optional)</em> Method to execute (e.g. GET).</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>body</td>
+<td><em>(Optional)</em> Content to sent alongside with the requiest.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>dest</td>
+<td><em>(Optional)</em> Path where to save the response.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>user</td>
+<td><em>(Optional)</em> User for the basic authentication.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>password</td>
+<td><em>(Optional)</em> Password for the basic authentication.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>src</td>
+<td><em>(Optional)</em> File to upload.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>body_format</td>
+<td><em>(Optional)</em> Format in which the source should be transmitted (e.g. &quot;raw&quot;).</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>status_code</td>
+<td><em>(Optional)</em> Expected status code.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+<tr>
+<td>headers</td>
+<td><em>(Optional)</em> Headers to be sent alongside with the request.</td>
+<td>object</td>
 </tr>
 </tbody>
       </table><h2 id="expressions">Expressions</h2>

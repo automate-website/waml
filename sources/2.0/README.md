@@ -7,9 +7,6 @@ description: 'Human-readable way to define action sequences to perform on a web 
 
 [![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![RFC 2119](https://img.shields.io/badge/RFC-2119-blue.svg)](https://www.ietf.org/rfc/rfc2119.txt) ![WAML 2.0](https://img.shields.io/badge/WAML-2.0-ee2a7b.svg)
 
-[![Example Scenario](img/scenario-register-at-automate-website-write-and-run.gif)](img/scenario-register-at-automate-website-write-and-run.gif)
-
-
 **Notice**: WAML 2.0 is currently under development. Feel free to create a pull request in case of useful suggestions.
 
 Refer to the [changelog] for recent notable changes and modifications.
@@ -25,15 +22,14 @@ Web Automation Markup Language (WAML) is definition of action sequences which ca
 The underlying format for WAML is YAML so that it inherits all its benefits such as hosting of multiple document within 
 one stream. 
 
-The structure of WAML is limited to 4-tier hierarchy:
-- Scenario
-  - Metadata
-  - Step
-    - Action
-      - Criterion
-    - Decorator
-  - Decorator
-  
+The structure of WAML is limited to 3-tier hierarchy:
+- Step
+  - _Decorator_
+  - _Action_
+    - _Criterion_
+
+A set of steps is called _Scenario_.
+
 #### Scenario
 
 {{ includeScenario('./sources/2.0/examples/partials/scenario-1.yaml') }}
@@ -43,12 +39,6 @@ particular state.
 
 A WAML stream may contain multiple scenarios (separated by `---`, as specified in [YAML 1.2]). Every scenario must be 
 represented by a set of metadata as well as sequence of steps to execute.
-
-
-#### Metadata
-
-Metadata is a part of a scenario which describes scenario-wide settings (such as global `timeout`) and explains the
-purpose of the scenario (e.g. `name` or `description`). 
 
 
 #### Step
@@ -71,12 +61,14 @@ The action is a part of a step which performs operation on the web context. The 
   - [Select](#select)
   - [Move](#move)
   - [Define](#define)
+  - [Uri](#Uri)
 - Support actions
   - [Wait](#wait)
   - [Debug](#debug)
   - [Include](#include)
   - [Alert](#alert)
   - [Execute](#execute)
+  - [Export](#export)
 
 
 #### Criterion
@@ -149,10 +141,10 @@ The steps property must be represented as a sequence of actions. Every step repr
 {{ schema2md('./sources/2.0/schema/step-schema.yaml') }}
 
 
-## Fragment Scenarios
+## Fragment Scenarios (TBD)
 
-{{ includeScenario('./sources/2.0/examples/fragment-scenario-1.yaml') }}
-{{ includeScenario('./sources/2.0/examples/fragment-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/~fragment-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/~fragment-scenario-2.yaml') }}
 
 Fragment scenarios can not be executed independently and thus can be only be used in `include` actions of other 
 scenarios or fragments. Fragments promote reusability and enable complex project structure.
@@ -330,21 +322,52 @@ is perf
 {{ schema2md('./2.0/execute-criteria-schema') }}
 
 
-### Store
+### Define
 
-{{ includeScenario('./sources/2.0/examples/store-scenario-1.yaml') }}
-{{ includeScenario('./sources/2.0/examples/store-scenario-2.yaml') }}
+{{ includeScenario('./sources/2.0/examples/define-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/define-scenario-2.yaml') }}
 
-An example of simple usage of ```store``` as well as a more complex example.
+An example of simple usage of ```define``` as well as a more complex example.
 
-#### Store Step Schema
+#### Define Step Schema
 
-{{ schema2md('./2.0/store-step-schema') }}
+{{ schema2md('./2.0/define-step-schema') }}
 
-#### Store Criteria Schema
+#### Define Criteria Schema
 
-{{ schema2md('./2.0/store-criteria-schema') }}
+{{ schema2md('./2.0/define-criteria-schema') }}
 
+
+### Debug
+
+{{ includeScenario('./sources/2.0/examples/debug-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/debug-scenario-2.yaml') }}
+
+An example of simple usage of ```debug``` as well as a more complex example.
+
+#### Debug Step Schema
+
+{{ schema2md('./2.0/debug-step-schema') }}
+
+#### Debug Criteria Schema
+
+{{ schema2md('./2.0/debug-criteria-schema') }}
+
+
+### Uri
+
+{{ includeScenario('./sources/2.0/examples/uri-scenario-1.yaml') }}
+{{ includeScenario('./sources/2.0/examples/uri-scenario-2.yaml') }}
+
+An example of simple usage of ```uri``` as well as a more complex example.
+
+#### Uri Step Schema
+
+{{ schema2md('./2.0/uri-step-schema') }}
+
+#### Uri Criteria Schema
+
+{{ schema2md('./2.0/uri-criteria-schema') }}
 
 ## Expressions
 ### Expression Schema
