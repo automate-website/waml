@@ -19,7 +19,7 @@
     "test": "grunt validate",
     "build": "npm run build:draft-02 && npm run build:2.0 && npm run build-copy-index-html",
     "build:draft-02": "grunt --schemaVersion=draft-02 && node node_modules/slatify/lib/slatify-cli README.md ./docs/draft-02/index.html",
-    "build:2.0": "grunt --schemaVersion=\"2.0\" && node node_modules/slatify/lib/slatify-cli README.md ./docs/2.0/index.html",
+    "build:2.0": "grunt --schemaVersion=2.0 && node node_modules/slatify/lib/slatify-cli README.md ./docs/2.0/index.html",
     "build-copy-index-html": "copyfiles --flat ./docs/2.0/index.html ./docs"
   },
   "devDependencies": {

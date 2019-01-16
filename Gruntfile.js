@@ -14,8 +14,10 @@ const pkg = require('./package.json');
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
 
 module.exports = function (grunt) {
-  var schemaVersion = grunt.option('schemaVersion', pkg.schemaVersion),
-    sources = './sources/' + schemaVersion,
+  var schemaVersion = getSchemaVersionFromArguments(process.argv) || pkg.schemaVersion;
+  grunt.log.write('Using schema version', schemaVersion);
+
+  var  sources = './sources/' + schemaVersion,
     schemaSourcesPattern = sources
       + '/schema/**/*.yaml',
     exampleSourcesPattern = sources
@@ -350,3 +352,13 @@ module.exports = function (grunt) {
     return fs.readFileSync(filePath, 'utf8');
   }
 };
+
+function getSchemaVersionFromArguments(args) {
+  const param = '--schemaVersion=';
+  for (let index in args) {
+    const arg = args[index];
+    if (arg.startsWith(param)) {
+      return arg.replace(param, '');
+    }
+  }
+}

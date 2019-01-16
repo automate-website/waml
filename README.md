@@ -9,6 +9,9 @@ description: 'Human-readable way to define action sequences to perform on a web 
 
 **Notice**: WAML 2.0 is currently under development. Feel free to create a pull request in case of useful suggestions.
 
+Documentation for the older versions: 
+  - [draft-02](https://waml-schema.org/draft-02)
+
 Refer to the [changelog] for recent notable changes and modifications.
 
 ## Abstract
