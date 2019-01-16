@@ -7,8 +7,6 @@ description: 'Human-readable way to define action sequences to perform on a web 
 
 [![Build Status](https://travis-ci.org/automate-website/waml.svg?branch=master)](https://travis-ci.org/automate-website/waml) [![Gitter](https://badges.gitter.im/automate-website/waml.svg)](https://gitter.im/automate-website/waml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-[![Example Scenario](img/scenario-register-at-automate-website-write-and-run.gif)](img/scenario-register-at-automate-website-write-and-run.gif)
-
 **Notice**: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.
 
 Refer to the [changelog] for recent notable changes and modifications.
