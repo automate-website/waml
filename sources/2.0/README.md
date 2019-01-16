@@ -9,6 +9,9 @@ description: 'Human-readable way to define action sequences to perform on a web 
 
 **Notice**: WAML 2.0 is currently under development. Feel free to create a pull request in case of useful suggestions.
 
+Documentation for the older versions: 
+  - [draft-02](/draft-02)
+
 Refer to the [changelog] for recent notable changes and modifications.
 
 ## Abstract
@@ -129,7 +132,7 @@ WAML is based on [JSON Schema] that lives at [waml-schema.org]. WAML schema is a
 
 This minimal example demonstrates the simplicity of WAML. The full list of supported metadata is depicted below.
 
-{{ schema2md('./2.0/scenario-schema') }}
+{{ schema2md('./docs/2.0/scenario-schema') }}
 
 Using this properties, the following more comprehensive example can be created:
 
@@ -161,11 +164,11 @@ The `http://` scheme should be automatically added to the `url` if no scheme is 
 
 #### Open Step Schema
 
-{{ schema2md('./2.0/open-step-schema') }}
+{{ schema2md('./docs/2.0/open-step-schema') }}
 
 #### Open Criteria Schema
 
-{{ schema2md('./2.0/open-criteria-schema') }}
+{{ schema2md('./docs/2.0/open-criteria-schema') }}
 
 ### Ensure
 
@@ -183,11 +186,11 @@ Using the additional criteria not only the presence of the element can be ensure
 
 #### Ensure Step Schema
 
-{{ schema2md('./2.0/ensure-step-schema') }}
+{{ schema2md('./docs/2.0/ensure-step-schema') }}
 
 #### Ensure Criteria Schema
 
-{{ schema2md('./2.0/ensure-criteria-schema') }}
+{{ schema2md('./docs/2.0/ensure-criteria-schema') }}
 
 ### Move
 
@@ -201,11 +204,11 @@ The examples depicts the usage of the ```move``` action.
 
 #### Move Step Schema
 
-{{ schema2md('./2.0/move-step-schema') }}
+{{ schema2md('./docs/2.0/move-step-schema') }}
 
 #### Move Criteria Schema
 
-{{ schema2md('./2.0/move-criteria-schema') }}
+{{ schema2md('./docs/2.0/move-criteria-schema') }}
 
 ### Click
 
@@ -219,11 +222,11 @@ Also the ```text``` criteria may be used to verify the wording of the target.
 
 #### Click Step Schema
 
-{{ schema2md('./2.0/click-step-schema') }}
+{{ schema2md('./docs/2.0/click-step-schema') }}
 
 #### Click Criteria Schema
 
-{{ schema2md('./2.0/click-criteria-schema') }}
+{{ schema2md('./docs/2.0/click-criteria-schema') }}
 
 
 ### Select
@@ -235,11 +238,11 @@ Short notation example of ```select``` and a complex example.
 
 #### Select Step Schema
 
-{{ schema2md('./2.0/select-step-schema') }}
+{{ schema2md('./docs/2.0/select-step-schema') }}
 
 #### Select Criteria Schema
 
-{{ schema2md('./2.0/select-criteria-schema') }}
+{{ schema2md('./docs/2.0/select-criteria-schema') }}
 
 
 ### Enter
@@ -248,11 +251,11 @@ Short notation example of ```select``` and a complex example.
 
 #### Enter Step Schema
 
-{{ schema2md('./2.0/enter-step-schema') }}
+{{ schema2md('./docs/2.0/enter-step-schema') }}
 
 #### Enter Criteria Schema
 
-{{ schema2md('./2.0/enter-criteria-schema') }}
+{{ schema2md('./docs/2.0/enter-criteria-schema') }}
 
 ### Wait
 
@@ -263,11 +266,11 @@ Short notation examples of ```wait```.
 
 #### Wait Step Schema
 
-{{ schema2md('./2.0/wait-step-schema') }}
+{{ schema2md('./docs/2.0/wait-step-schema') }}
 
 #### Wait Criteria Schema
 
-{{ schema2md('./2.0/wait-criteria-schema') }}
+{{ schema2md('./docs/2.0/wait-criteria-schema') }}
 
 
 ### Include
@@ -279,11 +282,11 @@ Short notation example of ```include``` and a complex example.
 
 #### Include Step Schema
 
-{{ schema2md('./2.0/include-step-schema') }}
+{{ schema2md('./docs/2.0/include-step-schema') }}
 
 #### Include Criteria Schema
 
-{{ schema2md('./2.0/include-criteria-schema') }}
+{{ schema2md('./docs/2.0/include-criteria-schema') }}
 
 
 ### Execute
@@ -315,11 +318,11 @@ is perf
 
 #### Execute Step Schema
 
-{{ schema2md('./2.0/execute-step-schema') }}
+{{ schema2md('./docs/2.0/execute-step-schema') }}
 
 #### Execute Criteria Schema
 
-{{ schema2md('./2.0/execute-criteria-schema') }}
+{{ schema2md('./docs/2.0/execute-criteria-schema') }}
 
 
 ### Define
@@ -331,11 +334,11 @@ An example of simple usage of ```define``` as well as a more complex example.
 
 #### Define Step Schema
 
-{{ schema2md('./2.0/define-step-schema') }}
+{{ schema2md('./docs/2.0/define-step-schema') }}
 
 #### Define Criteria Schema
 
-{{ schema2md('./2.0/define-criteria-schema') }}
+{{ schema2md('./docs/2.0/define-criteria-schema') }}
 
 
 ### Debug
@@ -347,11 +350,11 @@ An example of simple usage of ```debug``` as well as a more complex example.
 
 #### Debug Step Schema
 
-{{ schema2md('./2.0/debug-step-schema') }}
+{{ schema2md('./docs/2.0/debug-step-schema') }}
 
 #### Debug Criteria Schema
 
-{{ schema2md('./2.0/debug-criteria-schema') }}
+{{ schema2md('./docs/2.0/debug-criteria-schema') }}
 
 
 ### Uri
@@ -363,11 +366,11 @@ An example of simple usage of ```uri``` as well as a more complex example.
 
 #### Uri Step Schema
 
-{{ schema2md('./2.0/uri-step-schema') }}
+{{ schema2md('./docs/2.0/uri-step-schema') }}
 
 #### Uri Criteria Schema
 
-{{ schema2md('./2.0/uri-criteria-schema') }}
+{{ schema2md('./docs/2.0/uri-criteria-schema') }}
 
 ## Expressions
 ### Expression Schema
@@ -377,7 +380,7 @@ An example of simple usage of ```uri``` as well as a more complex example.
 ## Shared Criteria
 ### Parent Criteria Schema
 
-{{ schema2md('./2.0/parent-criteria-schema') }}
+{{ schema2md('./docs/2.0/parent-criteria-schema') }}
 
 
 ## Management of Multiple Scenarios
