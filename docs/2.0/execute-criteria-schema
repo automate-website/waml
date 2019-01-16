@@ -1,0 +1,18 @@
+id: 'http://waml-schema.org/2.0/execute-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Execute criteria
+description: Qualifier for execute
+type: object
+properties:
+  script:
+    description: JavaScript code to execute in the browser context.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
+  async:
+    description: Define whether the script should be executed in async mode
+    default: false
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+additionalProperties: false
+required:
+  - script

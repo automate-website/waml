@@ -1,0 +1,29 @@
+id: 'http://waml-schema.org/2.0/select-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Select from dropdown
+description: Selects from dropdown by the given criteria.
+properties:
+  select:
+    description: CSS selector of element to select or an object of select criteria.
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - $ref: 'http://waml-schema.org/2.0/select-criteria-schema#'
+  when:
+    description: 'If set, the step is only executed if the value evaluates to true.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+  unless:
+    description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+  timeout:
+    description: 'Maximal time [s] to wait for the element which meets the given criteria.'
+    default: 5
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: number
+required:
+  - select
+additionalProperties: false

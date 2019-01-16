@@ -1,0 +1,20 @@
+id: 'http://waml-schema.org/2.0/move-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Move criteria
+description: Qualifier for moving to an element.
+type: object
+properties:
+  selector:
+    description: CSS selector of element to select.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
+  text:
+    description: Select element which text represenation contains the given value.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
+  parent:
+    description: Presence of the parent element according given creteria.
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - $ref: 'http://waml-schema.org/2.0/parent-criteria-schema#'
+additionalProperties: false
+required:
+  - selector

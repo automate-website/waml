@@ -1,0 +1,29 @@
+id: 'http://waml-schema.org/2.0/click-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Click on the given element
+description: Clicks on the given visible element.
+properties:
+  click:
+    description: A CSS selector as value or a mapping of criteria.
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - $ref: 'http://waml-schema.org/2.0/click-criteria-schema#'
+  when:
+    description: 'If set, the step is only executed if the value evaluates to true.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+  unless:
+    description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+  timeout:
+    description: 'Maximal time [s] to wait for the element which meets the given criteria.'
+    default: 5
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: number
+required:
+  - click
+additionalProperties: false

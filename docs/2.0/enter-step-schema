@@ -1,0 +1,30 @@
+id: 'http://waml-schema.org/2.0/enter-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Enter key sequence
+description: Send a sequence of key strokes to an element.
+properties:
+  $schema:
+    type: string
+  enter:
+    description: Send a sequence of key strokes to an element.
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/enter-criteria-schema#'
+  when:
+    description: 'If set, the step is only executed if the value evaluates to true.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+  unless:
+    description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+  timeout:
+    description: 'Maximal time [s] to wait for the element which meets the given criteria.'
+    default: 5
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: number
+required:
+  - enter
+additionalProperties: false

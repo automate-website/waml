@@ -1,0 +1,22 @@
+id: 'http://waml-schema.org/draft-02/include-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Include criteria
+description: Qualifier for an element value change.
+type: object
+properties:
+  scenario:
+    description: The name of the scenario to include.
+    $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+  if:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to true.'
+  unless:
+    oneOf:
+      - $ref: 'http://waml-schema.org/draft-02/expression-schema#'
+      - type: boolean
+    description: 'If set, the step is only executed if the value evaluates to false.'
+additionalProperties: false
+required:
+  - scenario

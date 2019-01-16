@@ -1,0 +1,32 @@
+id: 'http://waml-schema.org/2.0/ensure-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Ensure criteria
+description: Qualifier for an element state validation.
+type: object
+properties:
+  selector:
+    description: CSS selector of element to select.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
+  text:
+    description: Select element which text represenation contains the given value.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
+  value:
+    description: Verify value attribute against this value.
+    oneOf:
+      - type: number
+      - type: boolean
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+  absent:
+    description: >-
+      If set to true, the element matching remaining criteria is expected to be
+      absent.
+    type: boolean
+    default: false
+  parent:
+    description: Presence of the parent element according given creteria.
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - $ref: 'http://waml-schema.org/2.0/parent-criteria-schema#'
+additionalProperties: false
+required:
+  - selector

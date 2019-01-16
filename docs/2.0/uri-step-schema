@@ -1,0 +1,29 @@
+id: 'http://waml-schema.org/2.0/uri-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Uri
+description: Uri step
+properties:
+  uri:
+    description: URL of the resource.
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - $ref: 'http://waml-schema.org/2.0/uri-criteria-schema#'
+  when:
+    description: 'If set, the step is only executed if the value evaluates to true.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+  unless:
+    description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+  timeout:
+    description: 'Maximal time [s] to wait for the element which meets the given criteria.'
+    default: 5
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: number
+required:
+  - uri
+additionalProperties: false

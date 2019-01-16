@@ -1,0 +1,14 @@
+id: 'http://waml-schema.org/2.0/wait-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Wait criteria
+description: Qualifier for wait.
+type: object
+properties:
+  time:
+    description: 'Time to wait in [s].'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: number
+required:
+  - time
+additionalProperties: false

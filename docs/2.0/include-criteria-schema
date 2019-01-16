@@ -1,0 +1,12 @@
+id: 'http://waml-schema.org/2.0/include-criteria-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Include criteria
+description: Qualifier for an element value change.
+type: object
+properties:
+  scenario:
+    description: The name of the scenario to include.
+    $ref: 'http://waml-schema.org/2.0/expression-schema#'
+additionalProperties: false
+required:
+  - scenario

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+  <title>Web Automation Markup Language (draft-0.2)</title>
+  <meta name="description" content="Human-readable way to define action sequences to perform on a web resources." />
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/agate.min.css"/>
+
+  <style>
+    .container {
+      margin-top: 2em;
+    }
+
+    @media (min-width: 768px) {
+      #right-panel-background {
+        right: 0;
+        width: 50%;
+        position: fixed;
+        top: 0;
+        height: 100%;
+        background-color: #202020;
+        z-index: -1;
+      }
+
+      .container {
+        margin-top: 5em;
+      }
+
+      .main {
+        width: 50%;
+        padding: 2em;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        clear: right;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      pre {
+        clear: right;
+        float: right;
+        margin-right: -100%;
+        padding-left: 4em;
+        width: 100%;
+      }
+
+      .hljs {
+        padding: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+<div id="right-panel-background"></div>
+
+<div class="main">
+  <!--#
+title: 'Web Automation Markup Language (draft-0.2)'
+description: 'Human-readable way to define action sequences to perform on a web resources.'
+#-->
+<h1 id="waml-draft-0-2-">WAML (draft-0.2)</h1>
+<p><a href="https://travis-ci.org/automate-website/waml"><img src="https://travis-ci.org/automate-website/waml.svg?branch=master" alt="Build Status"></a> <a href="https://gitter.im/automate-website/waml?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/automate-website/waml.svg" alt="Gitter"></a></p>
+<p><strong>Notice</strong>: WAML is currently in a very early draft version. Feel free to create a pull request in case of useful suggestions.</p>
+<p>Refer to the <a href="CHANGELOG.md">changelog</a> for recent notable changes and modifications.</p>
+<h2 id="abstract">Abstract</h2>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Example of login process automation</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Sign</span> <span class="hljs-string">in</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">'https://example.com/login'</span>
+<span class="hljs-attr">  - enter:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">input[name=email]</span>
+<span class="hljs-attr">      input:</span> <span class="hljs-string">username@example.com</span>
+<span class="hljs-attr">  - enter:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">input[name=password]</span>
+<span class="hljs-attr">      input:</span> <span class="hljs-string">s3cr3t</span>
+<span class="hljs-attr">  - click:</span> <span class="hljs-string">button[type=submit]</span></code></pre><p>Web Automation Markup Language (WAML) is definition of action sequences which can be performed on web resources (e.g. regular web pages) within a context of a web browser to simulate user behavior. The WAML specification defines an application of <a href="http://yaml.org/spec/1.2/spec.html">YAML 1.2</a> which allows an expirienced user to create a human and machine readable sequence at one go, reuse sequences in any order, and perform context dependent actions.</p>
+<h2 id="terminology">Terminology</h2>
+<p>The underlying format for WAML is YAML so that it inherits all its benefits such as hosting of multiple document within one stream. A WAML stream may contain multiple <em>scenarios</em>. Every <em>scenario</em> must be represented by a set of <em>metadata</em> as well as sequence of <em>actions</em> to execute. Every <em>action</em> must have at least one <em>criteria</em> which is represented as <em>scalar</em> (string, integer, etc.) value or a <em>mapping</em>.</p>
+<p>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.</p>
+<h2 id="schema">Schema</h2>
+<p>WAML is based on <a href="http://json-schema.org/">JSON Schema</a> that lives at <a href="http://waml-schema.org">waml-schema.org</a>. WAML schema is available in <a href="dist/waml.yaml">YAML</a> and <a href="dist/waml.json">JSON</a> formats. A scenario within a WAML stream may define the preferred schema version by defining <code>$schema</code> property, otherwise a default parser schema is used.</p>
+<h2 id="scenario-schema">Scenario Schema</h2>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Name</span> <span class="hljs-string">of</span> <span class="hljs-string">the</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><p>A very basic scenario must contain a <code>name</code> and <code>steps</code> property. The list of actions may be empty, however, it is reasonable to have at least one action.</p>
+<h3 id="minimal-example">Minimal Example</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">full-featured-scenario</span>
+<span class="hljs-attr">description:</span> <span class="hljs-string">A</span> <span class="hljs-string">full</span> <span class="hljs-string">featured</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">fragment:</span> <span class="hljs-literal">false</span>
+<span class="hljs-attr">precendence:</span> <span class="hljs-number">100</span>
+<span class="hljs-attr">timeout:</span> <span class="hljs-number">5</span>
+<span class="hljs-attr">if:</span> <span class="hljs-string">${</span> <span class="hljs-literal">true</span> <span class="hljs-string">}</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><p>This minimal example demonstrates the simplicity of WAML. The full list of supported metadata is depicted below.</p>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>name</td>
+<td>Unique name that is used to reference a certain scenario.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>description</td>
+<td><em>(Optional)</em> Short summary of the overall scenario purpose.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>fragment</td>
+<td><em>(Optional)</em> Defines if a scenario is a fragment or may be executed stand-alone. <strong>Default:</strong> false</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>precendence</td>
+<td><em>(Optional)</em> Defines the particular priority of the scenario during execution of independent scenarios. <strong>Default:</strong> -1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for conditions to be true. <strong>Default:</strong> 5</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> integer</td>
+</tr>
+<tr>
+<td>steps</td>
+<td>Sequence of actions.</td>
+<td><em>Sequence of:</em><br/><a href="#step-schema">step-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the scenario is only executed if the value evaluates to true</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the scenario is only executed if the value evaluates to false</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><p>Using this properties, the following more comprehensive example can be created:</p>
+<h2 id="step-schema">Step Schema</h2>
+<p>The steps property must be represented as a sequence of actions. Every step represents the smallest identifiable user action.</p>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>&ndash;</td>
+<td>A step represents the smallest identifiable user action.</td>
+<td><em>One of:</em><br/><a href="#open-step-schema">open-step-schema</a>,<br/> <a href="#include-step-schema">include-step-schema</a>,<br/> <a href="#store-step-schema">store-step-schema</a>,<br/> <a href="#ensure-step-schema">ensure-step-schema</a>,<br/> <a href="#click-step-schema">click-step-schema</a>,<br/> <a href="#select-step-schema">select-step-schema</a>,<br/> <a href="#enter-step-schema">enter-step-schema</a>,<br/> <a href="#move-step-schema">move-step-schema</a>,<br/> <a href="#wait-step-schema">wait-step-schema</a></td>
+</tr>
+</tbody>
+      </table><h2 id="fragment-scenarios">Fragment Scenarios</h2>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">fragment-scenario</span>
+<span class="hljs-attr">fragment:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><p>Fragment scenarios can not be executed independently but can only be used in <code>include</code> actions of other scenarios or fragments.</p>
+<h2 id="actions-and-criteria">Actions and Criteria</h2>
+<h3 id="open">Open</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Open</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">'Open demonstration scenario 2'</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span>
+<span class="hljs-attr">      url:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">      unless:</span> <span class="hljs-string">${isMobile}</span>
+<span class="hljs-attr">  - open:</span>
+<span class="hljs-attr">      url:</span> <span class="hljs-string">m.example.com</span>
+<span class="hljs-attr">      if:</span> <span class="hljs-string">${isMobile}</span></code></pre><p>Like for a real user, <code>open</code> is often the very first action of a scenarios. It triggers the navigation to a particular URL inside the web browser.
+The <code>http://</code> scheme should be automatically added to the <code>url</code> if no scheme is specified.</p>
+<h4 id="open-step-schema">Open Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>open</td>
+<td>The URL to which the navigation takes place as value or a complex open criteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#open-criteria-schema">open-criteria-schema</a></td>
+</tr>
+</tbody>
+      </table><h4 id="open-criteria-schema">Open Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>url</td>
+<td>The URL to which the navigation takes place.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h3 id="ensure">Ensure</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation of 'ensure'</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Ensure</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - ensure:</span> <span class="hljs-string">h1.greeting</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Ensure</span> <span class="hljs-string">scenario</span> <span class="hljs-string">with</span> <span class="hljs-string">additional</span> <span class="hljs-string">contstraints</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - ensure:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">h1.greeting</span>
+<span class="hljs-attr">      timeout:</span> <span class="hljs-number">400</span>
+<span class="hljs-attr">      value:</span> <span class="hljs-string">'Welcome to example.com!'</span></code></pre><p>To verify the integrity of the page it may be reasonable to ensure the presence of a certain element. The action <code>ensure</code> verifies, whether the particular element is present on the page.</p>
+<p>The depicted simple scenario can be created using the shot-notation of <code>ensure</code> action:</p>
+<ol>
+<li>Open a web page.</li>
+<li>Verify the presence of a header with a certain class.</li>
+</ol>
+<p>Using the additional criteria not only the presence of the element can be ensured but also elements content and its appearance within a defined a time constraint.</p>
+<h4 id="ensure-step-schema">Ensure Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>ensure</td>
+<td>A CSS selector as value or a hash of conditionals.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#ensure-criteria-schema">ensure-criteria-schema</a></td>
+</tr>
+</tbody>
+      </table><h4 id="ensure-criteria-schema">Ensure Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>selector</td>
+<td>CSS selector of element to select.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>text</td>
+<td><em>(Optional)</em> Select element which text represenation contains the given value.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
+<td><em>One of:</em><br/>number,<br/> <a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>value</td>
+<td><em>(Optional)</em> Verify value attribute against this value.</td>
+<td><em>One of:</em><br/>number,<br/> boolean,<br/> <a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>absent</td>
+<td><em>(Optional)</em> If set to true, the element matching remaining criteria is expected to be absent. <strong>Default:</strong> false</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>parent</td>
+<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h3 id="move">Move</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Move</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - move:</span> <span class="hljs-string">a.help</span>
+<span class="hljs-attr">  - ensure:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">.help-tooltip</span>
+<span class="hljs-attr">      text:</span> <span class="hljs-string">'Click here to get help.'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Move</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - move:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">a.help</span>
+<span class="hljs-attr">      text:</span> <span class="hljs-string">'Need help?'</span>
+<span class="hljs-attr">      parent:</span>
+<span class="hljs-attr">        selector:</span> <span class="hljs-string">.help-container</span>
+<span class="hljs-attr">  - ensure:</span> <span class="hljs-string">.help-tooltip</span></code></pre><p>For hidden elements which appear only after the user has hovered a certain element the (mouse) <code>move</code> action can be used.  </p>
+<p>The examples depicts the usage of the <code>move</code> action. </p>
+<h4 id="move-step-schema">Move Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>move</td>
+<td>A CSS selector as value or a complex move criteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#move-criteria-schema">move-criteria-schema</a></td>
+</tr>
+</tbody>
+      </table><h4 id="move-criteria-schema">Move Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>selector</td>
+<td>CSS selector of element to select.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>text</td>
+<td><em>(Optional)</em> Select element which text represenation contains the given value.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
+<td><em>One of:</em><br/>number,<br/> <a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>parent</td>
+<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h3 id="click">Click</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Click</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - click:</span> <span class="hljs-string">a.sign-up</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Click</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span> <span class="hljs-number">2</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - click:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">a.sign-up</span>
+<span class="hljs-attr">      text:</span> <span class="hljs-string">'Join now for free!'</span>
+<span class="hljs-attr">      if:</span> <span class="hljs-string">${isDesktop}</span>
+<span class="hljs-attr">  - click:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">a.sign-up</span>
+<span class="hljs-attr">      text:</span> <span class="hljs-string">'Join now!'</span>
+<span class="hljs-attr">      if:</span> <span class="hljs-string">${isMobile}</span></code></pre><p>Every kind of clicks can be simulated with the <code>click</code> action.</p>
+<p>In the short notation example a click happens on an anchor element selected by CSS. 
+Also the <code>text</code> criteria may be used to verify the wording of the target.</p>
+<h4 id="click-step-schema">Click Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>click</td>
+<td>A CSS selector as value or a mapping of criteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#click-criteria-schema">click-criteria-schema</a></td>
+</tr>
+</tbody>
+      </table><h4 id="click-criteria-schema">Click Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>selector</td>
+<td>CSS selector of element to select.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>text</td>
+<td><em>(Optional)</em> Select element which text represenation contains the given value.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
+<td><em>One of:</em><br/>number,<br/> <a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>parent</td>
+<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h3 id="select">Select</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Select</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - select:</span> <span class="hljs-string">'.actions option:first-child'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation of 'select'</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">'Select demonstration scenario 2'</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - select:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">.title</span>
+<span class="hljs-attr">      text:</span> <span class="hljs-string">'PROF DR'</span>
+<span class="hljs-attr">  - select:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">.country</span>
+<span class="hljs-attr">      value:</span> <span class="hljs-string">'CH'</span></code></pre><p>Short notation example of <code>select</code> and a complex example.</p>
+<h4 id="select-step-schema">Select Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>select</td>
+<td>CSS selector of element to select or an object of select criteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#select-criteria-schema">select-criteria-schema</a></td>
+</tr>
+</tbody>
+      </table><h4 id="select-criteria-schema">Select Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>selector</td>
+<td>CSS selector of element to select.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>text</td>
+<td><em>(Optional)</em> Select element which text represenation contains the given value.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+<tr>
+<td>parent</td>
+<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+</tr>
+<tr>
+<td>value</td>
+<td><em>(Optional)</em> Value attribute will be checked against this value.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number,<br/> boolean</td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h3 id="enter">Enter</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation of 'enter'</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Enter</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - enter:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">input.email</span>
+<span class="hljs-attr">      input:</span> <span class="hljs-string">'me@example.com'</span>
+<span class="hljs-attr">  - enter:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">input.password</span>
+<span class="hljs-attr">      input:</span> <span class="hljs-string">'secret'</span>
+<span class="hljs-attr">  - enter:</span>
+<span class="hljs-attr">      selector:</span> <span class="hljs-string">input.easy-captcha</span>
+<span class="hljs-attr">      value:</span> <span class="hljs-number">1234</span>
+<span class="hljs-attr">      input:</span> <span class="hljs-number">3421</span>
+<span class="hljs-attr">  - click:</span> <span class="hljs-string">button[type=submit]</span></code></pre><h4 id="enter-step-schema">Enter Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>enter</td>
+<td>Send a sequence of key strokes to an element.</td>
+<td><em>One of:</em><br/><a href="#enter-criteria-schema">enter-criteria-schema</a></td>
+</tr>
+</tbody>
+      </table><h4 id="enter-criteria-schema">Enter Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>selector</td>
+<td>CSS selector of element to select.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>text</td>
+<td><em>(Optional)</em> Select element which text represenation contains the given value.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>timeout</td>
+<td><em>(Optional)</em> Maximal time [s] to wait for the element which meets the given criteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+<tr>
+<td>parent</td>
+<td><em>(Optional)</em> Presence of the parent element according given creteria.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> <a href="#parent-criteria-schema">parent-criteria-schema</a></td>
+</tr>
+<tr>
+<td>value</td>
+<td><em>(Optional)</em> Value of element to select.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number,<br/> boolean</td>
+</tr>
+<tr>
+<td>input</td>
+<td>Value to set.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number,<br/> boolean</td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h3 id="wait">Wait</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Short notation of 'wait'</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">Wait</span> <span class="hljs-number">2.5</span> <span class="hljs-string">seconds</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - wait:</span> <span class="hljs-number">2.5</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-comment"># Full notation of 'wait'</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">'Wait 5 seconds demonstration scenario 2'</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - open:</span> <span class="hljs-string">www.example.com</span>
+<span class="hljs-attr">  - wait:</span>
+<span class="hljs-attr">      time:</span> <span class="hljs-number">5</span>
+<span class="hljs-attr">      if:</span> <span class="hljs-string">${slowConnection}</span></code></pre><p>Short notation examples of <code>wait</code>.</p>
+<h4 id="wait-step-schema">Wait Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>wait</td>
+<td>Time to wait in [s] or an object of wait criteria.</td>
+<td><em>One of:</em><br/><a href="#wait-criteria-schema">wait-criteria-schema</a>,<br/> <a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+</tbody>
+      </table><h4 id="wait-criteria-schema">Wait Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>time</td>
+<td>Time to wait in [s].</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> number</td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h3 id="include">Include</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Include</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - include:</span> <span class="hljs-string">'Click demonstration scenario'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Include</span> <span class="hljs-string">demonstation</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - include:</span>
+<span class="hljs-attr">      scenario:</span> <span class="hljs-string">'Click demonstration scenario'</span>
+<span class="hljs-attr">      if:</span> <span class="hljs-string">${isDesktop}</span></code></pre><p>Short notation example of <code>include</code> and a complex example.</p>
+<h4 id="include-step-schema">Include Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>include</td>
+<td>Scenario name to include or include criteria.</td>
+<td><em>One of:</em><br/><a href="#include-criteria-schema">include-criteria-schema</a>,<br/> <a href="#expression-schema">expression-schema</a></td>
+</tr>
+</tbody>
+      </table><h4 id="include-criteria-schema">Include Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>scenario</td>
+<td>The name of the scenario to include.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+</tbody>
+      </table><h3 id="store">Store</h3>
+<pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Store</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - store:</span>
+<span class="hljs-attr">      language:</span> <span class="hljs-string">'en'</span></code></pre><pre><code class="langulage-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">Store</span> <span class="hljs-string">demonstration</span> <span class="hljs-string">scenario</span> <span class="hljs-number">2</span>
+<span class="hljs-attr">steps:</span>
+<span class="hljs-attr">  - store:</span>
+<span class="hljs-attr">      display_resolution:</span> <span class="hljs-string">'1024x768'</span>
+<span class="hljs-attr">      isDesktop:</span> <span class="hljs-literal">true</span>
+      <span class="hljs-number">1080</span><span class="hljs-attr">p:</span> <span class="hljs-literal">false</span>
+<span class="hljs-attr">      width:</span> <span class="hljs-number">1024</span>
+<span class="hljs-attr">      if:</span> <span class="hljs-string">${isOldComputer}</span></code></pre><p>An example of simple usage of <code>store</code> as well as a more complex example.</p>
+<h4 id="store-step-schema">Store Step Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>store</td>
+<td>A mapping of variables to be defined in the execution context.</td>
+<td>object</td>
+</tr>
+</tbody>
+      </table><h4 id="store-criteria-schema">Store Criteria Schema</h4>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>if</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to true.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>unless</td>
+<td><em>(Optional)</em> If set, the step is only executed if the value evaluates to false.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean</td>
+</tr>
+<tr>
+<td>^([a-zA-Z0-9_.])+$</td>
+<td><em>(Optional)</em> Random key matching the given pattern with a value.</td>
+<td><em>One of:</em><br/><a href="#expression-schema">expression-schema</a>,<br/> boolean,<br/> number</td>
+</tr>
+</tbody>
+      </table><h2 id="expressions">Expressions</h2>
+<h3 id="expression-schema">Expression Schema</h3>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>&ndash;</td>
+<td>An expression is a evaluable statement that can be utilized on certain properties.</td>
+<td>string</td>
+</tr>
+</tbody>
+      </table><h2 id="shared-criteria">Shared Criteria</h2>
+<h3 id="parent-criteria-schema">Parent Criteria Schema</h3>
+<table class="table table-striped table-bordered">
+      <thead><tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+      <tbody><tr>
+<td>selector</td>
+<td>CSS selector of element to select.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+<tr>
+<td>text</td>
+<td><em>(Optional)</em> Select element which text represenation contains the given value.</td>
+<td><a href="#expression-schema">expression-schema</a></td>
+</tr>
+</tbody>
+      </table><h2 id="management-of-multiple-scenarios">Management of Multiple Scenarios</h2>
+<p>A single WAML file may contain multiple scenarios. Therefore, the capability of YAML to store multiple documents by splitting them with <code>---</code> is used.</p>
+
+</div>
+</div>
+
+</body>
+</html>

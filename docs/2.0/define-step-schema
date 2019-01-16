@@ -1,0 +1,20 @@
+id: 'http://waml-schema.org/2.0/define-step-schema#'
+$schema: 'http://json-schema.org/draft-04/schema#'
+title: Define variables
+description: Defines certain variables.
+properties:
+  define:
+    $ref: 'http://waml-schema.org/2.0/define-criteria-schema#'
+  when:
+    description: 'If set, the step is only executed if the value evaluates to true.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+  unless:
+    description: 'If set, the step is only executed if the value evaluates to false.'
+    oneOf:
+      - $ref: 'http://waml-schema.org/2.0/expression-schema#'
+      - type: boolean
+required:
+  - define
+additionalProperties: false
