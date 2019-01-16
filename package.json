@@ -1,24 +1,35 @@
 {
   "name": "waml",
-  "version": "0.0.2",
-  "schemaVersion": "draft-02",
+  "version": "2.0.0",
+  "schemaVersion": "2.0",
   "description": "Web automation markup language",
   "main": "index.js",
   "author": "Automate Website",
   "license": "MIT",
+  "homepage": "http://waml-schema.org",
+  "bugs": "https://github.com/automate-website/waml/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/automate-website/waml.git"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "test": "grunt validate",
-    "build": "grunt && npm run build-html",
-    "build-html": "node node_modules/slatify/lib/slatify-cli README.md index.html"
+    "build": "npm run build:draft-02 && npm run build:2.0 && npm run build-copy-index-html",
+    "build:draft-02": "grunt --schemaVersion=draft-02 && node node_modules/slatify/lib/slatify-cli README.md ./docs/draft-02/index.html",
+    "build:2.0": "grunt --schemaVersion=2.0 && node node_modules/slatify/lib/slatify-cli README.md ./docs/2.0/index.html",
+    "build-copy-index-html": "copyfiles --flat ./docs/2.0/index.html ./docs"
   },
   "devDependencies": {
-    "ajv": "^3.1.1",
+    "ajv": "^5.2.3",
+    "copyfiles": "^2.1.0",
     "glob": "^6.0.1",
     "grunt": "~0.4.5",
     "grunt-contrib-clean": "^0.7.0",
-    "grunt-contrib-copy": "^0.8.2",
-    "js-yaml": "3.4.6",
-    "lodash-node": "^3.10.1",
+    "js-yaml": "3.10.0",
+    "lodash": "^4.17.4",
     "slatify": "github:automate-website/slatify"
   }
 }

@@ -1,0 +1,20 @@
+id: http://waml-schema.org/2.0/debug-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Debug criteria
+description: Qualifier for the debug action.
+type: object
+properties:
+    msg:
+        description: A message which should be interpolated.
+        $ref: http://waml-schema.org/2.0/expression-schema#
+    pause:
+        description: Make a pause until keypress when running in a CLI mode.
+        oneOf:
+          - $ref: http://waml-schema.org/2.0/expression-schema#
+          - type: boolean
+    verbosity:
+        description: Level of verbosity.
+        oneOf:
+          - $ref: http://waml-schema.org/2.0/expression-schema#
+          - type: number
+additionalProperties: false

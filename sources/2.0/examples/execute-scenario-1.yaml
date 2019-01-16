@@ -1,0 +1,5 @@
+# WAML 2
+# Short notation of 'execute'
+- open: www.example.com
+- execute: |
+    document.body.backgroundColor = 'red';

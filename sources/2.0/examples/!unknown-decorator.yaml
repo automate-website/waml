@@ -1,0 +1,5 @@
+# WAML 2
+# Should fail with unknown decorator
+- open: www.example.com
+  foo: bar
+- click: a.sign-up

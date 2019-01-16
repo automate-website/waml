@@ -1,0 +1,11 @@
+id: http://waml-schema.org/2.0/open-criteria-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Open criteria
+description: Qualifier for an element value change.
+type: object
+properties:
+  url:
+    description: The URL to which the navigation takes place.
+    $ref: http://waml-schema.org/2.0/expression-schema#
+required:
+  - url

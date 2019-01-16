@@ -1,0 +1,4 @@
+# WAML 2
+# Debug scenario
+- open: www.example.com
+- debug: "hi ${there}"

@@ -1,0 +1,19 @@
+# WAML 2
+# Order Pizza
+- open: www.mypizza.com/login
+- enter:
+    selector: input[name=email]
+    input: alessandro@volta.it
+- enter:
+    selector: input[name=password]
+    input: el3ctric
+- click: button[type=submit]
+- select:
+    selector: '#pizza-margarita.count'
+    value: '2'
+- click:
+    selector: a
+    text: 'Order now!'
+- ensure:
+    selector: h1.confirm
+    text: Thanks, your pizza will be there soon!

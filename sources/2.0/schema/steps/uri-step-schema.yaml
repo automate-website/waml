@@ -1,0 +1,16 @@
+id: http://waml-schema.org/2.0/uri-step-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Uri
+description: Uri step
+properties:
+  uri:
+    description: URL of the resource.
+    oneOf:
+      - $ref: http://waml-schema.org/2.0/expression-schema#
+      - $ref: http://waml-schema.org/2.0/uri-criteria-schema#
+required:
+  - uri
+additionalProperties: false
+$mergeProperties:
+  - $ref: http://waml-schema.org/2.0/conditional-decorator-schema#
+  - $ref: http://waml-schema.org/2.0/timeout-decorator-schema#

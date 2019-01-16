@@ -1,0 +1,7 @@
+id: http://waml-schema.org/2.0/scenario-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Scenario
+description: A scenario combines a sequence of tasks that must be executed together in a certain order.
+type: array
+items:
+    $ref: http://waml-schema.org/2.0/step-schema#

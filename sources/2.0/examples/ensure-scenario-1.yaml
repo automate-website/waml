@@ -1,0 +1,4 @@
+# WAML 2
+# Ensure short notation
+- open: www.example.com
+- ensure: h1.greeting

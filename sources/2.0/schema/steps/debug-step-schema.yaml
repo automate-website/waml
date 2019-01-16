@@ -1,0 +1,15 @@
+id: http://waml-schema.org/2.0/debug-step-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Debug
+description: Debug step
+properties:
+  debug:
+    description: A message which should be interpolated.
+    oneOf:
+      - $ref: http://waml-schema.org/2.0/expression-schema#
+      - $ref: http://waml-schema.org/2.0/debug-criteria-schema#
+required:
+  - debug
+additionalProperties: false
+$mergeProperties:
+  - $ref: http://waml-schema.org/2.0/conditional-decorator-schema#

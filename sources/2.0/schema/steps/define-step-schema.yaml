@@ -1,0 +1,12 @@
+id: http://waml-schema.org/2.0/define-step-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Define variables
+description: Defines certain variables.
+properties:
+  define:
+    $ref: http://waml-schema.org/2.0/define-criteria-schema#
+required:
+  - define
+additionalProperties: false
+$mergeProperties:
+  - $ref: http://waml-schema.org/2.0/conditional-decorator-schema#

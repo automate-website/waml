@@ -1,0 +1,19 @@
+# WAML 2
+# Full notation of 'execute'
+- open: www.example.com
+- when: ${ true }
+  execute:
+    async: true
+    script: |
+      var context = arguments[0];
+      var callback = arguments[1];
+      fetch('https://example.com/weather.json?city=' + context.city)
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (data) {
+          callback(data.rainProbability);
+        })
+        .catch(function (ex) {
+          callback()
+        });

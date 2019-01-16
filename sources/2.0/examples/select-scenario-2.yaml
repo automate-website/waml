@@ -1,0 +1,9 @@
+# WAML 2
+# Select demonstration scenario 2
+- open: www.example.com
+- select:
+    selector: .title
+    text: 'PROF DR'
+- select:
+    selector: .country
+    value: 'CH'

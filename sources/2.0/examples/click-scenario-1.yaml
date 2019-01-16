@@ -1,0 +1,4 @@
+# WAML 2
+# Click demonstration scenario
+- open: www.example.com
+- click: a.sign-up

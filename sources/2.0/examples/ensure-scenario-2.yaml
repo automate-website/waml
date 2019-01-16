@@ -1,0 +1,7 @@
+# WAML 2
+# Ensure scenario with additional constraints
+- open: www.example.com
+- timeout: 4
+  ensure:
+    selector: h1.greeting
+    value: 'Welcome to example.com!'

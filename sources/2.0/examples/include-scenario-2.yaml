@@ -1,0 +1,6 @@
+# WAML 2
+# Include demonstration scenario
+- when: ${isDesktop}
+  include:
+    scenario: 'Click demonstration scenario'
+

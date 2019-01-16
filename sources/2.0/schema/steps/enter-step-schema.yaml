@@ -1,0 +1,17 @@
+id: http://waml-schema.org/2.0/enter-step-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Enter key sequence
+description: Send a sequence of key strokes to an element.
+properties:
+  $schema:
+    type: string
+  enter:
+    description: Send a sequence of key strokes to an element.
+    oneOf:
+      - $ref: http://waml-schema.org/2.0/enter-criteria-schema#
+required:
+  - enter
+additionalProperties: false
+$mergeProperties:
+  - $ref: http://waml-schema.org/2.0/conditional-decorator-schema#
+  - $ref: http://waml-schema.org/2.0/timeout-decorator-schema#

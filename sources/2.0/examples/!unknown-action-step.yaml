@@ -1,0 +1,2 @@
+# Should fail with unknown action in step
+- sing: www.example.com

@@ -1,0 +1,12 @@
+# WAML 2
+# Click demonstration scenario 2
+- open: www.example.com
+- when: ${isDesktop}
+  click:
+    selector: a.sign-up
+    text: 'Join now for free!'
+
+- when: ${isMobile}
+  click:
+    selector: a.sign-up
+    text: 'Join now!'

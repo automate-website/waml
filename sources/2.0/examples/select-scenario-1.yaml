@@ -1,0 +1,4 @@
+# WAML 2
+# Select demonstration scenario
+- open: www.example.com
+- select: '.actions option:first-child'

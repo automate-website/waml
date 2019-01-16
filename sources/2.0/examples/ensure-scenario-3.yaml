@@ -1,0 +1,8 @@
+# WAML 2
+# Ensure demonstration scenario with explicit defined absent constraint
+- open: www.example.com
+- timeout: 4
+  ensure:
+    selector: h1.greeting
+    value: 'Welcome to example.com!'
+    absent: true

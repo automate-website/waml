@@ -1,0 +1,11 @@
+id: http://waml-schema.org/2.0/timeout-decorator-schema#
+$schema: http://json-schema.org/draft-04/schema#
+title: Timeout Decorator
+type: object
+properties:
+  timeout:
+    description: Maximal time [s] to wait for the element which meets the given criteria.
+    default: 5
+    oneOf:
+        - $ref: http://waml-schema.org/2.0/expression-schema#
+        - type: number

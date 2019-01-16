@@ -1,0 +1,8 @@
+# WAML 2
+# Open demonstration scenario 2
+- unless: ${isMobile}
+  open:
+    url: www.example.com
+- when: ${isMobile}
+  open:
+    url: m.example.com

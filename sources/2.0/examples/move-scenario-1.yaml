@@ -1,0 +1,7 @@
+# WAML 2
+# Move demonstration scenario
+- open: www.example.com
+- move: a.help
+- ensure:
+    selector: .help-tooltip
+    text: 'Click here to get help.'
