@@ -29,7 +29,7 @@
     "grunt": "~0.4.5",
     "grunt-contrib-clean": "^0.7.0",
     "js-yaml": "3.10.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "slatify": "github:automate-website/slatify"
   }
 }
