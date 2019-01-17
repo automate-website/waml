@@ -228,9 +228,9 @@ module.exports = function (grunt) {
   grunt.registerTask('merge', [
     'clean',
     'validate',
-    // 'merge-yaml',
-    // 'merge-json',
-    // 'merge-md'
+    'merge-yaml',
+    'merge-json',
+    'merge-md'
   ]);
 
   grunt.registerTask('default', ['merge', 'save-schema', 'process-md']);
@@ -238,7 +238,7 @@ module.exports = function (grunt) {
   grunt.registerTask('validate', ['load-schema', 'validate-examples']);
 
   function merge(format, save, done) {
-    const schemaDistFile = './dist/waml.' + format;
+    const schemaDistFile = `./docs/${schemaVersion}/waml.${format}`;
     mergeToPath(schemaDistFile, save, done);
   }
 
