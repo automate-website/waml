@@ -872,7 +872,7 @@ A single WAML file may contain multiple scenarios. Therefore, the capability of 
 
 # Feedback
 
-You are always welcome to ask questions, provide [feedback](https://github.com/automate-wevsite/waml/issues), or 
+You are always welcome to ask questions, provide [feedback](https://github.com/automate-website/waml/issues), or 
 contribute to WAML.
 
 # License
